@@ -1,0 +1,84 @@
+
+  /* Hero Section Responsiva */
+  #inicio h1 {
+    font-size: clamp(2rem, 8vw, 4rem); /* mínimo 2rem, máximo 4rem */
+    font-weight: 900;
+    line-height: 1.1;
+    color: #f9fafb;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  #inicio h1 span {
+    color: #6366f1;
+  }
+
+  #inicio p {
+    font-size: clamp(0.9rem, 3vw, 1.125rem);
+    max-width: 90%;
+    margin: 0 auto 2rem auto;
+    line-height: 1.6;
+    text-align: center;
+    color: #d4d4d8;
+  }
+
+  #inicio .botoes-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  #inicio .botoes-hero button {
+    font-size: clamp(0.9rem, 2.5vw, 1.125rem);
+    padding: clamp(0.6rem, 1.5vw, 1rem) clamp(1rem, 3vw, 2rem);
+    font-weight: 600;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+
+  #inicio .botoes-hero button:nth-child(1) {
+    background-color: #6366f1;
+    color: #f9fafb;
+    border: none;
+  }
+
+  #inicio .botoes-hero button:nth-child(2) {
+    background: none;
+    color: #f9fafb;
+    border: 2px solid rgba(99,102,241,0.5);
+  }
+
+  #inicio .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  #inicio .cards div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(0.8rem, 2vw, 1.5rem);
+    border-radius: 1rem;
+    background-color: rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+  }
+
+  #inicio .cards span {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    color: #f9fafb;
+  }
+
+  #inicio .cards p {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+    color: #d4d4d8;
+  }
+

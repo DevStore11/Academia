@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - POWER PLAY </title>
+  <link rel="stylesheet" href="Css/login.css">
+  <link rel="icon" href="favicon.png" type="image/webp">
+
+  
+</head>
+<body>
+
+  <div class="card">
+        <img src="favicon.png" alt="logo" class="logo-cadastro" width="100px" height="50px">
+
+    <h2 class="title">power play</h2>
+    <p class="subtitle">Faça login para acessar sua conta</p>
+    
+    <div class="card2">
+      <form id="loginForm">
+        <!-- Campo nome -->
+        <input class="inp1" type="text" id="usernameLogin" placeholder="Nome" required>
+
+        <!-- Campo senha com botão 👁️ -->
+        <div class="senha-container">
+          <input class="inp1" type="password" id="passwordLogin" placeholder="Senha" required>
+          <span id="toggleSenha" class="toggle-senha">👁️</span>
+        </div>
+
+        <!-- Mensagem de erro ou sucesso -->
+        <div id="mensagemLogin"></div>
+                <button class="button" type="submit">Entrar</button>
+
+      </form>
+    </div>
+    
+    <p>Não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+  </div>
+
+  <!-- Firebase SDK (ES Modules) -->
+  <script type="module" src="Js/login.js"></script>
+
+  <!-- Script interno para alternar a senha -->
+  <script>
+    const toggleSenha = document.getElementById("toggleSenha");
+    const passwordInput = document.getElementById("passwordLogin");
+
+    toggleSenha.addEventListener("click", () => {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggleSenha.textContent = "🙈"; // quando a senha é visível
+      } else {
+        passwordInput.type = "password";
+        toggleSenha.textContent = "👁️"; // quando a senha é oculta
+      }
+    });
+  </script>
+
+</body>
+</html>

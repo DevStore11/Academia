@@ -1,0 +1,369 @@
+/* ================== Reset básico ================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #121212;
+    color: #f5f5f5;
+    line-height: 1.6;
+}
+
+/* ================== Header ================== */
+header {
+    background-color: #1f1f1f;
+    padding: 15px 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    color: #ffcc00;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-esquerda .logo {
+    height: 40px;
+    margin-right: 20px;
+}
+
+.botao-hamburguer {
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: none;
+    margin-left: 10px;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: #f5f5f5;
+    transition: color 0.3s;
+}
+
+.menu li a:hover {
+    color: #ffcc00;
+}
+
+/* ================== Main ================== */
+main {
+    padding: 20px;
+}
+
+/* ======= Cards de Estatísticas ======= */
+#stats {
+    display: flex;
+    flex-wrap: wrap;       /* Permite que os cards quebrem linha */
+    gap: 20px;             /* Espaço entre os cards */
+    margin-bottom: 30px;
+    justify-content: center; /* Centraliza os cards no desktop */
+}
+
+.stat-card {
+    background-color: #1f1f1f;
+    flex: 1 1 220px;       /* Cada card ocupa no mínimo 220px, mas cresce */
+    max-width: 250px;      /* Limite de largura para não esticar demais */
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-card i {
+    font-size: 2.5rem;
+    color: #ffcc00;
+    margin-bottom: 12px;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 18px rgba(255,204,0,0.4);
+}
+
+/* ======= Tabela de Ligas ======= */
+#ligas table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+
+
+#ligas th, #ligas td {
+    padding: 10px;
+    text-align: center;
+}
+
+#ligas thead {
+    background-color: #1f1f1f;
+}
+
+#ligas tbody tr:nth-child(even) {
+    background-color: #1a1a1a;
+}
+#ligas {
+    overflow-x: auto;
+}
+
+
+
+
+#ligas tbody tr:hover {
+    background-color: #333333;
+}
+
+/* ======= Próximos Jogos ======= */
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center; /* Centraliza os cards no desktop */
+}
+
+.card-jogo {
+    background-color: #1f1f1f;
+    padding: 15px;
+    border-radius: 10px;
+    flex: 1 1 250px;
+    max-width: 300px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.card-jogo h3 {
+    color: #ffcc00;
+    margin-bottom: 10px;
+}
+
+.card-jogo p {
+    margin-bottom: 5px;
+}
+
+.card-jogo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255,204,0,0.4);
+}
+
+/* ================== Footer ================== */
+footer {
+    background-color: #1f1f1f;
+    padding: 30px 20px;
+    margin-top: 50px;
+    color: #f5f5f5;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.footer-col h3 {
+    color: #ffcc00;
+    margin-bottom: 10px;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li a {
+    color: #f5f5f5;
+    text-decoration: none;
+}
+
+.footer-col ul li a:hover {
+    color: #ffcc00;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+/* ================== Responsividade ================== */
+@media (max-width: 768px) {
+    .botao-hamburguer {
+        display: block;
+    }
+    .menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 65px;
+        right: 20px;
+        background-color: #1f1f1f;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .menu li {
+        margin-bottom: 10px;
+    }
+
+    #stats {
+        flex-direction: column; /* Cards empilham no mobile */
+        align-items: center;
+    }
+
+    .stat-card {
+        width: 90%;           /* Cada card ocupa quase toda largura da tela */
+        max-width: none;
+    }
+
+    .cards-container {
+        flex-direction: column;
+    }
+
+    .footer-container {
+        flex-direction: column;
+    }
+}
+/* ================== Tabela de Ligas Responsiva ================== */
+#ligas {
+    width: 100%;
+    overflow: hidden;
+}
+
+.liga-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* permite ajuste automático das colunas */
+}
+
+.liga-tabela th, .liga-tabela td {
+    padding: 8px 5px;
+    text-align: center;
+    word-wrap: break-word; /* evita overflow do texto */
+    border-bottom: 1px solid #333;
+    font-size: 0.9rem;
+}
+
+.liga-tabela thead {
+    background-color: #1f1f1f;
+    color: #ffcc00;
+}
+
+.liga-tabela tbody tr:nth-child(even) {
+    background-color: #1a1a1a;
+}
+
+.liga-tabela tbody tr:hover {
+    background-color: #333333;
+}
+
+/* Destaque do jogador */
+.liga-tabela tbody tr.jogador-destaque {
+    background-color: #ffcc00; /* destaque */
+    color: #121212; /* texto legível */
+    font-weight: bold;
+}
+
+/* Ajuste para mobile */
+@media (max-width: 768px) {
+    .liga-tabela th, .liga-tabela td {
+        padding: 6px 3px;
+        font-size: 0.8rem;
+    }
+    .liga-tabela {
+        font-size: 0.85rem;
+    }
+}
+
+/* ===== Menu Hambúrguer aberto ===== */
+.menu.menu-aberto {
+    display: flex;
+}
+/* ================== Botão Hambúrguer ================== */
+.botao-hamburguer {
+    font-size: 1.9rem;
+    cursor: pointer;
+    display: none; /* só aparece no mobile */
+    color: #ffcc00;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.botao-hamburguer:hover {
+    background-color: rgba(255, 204, 0, 0.15);
+}
+
+/* ================== Menu ================== */
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+/* ================== Mobile ================== */
+@media (max-width: 768px) {
+
+    .botao-hamburguer {
+        display: block;
+    }
+
+    .menu {
+        display: none; /* fechado por padrão */
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 15px;
+        background-color: #1f1f1f;
+        padding: 15px;
+        border-radius: 12px;
+        width: 180px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        z-index: 999;
+    }
+
+    /* quando o JS adicionar esta classe */
+    .menu.menu-aberto {
+        display: flex;
+    }
+
+    .menu li {
+        margin-bottom: 10px;
+        text-align: right;
+    }
+
+    .menu li a {
+        color: #f5f5f5;
+        text-decoration: none;
+        font-size: 1rem;
+    }
+
+    .menu li a:hover {
+        color: #ffcc00;
+    }
+}

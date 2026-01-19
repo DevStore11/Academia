@@ -1,0 +1,59 @@
+/* Fundo escuro do modal */
+#fundo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  z-index: 99;
+}
+
+/* Modal */
+#modal-politicas {
+  position: fixed;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 600px;
+  background: #fff;
+  color: black;
+  border-radius: 12px 12px 0 0;
+  transition: bottom 0.4s ease;
+  z-index: 100;
+}
+
+/* Ativo */
+#modal-politicas.ativo {
+  bottom: 0;
+}
+
+/* Cabeçalho */
+.cabecalho-modal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cabecalho-modal h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.cabecalho-modal button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Conteúdo */
+.conteudo-modal {
+  padding: 15px;
+  font-size: 14px;
+  line-height: 1.6;
+}

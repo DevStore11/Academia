@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro -POWER PLAY</title>
+  <link rel="stylesheet" href="Css/cadastro.css">
+  <link rel="stylesheet" href="Css/olho.css">
+  <link rel="icon" href="favicon.png" type="image/webp">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+</head>
+
+<body>
+  <div class="card">
+    <img src="favicon.png" alt="logo" class="logo-cadastro" width="100px" height="50px">
+    <h2 class="title">POWER PLAY</h2>
+    <p class="subtitle">Crie sua conta para acessar o jogo</p>
+    
+    <!-- Campo do nome -->
+    <input class="inp1" type="text" id="usernameCadastro" placeholder="Nome do Clube">
+
+    <!-- Campo da senha com ícone -->
+    <div class="senha-container">
+      <input class="inp1" type="password" id="passwordCadastro" placeholder="Senha">
+      <span id="toggleSenha" class="toggle-senha">👁️</span>
+    </div>
+
+    <!-- Mensagem de erro ou sucesso -->
+    <div id="mensagemCadastro" style="display:none; margin-bottom: 10px; font-size: 14px;"></div>
+
+    <!-- Botão de cadastro -->
+    <button class="button" id="btnCadastro">Cadastrar</button>
+
+    <p>Já tem conta? <a href="login.html">Faça login</a></p>
+  </div>
+
+  <!-- Importando o JS principal -->
+  <script type="module" src="Js/cadastro.js"></script>
+
+  <!-- Script interno para chamar a função e mostrar senha -->
+  <script type="module" >
+    import { cadastrar } from './Js/cadastro.js';
+    document.getElementById('btnCadastro').addEventListener('click', cadastrar);
+
+    // ======== Mostrar/ocultar senha ========
+    const toggleSenha = document.getElementById("toggleSenha");
+    const passwordInput = document.getElementById("passwordCadastro");
+
+    toggleSenha.addEventListener("click", () => {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggleSenha.textContent = "🙈"; // Quando a senha está visível
+      } else {
+        passwordInput.type = "password";
+        toggleSenha.textContent = "👁️"; // Quando a senha está oculta
+      }
+    });
+  </script>
+</body>
+</html>

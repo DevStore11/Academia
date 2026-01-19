@@ -1,0 +1,21 @@
+import { carregarLigas, mostrarTabela } from './Js/admin.js';
+
+    // Preencher automaticamente o select de tabelas
+    document.addEventListener('DOMContentLoaded', async () => {
+        await carregarLigas();
+        const selectTabela = document.getElementById("select-liga-tabela");
+        const selects = [
+            document.getElementById("select-liga"),
+            document.getElementById("select-liga-confrontos"),
+            document.getElementById("select-liga-resultados"),
+        ];
+        // Copiar opções para select tabela
+        selects[0].querySelectorAll('option').forEach(opt => {
+            if (opt.value) selectTabela.innerHTML += `<option value="${opt.value}">${opt.textContent}</option>`;
+        });
+
+        // Mostrar tabela automaticamente ao selecionar
+        selectTabela.addEventListener('change', e => {
+            mostrarTabela(e.target.value);
+        });
+    });

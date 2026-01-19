@@ -1,0 +1,581 @@
+@import url('headers.css');
+@import url('footer.css');
+@import url('modal.css');
+@import url('confrontos.css');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --text-color: #333;
+  --light-bg: #f8f9fa;
+  --white: #ffffff;
+  --shadow: 0 4px 6px rgba(231, 224, 224, 0.1);
+  --transition: all 0.3s ease;
+
+  /* Cores para as posições */
+  --first-place: #23663a;
+  --second-place: #c0c0c0;
+  --third-place: #cd7f32;
+  --europe-spots: #4CAF50;
+  --relegation-spots: #e74c3c;
+  --normal-spot: #ff2d00;
+
+  /* Variáveis para responsividade */
+  --container-padding: clamp(1rem, 3vw, 2rem);
+  --font-size-base: clamp(14px, 2.5vw, 16px);
+  --font-size-lg: clamp(1.5rem, 4vw, 2.5rem);
+  --font-size-md: clamp(1.2rem, 3vw, 1.8rem);
+  --font-size-sm: clamp(0.8rem, 2vw, 0.9rem);
+  --gap-sm: clamp(0.5rem, 2vw, 1rem);
+  --gap-md: clamp(1rem, 3vw, 2rem);
+  --gap-lg: clamp(2rem, 4vw, 3rem);
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--light-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-size-base);
+}
+
+/* Navbar */
+
+/* Conteúdo Principal */
+.main-content {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--container-padding);
+  width: 100%;
+}
+
+.main-content h1 {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--gap-sm);
+  color: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.main-content > p {
+  text-align: center;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  margin-bottom: var(--gap-lg);
+  color: #666;
+  line-height: 1.4;
+}
+
+/* Container da Tabela */
+.table-container {
+    background-color: rgba(13, 13, 14, 0.8);
+      border-radius: clamp(10px, 2vw, 15px);
+  padding: var(--container-padding);
+  margin: var(--gap-md) 0;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.table-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+#tabelas-ligas header h2 {
+  color: var(--primary-color);
+  margin-bottom: var(--gap-md);
+  font-size: var(--font-size-md);
+  border-bottom: 3px solid var(--secondary-color);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+/* Estilos para a Tabela */
+.league-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+}
+
+.league-table th {
+  background: var(--primary-color);
+  color: var(--white);
+  padding: clamp(0.5rem, 1.5vw, 1rem);
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+  letter-spacing: 0.5px;
+}
+
+.league-table td {
+  padding: clamp(0.5rem, 1.5vw, 1rem);
+  border-bottom: 1px solid #eee;
+  transition: var(--transition);
+}
+
+.league-table tr:hover td {
+  background-color: #f8f9fa;
+  transform: scale(1.02);
+}
+
+/* Indicadores de Posição */
+.position-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(20px, 5vw, 28px);
+  height: clamp(20px, 5vw, 28px);
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: clamp(0.65rem, 1.5vw, 0.9rem);
+  margin-right: 0.5rem;
+  transition: var(--transition);
+}
+
+.position-1, .position-2, .position-3, .position-4 {
+  background: linear-gradient(135deg, var(--third-place), rgb(102, 187, 106));
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(102,187, 106, 0.3);
+  border: 2px solid #66bb6a;
+}
+
+.position-normal {
+  background: rgba(184, 160, 26, 0.15);
+  border: 2px solid #ffd700;
+  box-shadow: 0 1px 6px #ffd700;
+  color: var(--text-color);
+}
+
+.position-relegation {
+  background: linear-gradient(135deg, var(--relegation-spots), #ec7063);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+  border: 2px solid #e74c3c;
+}
+
+.champion-row {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)) !important;
+  border-left: 4px solid var(--first-place);
+  font-weight: 600;
+}
+
+.europe-row {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05)) !important;
+  border-left: 4px solid var(--europe-spots);
+}
+
+.relegation-row {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(231, 76, 60, 0.05)) !important;
+  border-left: 4px solid var(--relegation-spots);
+}
+
+/* 4 primeiros e 4 últimos */
+.league-table tbody tr:nth-child(-n+4) {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05)) !important;
+  border-left: 4px solid var(--europe-spots);
+}
+
+.league-table tbody tr:nth-last-child(-n+4) {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(231, 76, 60, 0.05)) !important;
+  border-left: 4px solid var(--relegation-spots);
+}
+
+.league-table tbody tr:nth-child(-n+4) td {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.league-table tbody tr:nth-last-child(-n+4) td {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+/* Forma do time */
+.form-indicator {
+  display: flex;
+  gap: 0.15rem;
+  flex-wrap: wrap;
+}
+
+.form-win { color: #27ae60; }
+.form-draw { color: #f39c12; }
+.form-loss { color: #e74c3c; }
+
+/* Cards */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--gap-md);
+  margin: var(--gap-lg) 0;
+}
+
+.card {
+  background: var(--white);
+  border-radius: clamp(10px, 2vw, 15px);
+  padding: var(--container-padding);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card-icon {
+  font-size: clamp(2rem, 6vw, 3rem);
+  color: var(--secondary-color);
+  margin-bottom: var(--gap-md);
+  transition: var(--transition);
+}
+
+.card:hover .card-icon {
+  transform: scale(1.2);
+  color: var(--accent-color);
+}
+
+/* Rodapé */
+footer {
+  background: var(--primary-color);
+  color: var(--white);
+  margin-top: auto;
+}
+
+/* MODO ESCURO */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-color: #e0e0e0;
+    --light-bg: #1a1a1a;
+    --white: #2d2d2d;
+    --normal-spot: #3d3d3d;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  body {
+    background-color: var(--light-bg);
+    color: var(--text-color);
+  }
+
+  .league-table tbody tr:nth-child(-n+4) {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(76, 175, 80, 0.1)) !important;
+  }
+
+  .league-table tbody tr:nth-last-child(-n+4) {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(231, 76, 60, 0.1)) !important;
+  }
+}
+
+/* Animações */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main-content h1,
+.main-content > p,
+.table-container,
+.card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.card:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Estados de foco para acessibilidade */
+button:focus,
+a:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
+/* Loading state para tabelas */
+#todas-tabelas.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+#todas-tabelas.loading::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--secondary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* RESPONSIVIDADE AVANÇADA */
+
+/* Tablets e dispositivos médios */
+@media (max-width: 1024px) {
+  .cards-container {
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  }
+
+  .footer-container {
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  }
+}
+
+/* Dispositivos móveis */
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .menu {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .menu button {
+    flex: 1 1 auto;
+    min-width: 100px;
+    max-width: 200px;
+    width: auto;
+  }
+
+  .table-container {
+    border-radius: 8px;
+    padding: var(--gap-sm);
+  }
+
+  .league-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .table-legend {
+    justify-content: center;
+  }
+}
+
+/* Dispositivos móveis pequenos */
+@media (max-width: 480px) {
+  .main-content {
+    padding: var(--gap-sm);
+  }
+
+  .menu {
+    flex-direction: row !important;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .menu button {
+    width: auto;
+    margin: 0.25rem;
+  }
+
+  .card {
+    padding: var(--gap-md);
+  }
+
+  .form-indicator {
+    justify-content: center;
+  }
+
+  .privacy-links,
+  .social-links {
+    align-items: center;
+  }
+
+  .footer-column ul li a,
+  .social-links a {
+    justify-content: center;
+  }
+}
+
+/* Dispositivos muito pequenos */
+@media (max-width: 360px) {
+  :root {
+    --container-padding: 0.75rem;
+  }
+
+  .table-container {
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+  }
+
+  .cards-container {
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .legend-item {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+
+/* Orientação paisagem em dispositivos móveis */
+@media (max-height: 500px) and (orientation: landscape) {
+  .nav {
+    position: static;
+  }
+
+  .main-content {
+    padding: 1rem var(--container-padding);
+  }
+}
+
+/* Modo de alto contraste para acessibilidade */
+@media (prefers-contrast: high) {
+  :root {
+    --text-color: #000;
+    --light-bg: #fff;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .card {
+    border: 2px solid var(--primary-color);
+  }
+}
+
+/* Modo de redução de movimento */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .card:hover,
+  .league-table tr:hover td,
+  .menu button:hover,
+  .logo:hover {
+    transform: none;
+  }
+}
+
+/* Melhorias de toque para dispositivos touch */
+@media (hover: none) and (pointer: coarse) {
+  .menu button:hover {
+    transform: none;
+    background: var(--secondary-color);
+  }
+
+  .card:hover {
+    transform: none;
+    box-shadow: var(--shadow);
+  }
+
+  .league-table tr:hover td {
+    transform: none;
+    background-color: transparent;
+  }
+
+  .card:hover .card-icon {
+    transform: none;
+    color: var(--secondary-color);
+  }
+
+  /* Melhorar área de toque */
+  .menu button {
+    min-height: 44px;
+  }
+
+  .privacy-links a,
+  .social-links a,
+  .footer-column ul li a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Suporte para modo escuro */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-color: #e0e0e0;
+    --light-bg: #1a1a1a;
+    --white: #2d2d2d;
+    --normal-spot: #3d3d3d;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  body {
+    background-color: var(--light-bg);
+    color: var(--text-color);
+  }
+
+  .table-container,
+  .card {
+    background: var(--white);
+  }
+
+  .league-table td {
+    border-bottom-color: #444;
+  }
+
+  .table-legend {
+    background: #2d2d2d;
+  }
+}

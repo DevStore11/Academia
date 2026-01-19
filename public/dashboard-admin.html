@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Admin - Cok League</title>
+<link rel="stylesheet" href="Css/admin.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="icon" href="favicon.png" type="image/webp">
+
+</head>
+<body>
+<div class="hamburger">&#9776;</div>
+<div class="sidebar"> 
+    <div class="logo"><h2>POWER PLAY</h2></div>
+    <ul class="menu">
+        <li class="menu-item active" data-tab="usuarios"><i class="fas fa-users"></i> <span>Usuários</span></li>
+        <li class="menu-item" data-tab="ligas"><i class="fas fa-trophy"></i> <span>Ligas</span></li>
+        <li class="menu-item" data-tab="adicionar-clubes"><i class="fas fa-plus"></i> <span>Adicionar Clubes</span></li>
+        <li class="menu-item" data-tab="confrontos"><i class="fas fa-futbol"></i> <span>Marcar Confrontos</span></li>
+        <li class="menu-item" data-tab="resultados"><i class="fas fa-pen"></i> <span>Inserir Resultados</span></li>
+        <li class="menu-item" data-tab="tabelas"><i class="fas fa-table"></i> <span>Tabelas</span></li>
+        <li class="menu-item" data-tab="relatorios"><i class="fas fa-file-pdf"></i> <span>Relatórios</span></li>
+        <li class="menu-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> <span>Sair</span></li>
+    </ul>
+</div>
+
+<div class="content">
+    <div class="header">
+        <h1 id="pageTitle">Painel Admin - Usuários</h1>
+        <div class="user-info"><span>Admin</span><i class="fas fa-user-circle fa-lg" style="margin-left: 10px; color: var(--accent);"></i></div>
+    </div>
+
+    <!-- Usuários -->
+    <div class="tab-content active" id="usuarios">
+        <div class="card">
+            <div class="card-header">Gestão de Usuários</div>
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Password</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Ligas -->
+    <div class="tab-content" id="ligas">
+        <div class="card">
+            <div class="card-header">Criar Nova Liga</div>
+            <form id="form-liga">
+                <div class="form-group">
+                    <label for="nome-liga">Nome da Liga</label>
+                    <input type="text" id="nome-liga" required>
+                </div>
+                <button type="submit">Criar Liga</button>
+            </form>
+        </div>
+        <div class="card">
+            <div class="card-header">Ligas Existentes</div>
+            <table id="tabelaLigas">
+                <thead><tr><th>ID</th><th>Nome da Liga</th><th>Ações</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Adicionar Clubes -->
+    <div class="tab-content" id="adicionar-clubes">
+        <div class="card">
+            <div class="card-header">Adicionar Clubes a uma Liga</div>
+            <form id="form-add-clubes-liga">
+                <div class="form-group">
+                    <label for="select-liga">Selecionar Liga</label>
+                    <select id="select-liga"><option value="">-- Selecione uma Liga --</option></select>
+                </div>
+                <div class="form-group">
+                    <label>Selecionar Clubes</label>
+                    <div id="clubes-checkboxes" style="border:1px solid #ddd;border-radius:4px;padding:10px;max-height:200px;overflow-y:auto;"></div>
+                </div>
+                <button type="submit">Adicionar Clubes à Liga</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confrontos -->
+    <div class="tab-content" id="confrontos">
+        <div class="card">
+            <div class="card-header">Marcar Confrontos</div>
+            <form id="form-confrontos">
+                <div class="form-group">
+                    <label for="select-liga-confrontos">Selecionar Liga</label>
+                    <select id="select-liga-confrontos"><option value="">-- Selecione uma Liga --</option></select>
+                </div>
+                <div class="form-group">
+                    <label for="select-clube-casa">Clube da Casa</label>
+                    <select id="select-clube-casa"><option value="">-- Selecione um Clube --</option></select>
+                </div>
+                <div class="form-group">
+                    <label for="select-clube-fora">Clube Visitante</label>
+                    <select id="select-clube-fora"><option value="">-- Selecione um Clube --</option></select>
+                </div>
+                <div class="form-group">
+                    <label for="data-confronto">Data do Jogo</label>
+                    <input type="date" id="data-confronto">
+                </div>
+                <div class="form-group">
+                    <label for="hora-confronto">Hora do Jogo</label>
+                    <input type="time" id="hora-confronto">
+                </div>
+                <button type="submit">Marcar Confronto</button>
+            </form>
+        </div>
+        <div class="card">
+            <div class="card-header">Confrontos Marcados</div>
+            <table id="tabelaConfrontos">
+                <thead><tr><th>Data</th><th>Jogo</th><th>Resultado</th><th>Estado</th><th>Ações</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Resultados -->
+    <div class="tab-content" id="resultados">
+        <div class="card">
+            <div class="card-header">Inserir Resultados</div>
+            <form id="form-resultados">
+                <div class="form-group">
+                    <label for="select-liga-resultados">Selecionar Liga</label>
+                    <select id="select-liga-resultados"><option value="">-- Selecione uma Liga --</option></select>
+                </div>
+                <div class="form-group">
+                    <label for="select-confronto">Selecionar Confronto</label>
+                    <select id="select-confronto"><option value="">-- Selecione um Confronto --</option></select>
+                </div>
+                <div class="form-group" style="display:flex;align-items:center;gap:10px;">
+                    <input type="number" id="golos-casa" min="0" style="width:80px;text-align:center;">
+                    <span>vs</span>
+                    <input type="number" id="golos-fora" min="0" style="width:80px;text-align:center;">
+                </div>
+                <button type="submit">Registar Resultado</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabelas -->
+    <div class="tab-content" id="tabelas">
+        <div class="card">
+            <div class="card-header">Tabela Classificativa</div>
+            <div class="form-group">
+                <label for="select-liga-tabela">Selecionar Liga</label>
+                <select id="select-liga-tabela"><option value="">-- Selecione uma Liga --</option></select>
+            </div>
+            <table id="tabela-classificativa">
+                <thead>
+                    <tr><th>Pos</th><th>Clube</th><th>J</th><th>V</th><th>E</th><th>D</th>
+                        <th>GM</th><th>GS</th><th>SG</th><th>Pts</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Relatórios -->
+    <div class="tab-content" id="relatorios">
+        <div class="card">
+        <div class="card-header">Relatórios - AcademiaDeFIFA (Versão 2.0)</div>
+
+        <form id="form-relatorios" class="form-relatorios">
+            <div class="form-group">
+                <label for="tipo-relatorio">Tipo de Relatório</label>
+                <select id="tipo-relatorio" required>
+                    <option value="">-- Seleccione --</option>
+                    <option value="diario">Diário</option>
+                    <option value="semanal">Semanal</option>
+                    <option value="mensal">Mensal</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="data-relatorio">Data Referência</label>
+                <input id="data-relatorio" type="date" required />
+                <small class="nota">Para semanal: escolha o primeiro dia da semana.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="filtro-liga">Filtro (opcional) - Liga</label>
+                <select id="filtro-liga"><option value="">Todas as Ligas</option></select>
+            </div>
+
+            <div class="form-group">
+                <label for="filtro-jogador">Filtro (opcional) - Jogador</label>
+                <select id="filtro-jogador"><option value="">Todos os Jogadores</option></select>
+            </div>
+
+            <div class="acoes-relatorio">
+                <button type="submit" id="btn-gerar-preview">Gerar Pré-visualização</button>
+                <button type="button" id="btn-gerar-pdf">Gerar PDF (AcademiaDeFIFA)</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Pré-visualização e Estatísticas</div>
+        <div id="visualizacao-relatorio" class="visualizacao-relatorio">
+            <p>Escolha o tipo de relatório, data e filtros e clique em "Gerar Pré-visualização".</p>
+        </div>
+    </div>
+</div>
+
+<!-- Container Toast -->
+<div id="toast-container"></div>
+
+<script type="module" src="Js/admin.js"></script>
+<script type="module" src="Js/sriptTable.js"></script>
+<script  src="Js/menu.js"></script>
+<script>
+  // Função global para exibir notificações
+  window.mostrarToast = function(mensagem, tipo="info") {
+    const container = document.getElementById("toast-container");
+    const toast = document.createElement("div");
+    toast.className = `toast toast-${tipo}`;
+    toast.textContent = mensagem;
+    container.appendChild(toast);
+    setTimeout(() => { toast.remove(); }, 3500);
+  }
+ 
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Coleção de usuários: leitura e escrita liberada para login e cadastro
+    match /usuarios/{userId} {
+      allow read, write: if true;
+    }
+
+    // Coleção ligas: leitura e escrita liberada
+    match /ligas/{docId} {
+      allow read, write: if true;
+    }
+
+    // Coleção confrontos: leitura e escrita liberada (caso ainda queira manter)
+    match /confrontos/{docId} {
+      allow read, write: if true;
+    }
+
+    // Coleção tabelas: leitura e escrita liberada
+    match /tabelas/{docId} {
+      allow read, write: if true;
+    }
+
+    // Coleção campeonatos
+    match /campeonatos/{campeonatoId} {
+      allow read, write: if true;
+
+      // Sub-coleção confrontos dentro de cada campeonato
+      match /confrontos/{confrontoId} {
+        allow read, write: if true;
+      }
+    }
+
+    // Todas as outras coleções: leitura/escrita apenas para usuários autenticados
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
