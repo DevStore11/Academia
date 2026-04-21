@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Power Play E-Sport | Kinetic Cyber-Brutalism</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#450900",
+              "on-error-container": "#ffd2c8",
+              "on-secondary": "#525151",
+              "on-background": "#ffffff",
+              "surface-dim": "#0e0e0e",
+              "on-secondary-fixed-variant": "#5c5b5b",
+              "on-surface-variant": "#ababab",
+              "surface": "#0e0e0e",
+              "on-secondary-fixed": "#403f3f",
+              "inverse-surface": "#f9f9f9",
+              "background": "#0e0e0e",
+              "tertiary": "#f3ffca",
+              "error": "#ff7351",
+              "surface-container-high": "#1f1f1f",
+              "surface-container": "#191919",
+              "primary-fixed-dim": "#2be800",
+              "primary": "#8eff71",
+              "on-tertiary-fixed": "#3a4a00",
+              "surface-container-low": "#131313",
+              "on-tertiary-container": "#4a5e00",
+              "surface-container-highest": "#262626",
+              "surface-container-lowest": "#000000",
+              "primary-fixed": "#2ff801",
+              "secondary-container": "#474746",
+              "error-dim": "#d53d18",
+              "tertiary-dim": "#beee00",
+              "secondary": "#e5e2e1",
+              "on-primary-fixed-variant": "#0d6200",
+              "inverse-primary": "#106f00",
+              "on-primary-fixed": "#064200",
+              "on-secondary-container": "#d2d0cf",
+              "primary-container": "#2ff801",
+              "outline-variant": "#484848",
+              "error-container": "#b92902",
+              "surface-variant": "#262626",
+              "tertiary-fixed": "#cafd00",
+              "on-primary": "#0d6100",
+              "surface-tint": "#8eff71",
+              "surface-bright": "#2c2c2c",
+              "on-surface": "#ffffff",
+              "tertiary-fixed-dim": "#beee00",
+              "secondary-fixed": "#e5e2e1",
+              "tertiary-container": "#cafd00",
+              "secondary-dim": "#d6d4d3",
+              "primary-dim": "#2be800",
+              "on-tertiary-fixed-variant": "#526900",
+              "secondary-fixed-dim": "#d6d4d3",
+              "on-primary-container": "#0b5800",
+              "outline": "#757575",
+              "on-tertiary": "#516700",
+              "inverse-on-surface": "#555555"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Manrope"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .neon-glow-text {
+            text-shadow: 0 0 8px rgba(57, 255, 20, 0.6);
+        }
+        .neon-glow-box {
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.15);
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.7);
+        }
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #8eff71 0%, #2be800 100%);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- Top Bar Navigation -->
+<nav class="fixed top-0 w-full flex justify-between items-center px-6 py-4 max-w-full mx-auto bg-black/90 backdrop-blur-md text-[#39FF14] font-['Space_Grotesk'] uppercase tracking-tight docked full-width z-50 border-b border-[#484848]/20 shadow-[0_0_20px_rgba(57,255,20,0.1)] transition-all duration-200 ease-in-out">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black italic text-[#39FF14] tracking-tighter">Power Play E-Sport</span>
+<div class="hidden md:flex gap-6">
+<a class="text-[#39FF14] border-b-2 border-[#39FF14] pb-1 transition-all duration-200" href="#">Leagues</a>
+<a class="text-gray-400 hover:text-[#39FF14] transition-colors duration-300" href="#">Matches</a>
+<a class="text-gray-400 hover:text-[#39FF14] transition-colors duration-300" href="#">News</a>
+<a class="text-gray-400 hover:text-[#39FF14] transition-colors duration-300" href="#">Teams</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<input class="bg-surface-container border-none text-xs px-4 py-2 w-48 focus:ring-1 focus:ring-primary rounded-none font-label tracking-widest uppercase" placeholder="SEARCH INTEL..." type="text"/>
+</div>
+<button class="material-symbols-outlined hover:text-[#39FF14] hover:drop-shadow-[0_0_8px_rgba(57,255,20,0.8)] transition-all">notifications</button>
+<button class="material-symbols-outlined hover:text-[#39FF14] hover:drop-shadow-[0_0_8px_rgba(57,255,20,0.8)] transition-all">person</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative h-screen flex items-center pt-20 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-40 grayscale hover:grayscale-0 transition-all duration-1000" data-alt="Cinematic wide shot of e-sports arena arena with neon lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNFvlFKVsi7QnbGTs3uOO44IAMyG5Bghnaut6YFL0i3DMLyiBy-QPqs9qCWY15JygCB3zpTnwqi-aeX9uHo2-Qln2KAunCOnHTg54hnMZQvHu6Vv81z8KeCupxhDBZ0l9w1fyiAvKeP0Fu7C1etVe9QZzA43rGzwY3QPmCWhIBMuRPjqgJv8Epx31BT6I_qjmxOixTEN5SJdQyb4sslXdS6eKY96gYWd7xwt9xXAkISJCQPxkn2-uETQZS1vqyktDk_PklKMHuai_u"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
+</div>
+<div class="relative z-10 px-8 md:px-16 max-w-5xl">
+<h1 class="text-6xl md:text-9xl font-headline font-black italic tracking-tighter leading-none mb-6">
+                POWER PLAY <br/> <span class="text-primary italic">E-SPORT</span>
+</h1>
+<p class="text-lg md:text-xl text-on-surface-variant max-w-xl mb-10 font-medium uppercase tracking-wide">
+                Where technical precision meets kinetic energy. Join the next generation of competitive gaming excellence.
+            </p>
+<div class="flex flex-wrap gap-4">
+<button class="px-8 py-4 bg-primary text-on-primary font-headline font-bold uppercase tracking-widest rounded-none hover:shadow-[0_0_20px_#8eff71] transition-all">
+                    Enter the Arena
+                </button>
+<button class="px-8 py-4 border border-outline-variant text-on-surface font-headline font-bold uppercase tracking-widest rounded-none hover:bg-surface-bright transition-all">
+                    View Schedule
+                </button>
+</div>
+</div>
+</section>
+<!-- League Table Section -->
+<section class="py-24 px-6 md:px-16 bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="text-4xl font-headline font-bold uppercase tracking-tight mb-2">Pro League Standings</h2>
+<p class="text-primary font-label uppercase tracking-widest text-xs">Season 04 // Current Ranking</p>
+</div>
+<div class="text-right hidden md:block">
+<span class="text-xs text-outline font-label uppercase tracking-widest">Last Sync: 2m ago</span>
+</div>
+</div>
+<div class="overflow-x-auto no-scrollbar">
+<table class="w-full text-left border-separate border-spacing-y-2">
+<thead>
+<tr class="text-outline uppercase font-label text-xs tracking-widest">
+<th class="px-6 py-4">POS</th>
+<th class="px-6 py-4">TEAM</th>
+<th class="px-6 py-4 text-center">W</th>
+<th class="px-6 py-4 text-center">L</th>
+<th class="px-6 py-4 text-center">PTS</th>
+<th class="px-6 py-4 text-right">TREND</th>
+</tr>
+</thead>
+<tbody class="font-headline font-medium">
+<!-- Promotion Zone -->
+<tr class="bg-surface-container-high border-l-4 border-primary group hover:bg-surface-bright transition-colors">
+<td class="px-6 py-5 text-primary text-xl font-black italic">01</td>
+<td class="px-6 py-5 flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">vaping_rooms</span>
+</div>
+<span class="tracking-tight">CYBER VORTEX</span>
+</td>
+<td class="px-6 py-5 text-center">18</td>
+<td class="px-6 py-5 text-center">2</td>
+<td class="px-6 py-5 text-center font-bold text-primary">54</td>
+<td class="px-6 py-5 text-right text-primary"><span class="material-symbols-outlined">trending_up</span></td>
+</tr>
+<tr class="bg-surface-container-high border-l-4 border-primary group hover:bg-surface-bright transition-colors">
+<td class="px-6 py-5 text-primary text-xl font-black italic">02</td>
+<td class="px-6 py-5 flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">bolt</span>
+</div>
+<span class="tracking-tight">NEON STRIKE</span>
+</td>
+<td class="px-6 py-5 text-center">16</td>
+<td class="px-6 py-5 text-center">4</td>
+<td class="px-6 py-5 text-center font-bold text-primary">48</td>
+<td class="px-6 py-5 text-right text-primary"><span class="material-symbols-outlined">trending_flat</span></td>
+</tr>
+<tr class="bg-surface-container-high border-l-4 border-primary group hover:bg-surface-bright transition-colors">
+<td class="px-6 py-5 text-primary text-xl font-black italic">03</td>
+<td class="px-6 py-5 flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">shield</span>
+</div>
+<span class="tracking-tight">TITAN CORE</span>
+</td>
+<td class="px-6 py-5 text-center">15</td>
+<td class="px-6 py-5 text-center">5</td>
+<td class="px-6 py-5 text-center font-bold text-primary">45</td>
+<td class="px-6 py-5 text-right text-primary"><span class="material-symbols-outlined">trending_up</span></td>
+</tr>
+<!-- Mid Zone -->
+<tr class="bg-surface-container group hover:bg-surface-bright transition-colors">
+<td class="px-6 py-5 text-outline text-xl font-black italic">04</td>
+<td class="px-6 py-5 flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-outline">rocket_launch</span>
+</div>
+<span class="tracking-tight">APOLLO X</span>
+</td>
+<td class="px-6 py-5 text-center">12</td>
+<td class="px-6 py-5 text-center">8</td>
+<td class="px-6 py-5 text-center font-bold">36</td>
+<td class="px-6 py-5 text-right text-error"><span class="material-symbols-outlined">trending_down</span></td>
+</tr>
+<!-- Relegation Zone -->
+<tr class="bg-surface-container-lowest border-l-4 border-error-dim group hover:bg-surface-container transition-colors">
+<td class="px-6 py-5 text-error-dim text-xl font-black italic">08</td>
+<td class="px-6 py-5 flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-error-dim">skull</span>
+</div>
+<span class="tracking-tight">VOID WALKERS</span>
+</td>
+<td class="px-6 py-5 text-center">4</td>
+<td class="px-6 py-5 text-center">16</td>
+<td class="px-6 py-5 text-center font-bold text-error-dim">12</td>
+<td class="px-6 py-5 text-right text-error-dim"><span class="material-symbols-outlined">trending_down</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Upcoming Matches Section -->
+<section class="py-24 px-6 md:px-16 bg-surface-container-low border-y border-outline-variant/10">
+<div class="max-w-7xl mx-auto">
+<h2 class="text-4xl font-headline font-bold uppercase tracking-tight mb-12">Next In Queue</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Match Card 1 -->
+<div class="bg-surface-container-highest relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary animate-pulse"></div>
+<div class="p-8">
+<div class="flex justify-between items-center mb-8">
+<span class="bg-primary/10 text-primary px-3 py-1 text-[10px] font-label uppercase tracking-[0.2em]">LIVE IN 00:45:12</span>
+<span class="text-outline text-[10px] font-label uppercase tracking-widest">LEAGUE ALPHA</span>
+</div>
+<div class="flex justify-between items-center text-center">
+<div class="flex flex-col items-center gap-3">
+<div class="w-16 h-16 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl text-on-surface">radar</span>
+</div>
+<span class="font-headline uppercase text-sm font-bold">PULSE</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="text-4xl font-black font-headline italic text-primary">VS</span>
+<span class="text-xs text-outline-variant mt-2 font-label">BO3 SERIES</span>
+</div>
+<div class="flex flex-col items-center gap-3">
+<div class="w-16 h-16 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl text-on-surface">diamond</span>
+</div>
+<span class="font-headline uppercase text-sm font-bold">CRYSTAL</span>
+</div>
+</div>
+<button class="w-full mt-8 py-3 bg-surface-bright text-on-surface font-label uppercase text-xs tracking-[0.3em] hover:bg-primary hover:text-on-primary transition-all">Watch Broadcast</button>
+</div>
+</div>
+<!-- Match Card 2 -->
+<div class="bg-surface-container-highest relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-outline"></div>
+<div class="p-8">
+<div class="flex justify-between items-center mb-8">
+<span class="bg-outline-variant/20 text-on-surface-variant px-3 py-1 text-[10px] font-label uppercase tracking-[0.2em]">SCHEDULED: TOMORROW</span>
+<span class="text-outline text-[10px] font-label uppercase tracking-widest">LEAGUE BETA</span>
+</div>
+<div class="flex justify-between items-center text-center">
+<div class="flex flex-col items-center gap-3">
+<div class="w-16 h-16 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl text-on-surface">waves</span>
+</div>
+<span class="font-headline uppercase text-sm font-bold">TIDE</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="text-4xl font-black font-headline italic text-on-surface-variant">VS</span>
+<span class="text-xs text-outline-variant mt-2 font-label">BO5 FINALS</span>
+</div>
+<div class="flex flex-col items-center gap-3">
+<div class="w-16 h-16 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl text-on-surface">cyclone</span>
+</div>
+<span class="font-headline uppercase text-sm font-bold">STORM</span>
+</div>
+</div>
+<button class="w-full mt-8 py-3 border border-outline-variant text-outline uppercase text-xs tracking-[0.3em] hover:border-primary hover:text-primary transition-all">Set Reminder</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section (Bento Grid Style) -->
+<section class="py-24 px-6 md:px-16 bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[600px]">
+<div class="md:col-span-2 bg-surface-container-high p-10 flex flex-col justify-between group hover:bg-primary/5 transition-all relative overflow-hidden">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-5xl text-primary mb-6">workspace_premium</span>
+<h3 class="text-4xl font-headline font-black uppercase mb-4 italic tracking-tighter leading-none">Professional <br/>Competition</h3>
+<p class="text-on-surface-variant max-w-sm font-medium">Verified tournaments with tier-1 prize pools and international broadcasting standards.</p>
+</div>
+<a class="flex items-center gap-2 text-primary font-label uppercase tracking-[0.2em] group-hover:gap-4 transition-all" href="#">
+                        Launch Career <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+<div class="absolute right-[-10%] bottom-[-10%] opacity-5 text-[200px] font-black italic select-none">PRO</div>
+</div>
+<div class="bg-primary p-10 flex flex-col justify-between group">
+<div>
+<span class="material-symbols-outlined text-5xl text-on-primary mb-6">analytics</span>
+<h3 class="text-3xl font-headline font-black uppercase mb-4 italic tracking-tighter text-on-primary leading-none">Detailed <br/>Stats</h3>
+<p class="text-on-primary/80 font-medium">Real-time HUD analytics synced via our proprietary data protocol.</p>
+</div>
+<a class="flex items-center gap-2 text-on-primary font-label uppercase tracking-[0.2em] group-hover:gap-4 transition-all" href="#">
+                        View Intel <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<div class="md:col-span-3 bg-surface-container p-10 flex flex-col md:flex-row justify-between items-center group">
+<div class="text-center md:text-left mb-8 md:mb-0">
+<h3 class="text-3xl font-headline font-black uppercase mb-2 italic tracking-tighter leading-none">Engaged Community</h3>
+<p class="text-on-surface-variant max-w-lg">Join 2.5M+ active players, analysts, and fans in our ecosystem.</p>
+</div>
+<div class="flex -space-x-4">
+<img class="w-16 h-16 rounded-none border-4 border-surface-container object-cover" data-alt="User avatar 1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPpdZ3JmgCz86wvaOXwQnabDOquB33QFVsrBc9bOlHUj2A1OYLY-c-_o1EREv0duI4Wapc5ntBgh0VpXKz4puESBeyELCLy4IvA2NEtoCeWVuEztboEUDzlAWnUNckhWhE3l7jB1Y6Y4lteaVQiwRNLsnK6UuwdejNQRAGPN20niTBU9l9snYIbSXFwHpUaOS9AC28tylHA0b5zm-gwL2sQT-tGDXjIqpBXCMQI4WZUdPffqly_9EeInzHUCUJdo1sl86H_PnGJ98d"/>
+<img class="w-16 h-16 rounded-none border-4 border-surface-container object-cover" data-alt="User avatar 2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ86LIuh-e5SyZ1WxWOr8zCt8V62uS3N0McRTLOxiu9wvOneJv8d7Q0J3XzVQsNzYYxN2--Rn5SLuAwHuTtzUfGsmXcq3g6KeXedY49hAnwHIHUcj1mZ_8Kj1AonIhr5mimiqffuzurf-Jz_E55LbxuKC92H9AD9gS-9N96agJ5vIPTHotRqeUdQYyMmgzXNq2kzmF0F2kRR7C7H_ttqW4NGBWRg2tvgPC5gSod7Sz9pIhF2UyTx5YeIzieCiGnQZNY5HFsK-mOUGz"/>
+<img class="w-16 h-16 rounded-none border-4 border-surface-container object-cover" data-alt="User avatar 3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4vNkSf5DRLZsj3oStZeNWYYaaBKzrgfuwgH7Sz8E6R0UWO940unB1FihFeCG__3jjCehLqsm3zhm3um0LFMXWCYSgmeedTdXECht7VKfeLQxHInTgoRh_4eUSb4Haf0oml8XqT-ddjgwjgsrsrWXiXKcFD_SzcEUKtUVXXu0Hw55ioRR-d6dgAxy-3Ezez7wsAPiB3kM3OQtBcr7fQn86ghAA_OX1SBFdTRxqU2WsFC4avu_B5QnoBaKmW3S38h5DbWorZyQmx29c"/>
+<div class="w-16 h-16 bg-primary flex items-center justify-center font-bold text-on-primary font-headline">2M+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24 px-6 md:px-16 relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/10"></div>
+<div class="max-w-5xl mx-auto relative z-10 text-center">
+<h2 class="text-5xl md:text-7xl font-headline font-black uppercase mb-8 italic tracking-tighter">Ready to join the game?</h2>
+<div class="flex flex-col md:flex-row justify-center gap-6">
+<button class="px-12 py-5 bg-primary text-on-primary font-headline font-bold uppercase tracking-widest rounded-none hover:shadow-[0_0_30px_#8eff71] transition-all text-xl">
+                    Sign Up Now
+                </button>
+<button class="px-12 py-5 border-2 border-primary text-primary font-headline font-bold uppercase tracking-widest rounded-none hover:bg-primary/10 transition-all text-xl">
+                    Member Login
+                </button>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#000000] py-20 px-6 border-t border-[#484848]/20 font-['Manrope'] text-xs uppercase tracking-widest">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<div class="md:col-span-1">
+<div class="text-xl font-black text-[#39FF14] mb-4 font-headline italic">POWER PLAY</div>
+<p class="text-gray-500 normal-case mb-6 tracking-normal text-sm leading-relaxed">The ultimate digital arena for professional competitive gaming. Engineered for precision, built for the community.</p>
+<div class="flex gap-4">
+<a class="text-gray-500 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-gray-500 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+<a class="text-gray-500 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">smart_display</span></a>
+</div>
+</div>
+<div>
+<h4 class="text-on-surface mb-8 font-bold">Support</h4>
+<ul class="space-y-4 text-gray-500">
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs">call</span> +1 (555) POWER-01</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs">mail</span> INTEL@POWERPLAY.GG</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs">location_on</span> CYBER DIST. BLOCK 9</li>
+</ul>
+</div>
+<div>
+<h4 class="text-on-surface mb-8 font-bold">Quick Links</h4>
+<ul class="space-y-4">
+<li><a class="text-gray-500 hover:text-[#39FF14] transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-gray-500 hover:text-[#39FF14] transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-gray-500 hover:text-[#39FF14] transition-colors" href="#">Advertising</a></li>
+<li><a class="text-gray-500 hover:text-[#39FF14] transition-colors" href="#">Discord</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-on-surface mb-8 font-bold">Newsletter</h4>
+<p class="text-gray-500 mb-6 normal-case tracking-normal">Get weekly tactical intel delivered to your terminal.</p>
+<form class="flex">
+<input class="bg-surface-container border-none text-[10px] w-full focus:ring-1 focus:ring-primary rounded-none" placeholder="YOUR EMAIL" type="email"/>
+<button class="bg-primary text-on-primary px-4 py-2 hover:bg-primary-dim transition-colors">
+<span class="material-symbols-outlined">send</span>
+</button>
+</form>
+</div>
+</div>
+<div class="max-w-7xl mx-auto pt-8 border-t border-outline-variant/10 text-center text-gray-500">
+            © 2024 POWER PLAY E-SPORT. ALL RIGHTS RESERVED. DATA SYNCED VIA HUD-PROTOCOL.
+        </div>
+</footer>
+</body></html>

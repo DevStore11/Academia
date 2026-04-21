@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>POWER PLAY E-SPORT</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Manrope:wght@200;300;400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary": "#516700",
+              "on-tertiary-fixed": "#3a4a00",
+              "on-error": "#450900",
+              "outline": "#757575",
+              "on-primary-container": "#0b5800",
+              "surface-container-low": "#131313",
+              "tertiary-container": "#cafd00",
+              "primary-fixed": "#2ff801",
+              "inverse-primary": "#106f00",
+              "surface-variant": "#262626",
+              "on-secondary-container": "#d2d0cf",
+              "surface-bright": "#2c2c2c",
+              "surface-container": "#191919",
+              "tertiary-dim": "#beee00",
+              "on-primary": "#0d6100",
+              "surface-container-lowest": "#000000",
+              "secondary-fixed-dim": "#d6d4d3",
+              "error-dim": "#d53d18",
+              "surface-dim": "#0e0e0e",
+              "on-tertiary-container": "#4a5e00",
+              "on-error-container": "#ffd2c8",
+              "on-secondary-fixed-variant": "#5c5b5b",
+              "on-secondary": "#525151",
+              "on-primary-fixed": "#064200",
+              "primary": "#39FF14",
+              "on-secondary-fixed": "#403f3f",
+              "on-background": "#ffffff",
+              "secondary-dim": "#d6d4d3",
+              "tertiary-fixed-dim": "#beee00",
+              "background": "#0e0e0e",
+              "tertiary": "#f3ffca",
+              "surface-tint": "#8eff71",
+              "surface": "#0e0e0e",
+              "primary-container": "#2ff801",
+              "secondary-container": "#474746",
+              "secondary-fixed": "#e5e2e1",
+              "primary-dim": "#2be800",
+              "on-surface-variant": "#ababab",
+              "error-container": "#b92902",
+              "on-primary-fixed-variant": "#0d6200",
+              "surface-container-high": "#1f1f1f",
+              "on-surface": "#ffffff",
+              "outline-variant": "#484848",
+              "inverse-on-surface": "#555555",
+              "surface-container-highest": "#262626",
+              "inverse-surface": "#f9f9f9",
+              "error": "#ff7351",
+              "secondary": "#e5e2e1",
+              "primary-fixed-dim": "#2be800",
+              "on-tertiary-fixed-variant": "#526900",
+              "tertiary-fixed": "#cafd00"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Manrope"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      body {
+        background-color: #000000;
+        color: #ffffff;
+        font-family: 'Manrope', sans-serif;
+      }
+      .cyber-glow {
+        box-shadow: 0 0 20px rgba(57, 255, 20, 0.15);
+      }
+      .neon-border {
+        box-shadow: -2px 0 0 0 #39FF14;
+      }
+      .relegation-border {
+        box-shadow: -2px 0 0 0 #d53d18;
+      }
+      .glass-card {
+        background: rgba(25, 25, 25, 0.8);
+        backdrop-filter: blur(12px);
+      }
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000000;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #39FF14;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest text-on-surface overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md dark:bg-black/80 flex justify-between items-center px-6 py-4 w-full border-b border-[#484848]/20 shadow-[0_0_20px_rgba(142,255,113,0.1)]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#39FF14] text-2xl cursor-pointer">menu</span>
+<h1 class="text-xl font-black italic text-[#39FF14] tracking-tighter font-['Space_Grotesk'] uppercase">POWER PLAY E-SPORT</h1>
+</div>
+<span class="material-symbols-outlined text-[#39FF14] text-2xl cursor-pointer">account_circle</span>
+</header>
+<!-- Navigation Drawer (Hidden by default, semantic layout) -->
+<nav class="hidden fixed inset-y-0 left-0 z-[60] flex flex-col h-full w-80 bg-[#0e0e0e] shadow-2xl shadow-[#39FF14]/10 font-['Space_Grotesk'] font-medium uppercase tracking-widest">
+<div class="p-8 border-b border-outline-variant/20">
+<h2 class="text-[#39FF14] font-black text-xl">TACTICAL MENU</h2>
+</div>
+<div class="flex flex-col py-4">
+<a class="px-8 py-4 bg-[#191919] text-[#39FF14] border-l-4 border-[#39FF14] flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">home</span> Home
+            </a>
+<a class="px-8 py-4 text-gray-500 hover:bg-[#191919] hover:text-[#39FF14] flex items-center gap-4 transition-all" href="#">
+<span class="material-symbols-outlined">emoji_events</span> Campeonato
+            </a>
+<a class="px-8 py-4 text-gray-500 hover:bg-[#191919] hover:text-[#39FF14] flex items-center gap-4 transition-all" href="#">
+<span class="material-symbols-outlined">login</span> Login
+            </a>
+<a class="px-8 py-4 text-gray-500 hover:bg-[#191919] hover:text-[#39FF14] flex items-center gap-4 transition-all" href="#">
+<span class="material-symbols-outlined">person_add</span> Cadastro
+            </a>
+<a class="px-8 py-4 text-gray-500 hover:bg-[#191919] hover:text-[#39FF14] flex items-center gap-4 transition-all" href="#">
+<span class="material-symbols-outlined">contact_support</span> Contatos
+            </a>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative h-[795px] flex flex-col items-center justify-center text-center px-6 pt-20 overflow-hidden">
+<div class="absolute inset-0 z-0 opacity-40">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px]"></div>
+</div>
+<div class="relative z-10 max-w-2xl">
+<h2 class="font-headline text-5xl md:text-7xl font-black italic tracking-tighter text-on-surface mb-4 leading-none uppercase">
+                POWER PLAY <br/> <span class="text-primary">E-SPORT</span>
+</h2>
+<p class="font-body text-on-surface-variant text-lg md:text-xl mb-12 max-w-md mx-auto leading-relaxed">
+                DOMINATE THE ARENA. TRACK EVERY SHOT. JOIN THE NEXT GENERATION OF COMPETITIVE GAMING.
+            </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="bg-primary text-on-primary px-10 py-4 font-headline font-bold uppercase tracking-widest rounded-none hover:shadow-[0_0_20px_#39FF14] transition-all transform active:scale-95">
+                    Join Now
+                </button>
+<button class="border border-outline-variant text-primary px-10 py-4 font-headline font-bold uppercase tracking-widest rounded-none hover:bg-primary/10 transition-all">
+                    View Leagues
+                </button>
+</div>
+</div>
+<!-- Scroll Indicator -->
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+<span class="text-[10px] font-headline tracking-[0.3em] uppercase">Tactical Scroll</span>
+<div class="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
+</div>
+</section>
+<!-- Next Matches Section (Sleek horizontal scroll on mobile) -->
+<section class="py-12 px-6">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline text-xl font-bold uppercase tracking-tight flex items-center gap-2">
+<span class="w-2 h-2 bg-primary animate-pulse"></span> Next Matches
+            </h3>
+<span class="text-primary text-xs font-headline uppercase tracking-widest cursor-pointer">See All</span>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-6 snap-x no-scrollbar">
+<!-- Match Card 1 -->
+<div class="min-w-[280px] bg-surface-container p-4 snap-center border-l-4 border-primary cyber-glow">
+<div class="flex justify-between items-center mb-4 text-[10px] font-headline text-on-surface-variant tracking-widest uppercase">
+<span>LEAGUE A • LIVE</span>
+<span class="text-primary">24:15</span>
+</div>
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-variant rounded-none flex items-center justify-center">
+<img alt="Team 1 Icon" class="w-6 h-6" data-alt="Cyber esport team logo identicon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMS6I9Zv8kiep3oIA8slvWDDHkERRUmrMi_jwMRwRBNJhxjrbvl1kbHnS_cg6Kq4FjdAwC7xzlUhAXyWJlq_-LldD7ROe9W7-f466TZtn8BJCSqJCYFYGckgaFoO2tAbHM3qQIWZbbOWu_BRKpmvp1aTUJ11Jr0hakpMITUbHpx61M0peCViBe1olrJfXZruynZlRWu8bIXxZ8bKAvWiOqKhHesz9_Pw5Fh1Y_l4maTnkjhdkRx1lg-QhDzSK-k7GQJxoPd1Sn_TFv"/>
+</div>
+<span class="font-headline font-bold uppercase text-sm">Viper</span>
+</div>
+<span class="font-headline font-black text-xl italic">2</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-variant rounded-none flex items-center justify-center">
+<img alt="Team 2 Icon" class="w-6 h-6" data-alt="Cyber esport team logo identicon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJZcRd9SAoeszzCsdB13FHHvvkYm1tqItBbEdF5xOUcPM7ebHINzGDOv3C2UzXm4vu1F9DPxCNs4Gh1dncxpi5p5Uufb1ugtRjvo0IfwSSASdXRSLVYnuA4uBZUP_Rfm5Cqnper1dhs-T4ttklpcN1X_WDLheIOq4l8jhfaf7kKRhr7nzlZDO0zkrkAAlfuaesu_vX5v-G9PQ5BLlH2wnlHG8GJE0jmIs1OmSrord7yLmWLHB6n-6ITbivz46Gt8inhDpT-8lslNXj"/>
+</div>
+<span class="font-headline font-bold uppercase text-sm">Ghost</span>
+</div>
+<span class="font-headline font-black text-xl italic text-on-surface-variant">0</span>
+</div>
+</div>
+<!-- Match Card 2 -->
+<div class="min-w-[280px] bg-surface-container p-4 snap-center border-l-4 border-outline-variant">
+<div class="flex justify-between items-center mb-4 text-[10px] font-headline text-on-surface-variant tracking-widest uppercase">
+<span>LEAGUE B • TODAY</span>
+<span>21:00</span>
+</div>
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-variant rounded-none flex items-center justify-center">
+<img alt="Team 3 Icon" class="w-6 h-6" data-alt="Cyber esport team logo identicon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGyKV436pBpONb8YtdhgLOECz-84756fAcDZIuSiqM4Ge_Rr6JckbwF3kSjdeRYnclBVnQw0BnDsNMJCorIfukdJ3Wmjd3DT4f4WZml8KB-sxBGgIwEliSkseupwMb1P_bthRsUyCYwjRX66A6MHRTQ-AIT4MFSwAcGVec5SMDYQPSkldlI0DX33oijE9w9DldY6xRMuCSECWEFk8OQFKNVBGMcxj588L-wJnlw0xpOXTwHVU0zwuHq_y90o9fpUCSRtYO2BjARsAa"/>
+</div>
+<span class="font-headline font-bold uppercase text-sm">Apex</span>
+</div>
+<span class="font-headline font-black text-xl italic text-outline">-</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-variant rounded-none flex items-center justify-center">
+<img alt="Team 4 Icon" class="w-6 h-6" data-alt="Cyber esport team logo identicon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw4zNXtgojhUIEaFe809qGTm35xV4TzoiMULA2Yp1BCGvZRtWpkKGDEFQULOz7yH6eNISw7_-9Igy3MGuMouNhADDfNS6fBHbHcLt1CvpGo8Gnpa5BXQfv0GAqq7giyx38C7OCotwp6zMrkdQOrAsAOXENY1aVVizy6ZjM2Ty0tk6hP11oThc4oqso530S7qupqn3hCdgyiMgTv-zj5ndDueS_zuXdXWZOcjZ12tbNGn_KqivEwkshRqwnZzz3JpfDg5IBZ-FirFXh"/>
+</div>
+<span class="font-headline font-bold uppercase text-sm">Neo</span>
+</div>
+<span class="font-headline font-black text-xl italic text-outline">-</span>
+</div>
+</div>
+</div>
+</section>
+<!-- League Tables Section -->
+<section class="py-12 px-6 bg-surface-container-low">
+<h3 class="font-headline text-2xl font-black italic tracking-tighter uppercase mb-2">ACOMPANHE OS JOGOS E RESULTADOS</h3>
+<p class="text-on-surface-variant text-sm mb-8 font-body">Global rankings and division standings.</p>
+<!-- Filters -->
+<div class="flex gap-2 mb-6 overflow-x-auto no-scrollbar pb-2">
+<button class="bg-primary text-on-primary px-4 py-2 text-[10px] font-headline font-bold uppercase tracking-widest rounded-none">Elite League</button>
+<button class="border border-outline-variant text-on-surface-variant px-4 py-2 text-[10px] font-headline font-bold uppercase tracking-widest rounded-none hover:text-primary transition-colors">Masters</button>
+<button class="border border-outline-variant text-on-surface-variant px-4 py-2 text-[10px] font-headline font-bold uppercase tracking-widest rounded-none hover:text-primary transition-colors">Academy</button>
+</div>
+<!-- Table -->
+<div class="overflow-hidden bg-black shadow-2xl">
+<div class="grid grid-cols-12 px-4 py-3 bg-surface-container text-[10px] font-headline uppercase font-bold tracking-widest text-on-surface-variant">
+<div class="col-span-1">#</div>
+<div class="col-span-7">Team</div>
+<div class="col-span-2 text-center">W</div>
+<div class="col-span-2 text-right">PTS</div>
+</div>
+<!-- Rows (20 entries simplified for space) -->
+<div class="max-h-[600px] overflow-y-auto">
+<!-- Promotion Zone (First 4) -->
+<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-high border-l-2 border-primary items-center mb-[1px]">
+<div class="col-span-1 text-primary font-bold">1</div>
+<div class="col-span-7 font-headline font-bold uppercase text-xs">ASTRALIS PRIME</div>
+<div class="col-span-2 text-center text-xs">18</div>
+<div class="col-span-2 text-right text-primary font-black text-sm">54</div>
+</div>
+<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-high border-l-2 border-primary items-center mb-[1px]">
+<div class="col-span-1 text-primary font-bold">2</div>
+<div class="col-span-7 font-headline font-bold uppercase text-xs">QUANTUM SHOCK</div>
+<div class="col-span-2 text-center text-xs">16</div>
+<div class="col-span-2 text-right text-primary font-black text-sm">49</div>
+</div>
+<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-high border-l-2 border-primary items-center mb-[1px]">
+<div class="col-span-1 text-primary font-bold">3</div>
+<div class="col-span-7 font-headline font-bold uppercase text-xs">VIRTUAL VOID</div>
+<div class="col-span-2 text-center text-xs">15</div>
+<div class="col-span-2 text-right text-primary font-black text-sm">46</div>
+</div>
+<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-high border-l-2 border-primary items-center mb-[1px]">
+<div class="col-span-1 text-primary font-bold">4</div>
+<div class="col-span-7 font-headline font-bold uppercase text-xs">CYBER REAPERS</div>
+<div class="col-span-2 text-center text-xs">14</div>
+<div class="col-span-2 text-right text-primary font-black text-sm">43</div>
+</div>
+<!-- Mid Zone (Static examples) -->
+<div class="grid grid-cols-12 px-4 py-4 bg-surface-container/40 items-center mb-[1px]">
+<div class="col-span-1 text-on-surface-variant font-bold">5</div>
+<div class="col-span-7 font-headline font-bold uppercase text-xs">TITAN SQUAD</div>
+<div class="col-span-2 text-center text-xs">12</div>
+<div class="col-span-2 text-right font-black text-sm">38</div>
+</div>
+<!-- ... Repeated rows ... -->
+<div class="grid grid-cols-12 px-4 py-4 bg-surface-container/40 items-center mb-[1px]">
+<div class="col-span-1 text-on-surface-variant font-bold">16</div>
+<div class="col-span-7 font-headline font-bold uppercase text-xs">NOVA KINETIC</div>
+<div class="col-span-2 text-center text-xs">6</div>
+<div class="col-span-2 text-right font-black text-sm">18</div>
+</div>
+<!-- Relegation Zone (Last 4) -->
+<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-lowest border-l-2 border-error-dim items-center mb-[1px]">
+<div class="col-span-1 text-error-dim font-bold">17</div>
+<div class="col-span-7 font-headline font-bold uppercase text-xs opacity-60">FALCON X</div>
+<div class="col-span-2 text-center text-xs opacity-60">4</div>
+<div class="col-span-2 text-right text-error-dim font-black text-sm">12</div>
+</div>
+<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-lowest border-l-2 border-error-dim items-center mb-[1px]">
+<div class="col-span-1 text-error-dim font-bold">18</div>
+<div class="col-span-7 font-headline font-bold uppercase text-xs opacity-60">GLITCH RUN</div>
+<div class="col-span-2 text-center text-xs opacity-60">3</div>
+<div class="col-span-2 text-right text-error-dim font-black text-sm">9</div>
+</div>
+<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-lowest border-l-2 border-error-dim items-center mb-[1px]">
+<div class="col-span-1 text-error-dim font-bold">19</div>
+<div class="col-span-7 font-headline font-bold uppercase text-xs opacity-60">OMEGA CORE</div>
+<div class="col-span-2 text-center text-xs opacity-60">2</div>
+<div class="col-span-2 text-right text-error-dim font-black text-sm">7</div>
+</div>
+<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-lowest border-l-2 border-error-dim items-center mb-[1px]">
+<div class="col-span-1 text-error-dim font-bold">20</div>
+<div class="col-span-7 font-headline font-bold uppercase text-xs opacity-60">VOID WALKERS</div>
+<div class="col-span-2 text-center text-xs opacity-60">1</div>
+<div class="col-span-2 text-right text-error-dim font-black text-sm">3</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-16 px-6">
+<div class="grid grid-cols-1 gap-4">
+<div class="bg-surface-container p-8 border-t-2 border-primary">
+<span class="material-symbols-outlined text-primary text-4xl mb-4">emoji_events</span>
+<h4 class="font-headline text-xl font-black uppercase mb-2">Professional Competition</h4>
+<p class="font-body text-on-surface-variant text-sm">Top tier tournament infrastructure for pro teams and rising stars.</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container p-6 flex flex-col justify-between">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">query_stats</span>
+<div>
+<h4 class="font-headline text-md font-black uppercase mb-1">Detailed Stats</h4>
+<p class="font-body text-on-surface-variant text-[10px]">Real-time player analysis.</p>
+</div>
+</div>
+<div class="bg-surface-container p-6 flex flex-col justify-between">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">groups</span>
+<div>
+<h4 class="font-headline text-md font-black uppercase mb-1">Engaged Community</h4>
+<p class="font-body text-on-surface-variant text-[10px]">Thousands of active players.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA Section -->
+<section class="py-24 px-6 relative overflow-hidden text-center bg-black border-y border-outline-variant/10">
+<div class="absolute inset-0 bg-primary/5 blur-[100px] -z-10"></div>
+<h2 class="font-headline text-4xl font-black italic uppercase tracking-tighter mb-8">READY TO JOIN THE GAME?</h2>
+<div class="flex flex-col gap-4 max-w-xs mx-auto">
+<button class="bg-primary text-on-primary py-4 font-headline font-black uppercase tracking-widest hover:shadow-[0_0_20px_#39FF14] transition-all">Sign Up Now</button>
+<button class="border border-outline text-on-surface py-4 font-headline font-black uppercase tracking-widest hover:bg-white/5 transition-all">Member Login</button>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-black py-12 px-8 border-t border-[#484848]/20 w-full font-['Manrope'] text-sm uppercase tracking-tighter">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+<!-- Brand & Academy -->
+<div class="flex flex-col gap-6">
+<h5 class="font-['Space_Grotesk'] font-bold text-[#39FF14] text-2xl tracking-tighter italic">POWER PLAY</h5>
+<p class="text-gray-500 normal-case leading-relaxed">
+                    Elevating e-sports through tactical precision and community growth. Our Academy program trains the next generation of champions.
+                </p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-gray-500 hover:text-primary cursor-pointer transition-colors">public</span>
+<span class="material-symbols-outlined text-gray-500 hover:text-primary cursor-pointer transition-colors">alternate_email</span>
+<span class="material-symbols-outlined text-gray-500 hover:text-primary cursor-pointer transition-colors">forum</span>
+</div>
+</div>
+<!-- Quick Links -->
+<div>
+<h6 class="text-primary font-bold mb-6 tracking-widest">Navigation</h6>
+<ul class="flex flex-col gap-4 text-gray-600">
+<li><a class="hover:text-[#39FF14] transition-colors" href="#">Academy</a></li>
+<li><a class="hover:text-[#39FF14] transition-colors" href="#">Support</a></li>
+<li><a class="hover:text-[#39FF14] transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-[#39FF14] transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<!-- Contact -->
+<div>
+<h6 class="text-primary font-bold mb-6 tracking-widest">Contact</h6>
+<ul class="flex flex-col gap-4 text-gray-600">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-xs">mail</span> academy@powerplay.com</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-xs">phone</span> +55 11 99999-9999</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-xs">location_on</span> Cyber HQ, São Paulo, BR</li>
+</ul>
+</div>
+<!-- Newsletter -->
+<div>
+<h6 class="text-primary font-bold mb-6 tracking-widest">Intel Feed</h6>
+<div class="flex flex-col gap-4">
+<input class="bg-surface-container border-none text-xs p-4 focus:ring-1 focus:ring-primary text-white" placeholder="EMAIL ADDRESS" type="email"/>
+<button class="bg-surface-variant text-primary font-bold text-xs p-4 hover:bg-primary hover:text-on-primary transition-all">Subscribe</button>
+</div>
+</div>
+</div>
+<div class="mt-16 pt-8 border-t border-outline-variant/10 text-center text-gray-700 text-[10px] tracking-[0.2em]">
+            © 2024 POWER PLAY E-SPORT. KINETIC CYBER-BRUTALISM.
+        </div>
+</footer>
+<!-- FAB (Suppressed on Home as per system instructions unless explicitly required, keeping for accessibility if needed) -->
+<div class="fixed bottom-6 right-6 z-50 md:hidden">
+<button class="w-14 h-14 bg-primary text-on-primary rounded-none shadow-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+</body></html>

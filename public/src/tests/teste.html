@@ -3,49 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
 
-<meta name="robots" content="index, follow">
-<meta name="google-site-verification" content="Xhu7SHlJSPWaVmzmXFQKOj6kyNV39ufRNSbi_cp-g5c" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B5YD76BQNR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Xhu7SHlJSPWaVmzmXFQKOj6kyNV39ufRNSbi_cp-g5c" />
 
-  gtag('config', 'G-B5YD76BQNR');
-</script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B5YD76BQNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B5YD76BQNR');
+  </script>
 
-  <title>POWER PLAY E-SPORT - Página Principal</title>
-    <link rel="stylesheet" href="src/assets/css/index.css">
+  <title>POWER PLAY E-SPORT - Página Principal</title>
 
+  <link rel="stylesheet" href="assets/css/index.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="icon" href="src/assets/img/favicon.png" sizes="32x32" type="image/webp">
-  <link rel="shortcut icon" href="src/assets/img/favicon.png" type="image/x-icon">
 
-
+  <!-- FIX: removido "../" errado, um só favicon correcto -->
+  <link rel="icon" href="assets/img/favicon.png" sizes="32x32" type="image/png">
+  <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
 </head>
 
-
 <body>
-    <!-- Navbar melhorada -->
-   <!-- ===== HEADER / NAVBAR ===== -->
+
+  <!-- ===== HEADER / NAVBAR ===== -->
   <header class="header">
     <div class="carousel-container">
-      <img src="src/assets/img/bayer.webp"   class="carousel-image active" alt="Bayer Leverkusen">
-      <img src="src/assets/img/ManCity.webp" class="carousel-image"        alt="Manchester City">
-      <img src="src/assets/img/spurs.webp"   class="carousel-image"        alt="Tottenham Spurs">
-      <img src="src/assets/img/real.webp"    class="carousel-image"        alt="Real Madrid">
-      <img src="src/assets/img/psg.webp"     class="carousel-image"        alt="PSG">
-      <img src="src/assets/img/musiala.webp" class="carousel-image"        alt="Jamal Musiala">
-      <img src="src/assets/img/estadio.webp" class="carousel-image"        alt="Estádio">
+      <img src="assets/img/bayer.webp"   class="carousel-image active" alt="Bayer Leverkusen">
+      <img src="assets/img/ManCity.webp" class="carousel-image"        alt="Manchester City">
+      <img src="assets/img/spurs.webp"   class="carousel-image"        alt="Tottenham Spurs">
+      <img src="assets/img/real.webp"    class="carousel-image"        alt="Real Madrid">
+      <img src="assets/img/psg.webp"     class="carousel-image"        alt="PSG">
+      <img src="assets/img/musiala.webp" class="carousel-image"        alt="Jamal Musiala">
+      <img src="assets/img/estadio.webp" class="carousel-image"        alt="Estádio">
       <div class="carousel-overlay"></div>
     </div>
 
     <nav class="navbar">
       <div class="nav-container">
         <div class="nav-brand">
-          <img src="src/assets/img/favicon.png" alt="Logo Power Play E-Sport" class="logo">
+          <img src="assets/img/favicon.png" alt="Logo Power Play E-Sport" class="logo">
           <span class="brand-text">POWER PLAY E-SPORT</span>
         </div>
 
@@ -58,9 +57,9 @@
         <div class="nav-menu" id="navMenu">
           <div class="nav-links">
             <a href="index.html"             class="nav-link active"><i class="fas fa-home"></i> Home</a>
-            <a href="src/pages/Campeonato.html"  class="nav-link"><i class="fas fa-trophy"></i> Campeonato</a>
-            <a href="src/pages/login.html"       class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a>
-            <a href="src/pages/cadastro.html"    class="nav-link nav-cta"><i class="fas fa-user-plus"></i> Cadastro</a>
+            <a href="pages/Campeonato.html"  class="nav-link"><i class="fas fa-trophy"></i> Campeonato</a>
+            <a href="pages/login.html"       class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="pages/cadastro.html"    class="nav-link nav-cta"><i class="fas fa-user-plus"></i> Cadastro</a>
             <a href="#rodape"                class="nav-link"><i class="fas fa-address-book"></i> Contatos</a>
           </div>
         </div>
@@ -72,7 +71,7 @@
       <h1 class="hero-title">POWER PLAY E-SPORT</h1>
       <p class="hero-subtitle">Recrutar, formar e desenvolver talentos de EA SPORT FC (FIFA)</p>
       <div class="hero-actions">
-        <a href="src/pages/cadastro.html" class="btn-primary">Junte-se Agora</a>
+        <a href="pages/cadastro.html" class="btn-primary">Junte-se Agora</a>
         <a href="#tabelas-ligas"      class="btn-secondary">Ver Ligas</a>
       </div>
     </div>
@@ -126,7 +125,22 @@
     </section>
 
     <!-- Confrontos -->
-   
+    <section id="confrontos" class="matches-section">
+      <div class="container">
+        <div class="section-header">
+          <h2><i class="fas fa-futbol"></i> PRÓXIMOS CONFRONTOS</h2>
+          <p>Jogos agendados para esta semana</p>
+        </div>
+
+        <!-- FIX: id="lista-confrontos" — bate com getElementById("lista-confrontos") no JS -->
+        <div class="matches-container" id="lista-confrontos">
+          <div class="loading-matches">
+            <div class="loader"></div>
+            <p>Carregando confrontos...</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Funcionalidades -->
     <section class="features-section">
@@ -200,7 +214,7 @@
             <a href="https://chat.whatsapp.com/K4S1XExdTJ06z6Yceimiki" target="_blank" class="social-link">
               <i class="fab fa-whatsapp"></i>
             </a>
-            <a href="/cdn-cgi/l/email-protection#760619011304061a170f110536111b171f1a5815191b" class="social-link">
+            <a href="mailto:powerplaygs@gmail.com" class="social-link">
               <i class="fas fa-envelope"></i>
             </a>
           </div>
@@ -210,7 +224,7 @@
           <h3><i class="fas fa-headset"></i> SUPORTE</h3>
           <div class="contact-info">
             <p><i class="fas fa-phone-alt"></i> <strong>Contacto & WhatsApp:</strong> +258 86 3582513</p>
-            <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="/cdn-cgi/l/email-protection#62120d150710120e031b051122050f030b0e4c010d0f"><span class="__cf_email__" data-cfemail="ec9c839b899e9c808d958b9fac8b818d8580c28f8381">[email&#160;protected]</span></a></p>
+            <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:powerplaygs@gmail.com">powerplaygs@gmail.com</a></p>
             <p><i class="fas fa-map-marker-alt"></i> <strong>Localização:</strong> Matola, Moçambique</p>
           </div>
         </div>
@@ -270,23 +284,11 @@
     FIX: "new/claude.js" não existe → usar assets/js/index.js (module)
     FIX: SW.js → sw.js (minúscula, compatível com Linux/Firebase)
   -->
-      <script type="module" src="src/assets/js/index.js"></script>
+  <script type="module" src="assets/js/claude.js"></script>
+  <script src="assets/js/header.js"></script>
+  <script src="assets/js/modalLegal.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="sw.js"></script>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-  
-  
-    <script src="sw.js"></script>
-
-<!-- Google tag (gtag.js) -->
-<!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-B5YD76BQNR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-B5YD76BQNR');
-</script>
-
-<script>(function(s){s.dataset.zone='10358290',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>-->
 </body>
 </html>

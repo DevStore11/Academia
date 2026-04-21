@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard do Clube</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="icon" href="../assets/img/favicon.png" type="image/webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- ================= Header ================= -->
+    <header>
+        <div class="header-container">
+            <h1>Bem-vindo, <span id="user-name"></span></h1>
+ <nav>
+                <div class="nav-esquerda">
+                 <img src="../assets/img/favicon.png" alt="Logo Cok League" class="logo">
+               </div>
+
+  <div class="botao-hamburguer" id="botaoHamburguer">
+    ☰
+  </div>
+
+  <ul class="menu" id="menuMobile">
+    <li><a class="saida" href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+    <li><a href="#">Ligas</a></li>
+    <li><a href="#">Confrontos</a></li>
+    <li><a href="#rodape">Conctatos</a></li>
+  </ul>
+     </nav>
+        </div>
+    </header>
+
+    <!-- ================= Main ================= -->
+    <main>
+        <!-- Cards de Estatísticas -->
+        <section id="stats">
+            <div class="stat-card">
+                <i class="fas fa-trophy"></i>
+                <h2>Vitórias</h2>
+                <p id="vitorias">0</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-handshake"></i>
+                <h2>Empates</h2>
+                <p id="empates">0</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-frown"></i>
+                <h2>Derrotas</h2>
+                <p id="derrotas">0</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-futbol"></i>
+                <h2>Golos Marcados</h2>
+                <p id="golos">0</p>
+            </div>
+        </section>
+
+        <!-- Ligas -->
+        <section id="ligas">
+            <h2 class="section-title">Ligas e Classificações</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Clube</th>
+                        <th>Jogos</th>
+                        <th>Vitórias</th>
+                        <th>Empates</th>
+                        <th>Derrotas</th>
+                        <th>Golos Marcados</th>
+                        <th>Golos Sofridos</th>
+                        <th>Saldo</th>
+                        <th>Pontos</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-liga">
+                    <!-- Dados carregados via JS -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Próximos Jogos -->
+        <section id="proximos-jogos">
+            <h2 class="section-title">Próximos Jogos</h2>
+            <div id="cards-proximos-jogos" class="cards-container">
+                <!-- Cards carregados via JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= Footer ================= -->
+    <footer id="rodape">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Sobre a AA POWER PLAY</h3>
+                <p>Academia de FIFA que recruta e desenvolve talentos de EA SPORT FC em Moçambique.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Contacto</h3>
+                <p><strong>WhatsApp:</strong> +258 86 492 0108</p>
+                <p><strong>Localização:</strong> Matola A</p>
+            </div>
+            <div class="footer-col">
+                <h3>Redes Sociais</h3>
+                <ul>
+                    <li><a href="https://chat.whatsapp.com/K4S1XExdTJ06z6Yceimiki" target="_blank">Comunidade WhatsApp</a></li>
+                    <li><a href="https://www.instagram.com/powerplay.esport" target="_blank">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 AA Power Play E-Sport — Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="../assets/js/dashboard.js"></script>
+    <script src="../assets/js/dashboard_menu.js"></script>
+</body>
+</html>

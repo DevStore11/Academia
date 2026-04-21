@@ -1,0 +1,99 @@
+/* ===============================
+   TABELAS DAS LIGAS - SEM CLASSES NO JS
+================================ */
+
+/* Cada bloco de liga */
+#todas-tabelas > div {
+  background: #0f172a;
+  padding: 14px;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+  overflow-x: auto; /* RESPONSIVIDADE */
+}
+
+/* Título da liga */
+#todas-tabelas h3 {
+  text-align: center;
+  margin-bottom: 12px;
+  color: #ffffff;
+  font-size: 1.1rem;
+}
+
+/* Tabela */
+#todas-tabelas table {
+  width: 100%;
+  min-width: 720px; /* força scroll no mobile */
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  color: #e5e7eb;
+}
+
+/* Cabeçalho */
+#todas-tabelas thead {
+  background: #1e293b;
+}
+
+#todas-tabelas th {
+  padding: 10px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #93c5fd;
+  white-space: nowrap;
+}
+
+/* Corpo */
+#todas-tabelas td {
+  padding: 10px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Nome do clube (2ª coluna) */
+#todas-tabelas td:nth-child(2) {
+  text-align: left;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Pontos */
+#todas-tabelas td:last-child {
+  font-weight: 700;
+  color: #22c55e;
+}
+
+/* Linhas alternadas */
+#todas-tabelas tbody tr:nth-child(even) {
+  background: rgba(255,255,255,0.03);
+}
+
+#todas-tabelas tbody tr:hover {
+  background: rgba(37,99,235,0.15);
+}
+
+/* Scroll bonito */
+#todas-tabelas > div::-webkit-scrollbar {
+  height: 6px;
+}
+
+#todas-tabelas > div::-webkit-scrollbar-thumb {
+  background: #2563eb;
+  border-radius: 8px;
+}
+
+/* ===============================
+   MOBILE
+================================ */
+
+@media (max-width: 768px) {
+  #todas-tabelas table {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #todas-tabelas table {
+    font-size: 0.8rem;
+  }
+}

@@ -1,0 +1,222 @@
+/* ===== TABLES CONTAINER ===== */
+.tables-container {
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* Loading States */
+.loading-tables,
+.loading-matches {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-tertiary);
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(0, 204, 106, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary-green);
+  animation: spin 1s ease-in-out infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== LEAGUE TABLE CARD ===== */
+.league-table {
+  background: #141414;
+  border: 1px solid #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  transition: var(--transition);
+}
+
+.league-table:hover {
+  border-color: var(--primary-green);
+}
+
+/* Header do card da liga */
+.league-table .table-container header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #181818;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.league-table .table-container header::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary-green);
+  flex-shrink: 0;
+}
+
+.league-table .table-container header h2 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0;
+  display: block;
+  /* reset do section-header h2 */
+  justify-content: unset;
+}
+
+.league-table .table-container header h2 i {
+  display: none;
+}
+
+/* ===== TABELA ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+thead tr {
+  background: #111;
+}
+
+thead {
+  background: #111;
+}
+
+th {
+  padding: 10px 14px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #444;
+  text-align: left;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+th:not(:first-child):not(:nth-child(2)) {
+  text-align: center;
+}
+
+tbody tr {
+  border-bottom: 1px solid #191919;
+  transition: background 0.15s;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: #1a1a1a;
+}
+
+td {
+  padding: 11px 14px;
+  font-size: 13px;
+  color: #aaa;
+  border-bottom: none;
+}
+
+td:not(:first-child):not(:nth-child(2)) {
+  text-align: center;
+  color: #777;
+}
+
+td:last-child {
+  font-weight: 700;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* ===== INDICADOR DE POSIÇÃO ===== */
+.position-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.position-top {
+  background: rgba(0, 204, 106, 0.15);
+  color: var(--primary-green);
+}
+
+.position-normal {
+  background: #1a1a1a;
+  color: #555;
+}
+
+.position-relegation {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+/* ===== LINHAS DESTACADAS ===== */
+.promotion-row td {
+  background: rgba(0, 204, 106, 0.03);
+}
+
+.relegation-row td {
+  background: rgba(239, 68, 68, 0.03);
+}
+
+/* ===== LEGENDA ===== */
+.table-legend {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  padding: 10px 20px 14px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #444;
+}
+
+.legend-item::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.legend-promotion::before {
+  background: var(--primary-green);
+}
+
+.legend-relegation::before {
+  background: #ef4444;
+}
+
+/* Team logo (mantida) */
+.team-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 1px solid var(--primary-green);
+  padding: 1px;
+  background: var(--dark-bg);
+}

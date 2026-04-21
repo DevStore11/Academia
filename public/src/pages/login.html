@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - POWER PLAY E-SPORT</title>
+  
+  <!-- Preload para performance -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- CSS Personalizado -->
+  <link rel="stylesheet" href="../assets/css/login.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="../assets/img/favicon.png" type="image/webp">
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="../assets/img/favicon.png" alt="Logo Power Play E-Sport" class="logo">
+        <span class="brand-text">POWER PLAY E-SPORT</span>
+      </div>
+      
+      <a href="../index.html" class="back-home">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+      </a>
+    </div>
+  </nav>
+
+  <!-- Container Principal -->
+  <div class="login-container">
+    <!-- Background com gradiente -->
+    <div class="login-background">
+      <div class="login-overlay"></div>
+    </div>
+    
+    <div class="login-content">
+      <!-- Card de Login -->
+      <div class="login-card">
+        <!-- Header do Card -->
+        <div class="login-header">
+          <div class="logo-wrapper">
+            <img src="../assets/img/favicon.png" alt="Logo POWER PLAY" class="login-logo">
+            <div class="logo-glow"></div>
+          </div>
+          <h1 class="login-title">
+            <span class="gradient-text">Bem-vindo de Volta</span>
+          </h1>
+          <p class="login-subtitle">
+            Acesse sua conta e continue sua jornada no EA SPORT FC
+          </p>
+        </div>
+
+        <!-- Formulário de Login -->
+        <form id="formularioLogin" class="login-form">
+          <!-- Identificação -->
+          <div class="form-group">
+            <label for="identificacaoLogin" class="form-label">
+              <i class="fas fa-user"></i> Nome do Clube 
+            </label>
+            <div class="input-group">
+              <input 
+                class="form-input" 
+                type="text" 
+                id="identificacaoLogin" 
+                placeholder="Ex: Dragões FC "
+                required
+              >
+              <i class="fas fa-at input-icon"></i>
+            </div>
+          </div>
+
+          <!-- Senha -->
+          <div class="form-group">
+            <label for="senhaLogin" class="form-label">
+              <i class="fas fa-lock"></i> Senha
+            </label>
+            <div class="input-group password-wrapper">
+              <input 
+                class="form-input" 
+                type="password" 
+                id="senhaLogin" 
+                placeholder="Digite sua senha"
+                required
+              >
+              <i class="fas fa-key input-icon"></i>
+              <button type="button" id="toggleSenha" class="password-toggle">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Opções Adicionais -->
+          <div class="login-options">
+            <div class="remember-me" id="rememberMe">
+              <span class="remember-text"></span>
+            </div>
+            <a href="recuperar-senha.html" class="forgot-password">
+              
+            </a>
+          </div>
+
+          <!-- Mensagem -->
+          <div id="mensagemLogin" class="message-box" style="display: none;"></div>
+
+          <!-- Botão de Login -->
+      <button type="submit" class="submit-btn" id="btnLogin">
+    Entrar na Conta <i class="fas fa-arrow-right"></i>
+  </button>
+
+          <!-- Separador -->
+          <div class="separator">
+            <span>ou continue com</span>
+          </div>
+
+          <!-- Botão Google -->
+          <button type="button" id="btnGoogle" class="google-btn">
+            <i class="fab fa-google"></i>
+            <span>Continuar com Google</span>
+          </button>
+        </form>
+
+        <!-- Footer do Login -->
+        <div class="login-footer">
+          <p class="login-link">
+            Não possui uma conta?
+            <a href="cadastro.html" class="link-highlight">
+              <i class="fas fa-user-plus"></i> Cadastre-se
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Sidebar Informativa (apenas desktop) -->
+      <div class="login-sidebar">
+        <div class="sidebar-content">
+          <h3 class="sidebar-title">
+            <i class="fas fa-star"></i> Por que voltar?
+          </h3>
+          <ul class="benefits-list">
+            <li class="benefit-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Acompanhe suas estatísticas</span>
+            </li>
+            <li class="benefit-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Participe de torneios ativos</span>
+            </li>
+            <li class="benefit-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Gerencie seu clube</span>
+            </li>
+            <li class="benefit-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Conecte-se com a comunidade</span>
+            </li>
+            <li class="benefit-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Receba notificações exclusivas</span>
+            </li>
+          </ul>
+          
+          <div class="stats-box">
+            <div class="stat-item">
+              <div class="stat-number">500+</div>
+              <div class="stat-label">Clubes Ativos</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">2K+</div>
+              <div class="stat-label">Jogadores</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">50+</div>
+              <div class="stat-label">Torneios</div>
+            </div>
+          </div>
+
+          <div class="testimonial">
+            <div class="testimonial-content">
+              <i class="fas fa-quote-left"></i>
+              <p>"Com o login na POWER PLAY, posso acompanhar todo o progresso do meu clube em tempo real!"</p>
+            </div>
+            <div class="testimonial-author">
+              <strong>Maria Santos</strong>
+              <span>Líder do Leões FC</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="../assets/js/login.js"></script>
+  <!-- JavaScript para Login -->
+  
+</body>
+</html>

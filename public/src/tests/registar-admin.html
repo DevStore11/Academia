@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Registar Admin</title>
+    <link rel="stylesheet" href="../assets/css/registro-admi.css" />
+
+</head>
+<body>
+
+  <!-- PASSO 1: Verificar senha de acesso -->
+  <div id="ecraAcesso">
+    <h2>🔒 Acesso Restrito</h2>
+    <p>Introduz a senha de acesso para continuar.</p>
+    <input type="password" id="senhaAcesso" placeholder="Senha de acesso" />
+    <button onclick="verificarAcesso()">Entrar</button>
+    <div id="mensagemAcesso" style="margin-top:12px; color:#c1121f; font-size:14px;"></div>
+  </div>
+
+  <!-- PASSO 2: Formulário de registo de admin -->
+  <div id="ecraAdmin">
+    <h2>🔐 Registar Admin</h2>
+    <input type="text"     id="nome"  placeholder="Nome do admin" />
+    <input type="email"    id="email" placeholder="Email" />
+    <input type="password" id="senha" placeholder="Senha (mín. 6 caracteres)" />
+    <button onclick="registarAdmin()">Criar conta de Admin</button>
+    <div id="mensagem"></div>
+    <div class="aviso">
+      ⚠️ Página de uso interno. <strong>Não partilhes este URL.</strong>
+    </div>
+  </div>
+
+<script type="module" src="./register.js"></script>
+</body>
+</html>

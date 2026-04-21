@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-PT"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#beee00",
+              "on-secondary": "#525151",
+              "error": "#ff7351",
+              "tertiary-fixed": "#cafd00",
+              "on-secondary-fixed": "#403f3f",
+              "on-primary-container": "#0b5800",
+              "primary": "#8eff71",
+              "tertiary-dim": "#beee00",
+              "outline-variant": "#484848",
+              "error-dim": "#d53d18",
+              "on-primary-fixed": "#064200",
+              "inverse-on-surface": "#555555",
+              "surface-container": "#191919",
+              "on-surface-variant": "#ababab",
+              "tertiary": "#f3ffca",
+              "secondary-fixed-dim": "#d6d4d3",
+              "on-tertiary-fixed": "#3a4a00",
+              "primary-fixed-dim": "#2be800",
+              "secondary": "#e5e2e1",
+              "on-secondary-container": "#d2d0cf",
+              "primary-dim": "#2be800",
+              "surface-container-lowest": "#000000",
+              "primary-fixed": "#2ff801",
+              "surface-container-high": "#1f1f1f",
+              "background": "#0e0e0e",
+              "surface": "#0e0e0e",
+              "secondary-dim": "#d6d4d3",
+              "outline": "#757575",
+              "surface-bright": "#2c2c2c",
+              "inverse-surface": "#f9f9f9",
+              "surface-variant": "#262626",
+              "inverse-primary": "#106f00",
+              "on-primary": "#0d6100",
+              "on-tertiary": "#516700",
+              "on-background": "#ffffff",
+              "surface-tint": "#8eff71",
+              "secondary-fixed": "#e5e2e1",
+              "on-secondary-fixed-variant": "#5c5b5b",
+              "surface-container-highest": "#262626",
+              "on-error-container": "#ffd2c8",
+              "primary-container": "#2ff801",
+              "on-tertiary-fixed-variant": "#526900",
+              "surface-container-low": "#131313",
+              "error-container": "#b92902",
+              "tertiary-container": "#cafd00",
+              "on-primary-fixed-variant": "#0d6200",
+              "secondary-container": "#474746",
+              "on-surface": "#ffffff",
+              "surface-dim": "#0e0e0e",
+              "on-error": "#450900",
+              "on-tertiary-container": "#4a5e00"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Manrope"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neon-glow {
+            box-shadow: 0 0 15px rgba(142, 255, 113, 0.3);
+        }
+        .neon-glow-strong {
+            box-shadow: 0 0 25px rgba(142, 255, 113, 0.5);
+        }
+        .text-glow {
+            text-shadow: 0 0 8px rgba(142, 255, 113, 0.6);
+        }
+        .table-row-active {
+            position: relative;
+        }
+        .table-row-active::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .row-cl-zone:hover::after { border-color: rgba(142, 255, 113, 0.4); background: rgba(142, 255, 113, 0.05); }
+        .row-el-zone:hover::after { border-color: rgba(190, 238, 0, 0.4); background: rgba(190, 238, 0, 0.05); }
+        .row-relegation-zone:hover::after { border-color: rgba(255, 115, 81, 0.4); background: rgba(255, 115, 81, 0.05); }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-[#484848]/20 shadow-[0_0_15px_rgba(57,255,20,0.1)]">
+<nav class="flex justify-between items-center h-20 px-8 max-w-[1920px] mx-auto">
+<div class="text-2xl font-black text-[#39FF14] italic tracking-tighter font-['Space_Grotesk'] uppercase">
+                POWER PLAY
+            </div>
+<div class="hidden md:flex items-center space-x-8 font-['Space_Grotesk'] uppercase tracking-tighter">
+<a class="text-[#39FF14] border-b-2 border-[#39FF14] pb-1 hover:text-[#39FF14] hover:drop-shadow-[0_0_8px_#39FF14] transition-all duration-300" href="#">LEAGUES</a>
+<a class="text-gray-400 hover:text-[#39FF14] hover:drop-shadow-[0_0_8px_#39FF14] transition-all duration-300" href="#">MATCHES</a>
+<a class="text-gray-400 hover:text-[#39FF14] hover:drop-shadow-[0_0_8px_#39FF14] transition-all duration-300" href="#">NEWS</a>
+<a class="text-gray-400 hover:text-[#39FF14] hover:drop-shadow-[0_0_8px_#39FF14] transition-all duration-300" href="#">STATS</a>
+<a class="text-gray-400 hover:text-[#39FF14] hover:drop-shadow-[0_0_8px_#39FF14] transition-all duration-300" href="#">PLAYERS</a>
+</div>
+<div class="flex items-center space-x-4 font-['Space_Grotesk'] uppercase tracking-tighter">
+<button class="text-gray-400 hover:text-[#39FF14] transition-colors duration-300 px-4 py-2">LOGIN</button>
+<button class="bg-[#39FF14] text-black font-bold px-6 py-2 rounded-none hover:scale-105 transition-transform duration-200 neon-glow">JOIN ARENA</button>
+</div>
+</nav>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex items-center overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10"></div>
+<div class="absolute inset-0 z-0">
+<img alt="E-sports Arena" class="w-full h-full object-cover" data-alt="Futuristic e-sports arena with neon lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABlhwvZzcI6Ka1TvmOMJZ6yObeI2cn3qAnB5KRjMZsSbh-RHkdjhUOBLxQcTuPgeNwZ4exBhB9VThbrbDd8CD_Jyj7M8nmDWw8cO6mM-FcSjD-p1GA8YbPmRgPMqiFK01J5IIaqVHgmCQ9cPSfFeyFAeN6L3ABJr2IOkn8My3eKN485mHg7S148_oqPaQQ0ZGlADwWEs2VOwE1XwcFszbdImi6tWFZZ6sH2JZIvPDO3Oya42ltKzI0DSYeKZKFcbbuOvxGyV5I0fKf"/>
+</div>
+<div class="relative z-20 max-w-7xl mx-auto px-8 w-full">
+<div class="max-w-3xl">
+<h1 class="font-headline font-black text-7xl md:text-9xl uppercase tracking-tighter leading-[0.9] mb-6">
+                        POWER PLAY<br/><span class="text-primary text-glow italic">E-SPORT</span>
+</h1>
+<p class="font-body text-xl md:text-2xl text-on-surface-variant mb-10 max-w-xl leading-relaxed">
+                        Recrutar, formar e desenvolver talentos de EA SPORT FC (FIFA). Entre na elite do futebol digital.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-on-primary font-headline font-bold text-lg px-10 py-4 rounded-none uppercase tracking-widest neon-glow-strong hover:scale-105 transition-all">
+                            Junte-se Agora
+                        </button>
+<button class="border border-outline-variant text-on-surface font-headline font-bold text-lg px-10 py-4 rounded-none uppercase tracking-widest hover:border-primary hover:text-primary transition-all">
+                            Ver Ligas
+                        </button>
+</div>
+</div>
+</div>
+<!-- Kinetic Detail -->
+<div class="absolute bottom-0 right-0 w-1/3 h-1 bg-primary/20 backdrop-blur-sm hidden md:block">
+<div class="w-1/4 h-full bg-primary neon-glow"></div>
+</div>
+</section>
+<!-- Features Section (Bento Style) -->
+<section class="py-24 bg-surface-container-low px-8">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container p-10 border-l-4 border-primary hover:bg-surface-container-high transition-colors group">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">sports_esports</span>
+<h3 class="font-headline text-2xl font-bold uppercase mb-4 tracking-tighter">Competição Profissional</h3>
+<p class="text-on-surface-variant leading-relaxed">Torneios diários e ligas sazonais com prémios reais e visibilidade global.</p>
+</div>
+<div class="bg-surface-container p-10 border-l-4 border-primary hover:bg-surface-container-high transition-colors group">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">analytics</span>
+<h3 class="font-headline text-2xl font-bold uppercase mb-4 tracking-tighter">Estatísticas Detalhadas</h3>
+<p class="text-on-surface-variant leading-relaxed">Análise profunda do teu desempenho com IA para otimizar a tua jogabilidade.</p>
+</div>
+<div class="bg-surface-container p-10 border-l-4 border-primary hover:bg-surface-container-high transition-colors group">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">groups</span>
+<h3 class="font-headline text-2xl font-bold uppercase mb-4 tracking-tighter">Comunidade Engajada</h3>
+<p class="text-on-surface-variant leading-relaxed">Conecta-te com os melhores jogadores e cria a tua equipa de sonho.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Matches Section -->
+<section class="py-24 bg-surface-container-lowest px-8 overflow-hidden">
+<div class="max-w-7xl mx-auto">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="font-headline text-4xl font-black uppercase tracking-tighter mb-2">Próximos Confrontos</h2>
+<div class="w-20 h-1 bg-primary"></div>
+</div>
+<button class="text-primary font-headline text-sm tracking-widest uppercase hover:underline">Ver Calendário Completo</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Match Card Live -->
+<div class="bg-surface-container-highest relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary neon-glow"></div>
+<div class="p-6">
+<div class="flex justify-between items-center mb-8">
+<span class="bg-primary text-on-primary text-[10px] font-bold px-2 py-0.5 tracking-tighter animate-pulse uppercase">LIVE</span>
+<span class="text-on-surface-variant text-xs font-label tracking-widest uppercase">Division Alpha</span>
+</div>
+<div class="flex items-center justify-between mb-8">
+<div class="text-center flex-1">
+<div class="w-16 h-16 bg-surface-bright mx-auto mb-3 flex items-center justify-center rounded-none border border-outline-variant/20">
+<img alt="Team 1" class="w-12 h-12 grayscale group-hover:grayscale-0 transition-all" data-alt="Team logo abstract" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-S1nmG4hQ6DwcVs406lZayV-qM94UI4FdGkV9txTQWBwgmM7a-2GZcnrBML0pNxg45wDCRcIAZ6P0_EUEej8TgqWF6lLKzkqC4XOVgIcZG8DQ-i2PuBs2WvoufNDYePZx1NmcCo7EwZBpMEWDMWipjtxH0qXlt0lbuEm5CfaLj-LZxVO_X1zcFOKuhllPiY5r6iN3PZwkj59vaQheaZsk0tIdKZe9LM2OAVR5FM5JyIiO0TO7Wc8DLYS_vHqY090GrjW9wT9x751C"/>
+</div>
+<span class="font-headline font-bold text-sm uppercase tracking-tighter">VORTEX FC</span>
+</div>
+<div class="font-headline font-black text-4xl px-4 italic text-primary">2 - 1</div>
+<div class="text-center flex-1">
+<div class="w-16 h-16 bg-surface-bright mx-auto mb-3 flex items-center justify-center rounded-none border border-outline-variant/20">
+<img alt="Team 2" class="w-12 h-12 grayscale group-hover:grayscale-0 transition-all" data-alt="Team logo abstract" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUTe2WgVs1mh0RBsWvQLb-fJXbIbCL_0m9vwIYCgDLRvEj0Mo4wjadGatE9DXaEW6bJnIGP2MtXNmaK8is9q6iqkl9KPqsMMPhXavQmG6GJrlEEdmnxavcE4hQeiZowrczXxUfrpjM19_tjyu71qqH66eMFHv53ye2EcYbq7zammcEg9giMkJtkkMqg7i5I155lkaaOc4v_sz_lOTcCDq2xw1dBCXYAE_6Pp2gmXa9S2J1gNqtvrbzF2aFQhSa4ydoD_0oEaW05xfS"/>
+</div>
+<span class="font-headline font-bold text-sm uppercase tracking-tighter">TITANS ESP</span>
+</div>
+</div>
+<button class="w-full py-3 bg-surface-bright font-headline text-xs font-bold tracking-widest uppercase hover:bg-primary hover:text-on-primary transition-colors">Assistir Agora</button>
+</div>
+</div>
+<!-- Match Card Scheduled -->
+<div class="bg-surface-container-highest relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline"></div>
+<div class="p-6">
+<div class="flex justify-between items-center mb-8">
+<span class="text-on-surface-variant text-[10px] font-bold px-2 py-0.5 border border-outline-variant tracking-tighter uppercase">HOJE 21:30</span>
+<span class="text-on-surface-variant text-xs font-label tracking-widest uppercase">Liga NOS Virtual</span>
+</div>
+<div class="flex items-center justify-between mb-8">
+<div class="text-center flex-1">
+<div class="w-16 h-16 bg-surface-bright mx-auto mb-3 flex items-center justify-center rounded-none border border-outline-variant/20">
+<img alt="Team 3" class="w-12 h-12 grayscale group-hover:grayscale-0 transition-all" data-alt="Team logo abstract" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCCIBGzCcFn0P0zXNrJWOMzdlXgoSR4cmBX8GtqxPjmM09bQY1EweqWQAUNEfQ_7rmweRLoSEZowXNJq18a3qPr_IbhQRjYMDLYdiwpNFXHO6_4oL4zXnK6wM6iQWtMBQpQ46DXo9XwXh4-bhjXLTvZJ57PSbkP1TTBp4r41zBhhlmKk0kuVz4XmkkuGbGIWBb79dPJR1VbfDiURN_GyTtJnb4CRxRMDwFkcFzBRSWM3Fi_hGe29RTGTgtjC1CNnyRz502n270RtrR"/>
+</div>
+<span class="font-headline font-bold text-sm uppercase tracking-tighter">BENFICA E.</span>
+</div>
+<div class="font-headline font-black text-4xl px-4 italic text-outline-variant">VS</div>
+<div class="text-center flex-1">
+<div class="w-16 h-16 bg-surface-bright mx-auto mb-3 flex items-center justify-center rounded-none border border-outline-variant/20">
+<img alt="Team 4" class="w-12 h-12 grayscale group-hover:grayscale-0 transition-all" data-alt="Team logo abstract" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaN7dyzeRDONIZZC_qrR4MX7OXMHwT40GJ3PxVODFXq6SJLYSYf0zm7vRzS0NnObp5rHNflGlGS82_tq5lhtqoeDX3M-OIqwqgXfg6g0f1wKhxQbMMay_loGTJwvj9K7OUu3_pp6cUiQ6Bzt1pV0DKvI6vGMcOyD1NNnBezaA5-aTKCfOhV7TyGsEY3Sw2Pu6hl9rCCdEzlXAoLLWSYC_Q72OuYxx3HtOgEDBbYp9tuwmQKUEgi-06ZSVVHNMdcD5sYeCBl_ubxjZ8"/>
+</div>
+<span class="font-headline font-bold text-sm uppercase tracking-tighter">DRAGÕES FC</span>
+</div>
+</div>
+<button class="w-full py-3 border border-outline-variant font-headline text-xs font-bold tracking-widest uppercase hover:border-primary hover:text-primary transition-colors">Notificar-me</button>
+</div>
+</div>
+<!-- Match Card Scheduled -->
+<div class="bg-surface-container-highest relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline"></div>
+<div class="p-6">
+<div class="flex justify-between items-center mb-8">
+<span class="text-on-surface-variant text-[10px] font-bold px-2 py-0.5 border border-outline-variant tracking-tighter uppercase">AMANHÃ 18:00</span>
+<span class="text-on-surface-variant text-xs font-label tracking-widest uppercase">Pro Clubs Elite</span>
+</div>
+<div class="flex items-center justify-between mb-8">
+<div class="text-center flex-1">
+<div class="w-16 h-16 bg-surface-bright mx-auto mb-3 flex items-center justify-center rounded-none border border-outline-variant/20">
+<img alt="Team 5" class="w-12 h-12 grayscale group-hover:grayscale-0 transition-all" data-alt="Team logo abstract" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2bAr8RU7PT8JSTfbypRPoIeZbuchOjsJ6PQpo1jc0a8_x3-SkB1qvy66WcXinMXucU3spz3fFT_UptoghHmk5QW31eL_Dd3TUcr5oKqvfFKrPG21RFtE2rKcHL7YgVL9Glj7oICGL7hfkhJSy6ImL9g4yCfTrW8R4s6fGmGbk0Ofcf1nSlHHap_KBHyDGeXrrHJMIgCSXA4nkel5UuKtLBFm_OR9LP6Lai3OVWea6ZMSVrFzQJzCRH0trW-soBQCFP0tBWcJ42Qjf"/>
+</div>
+<span class="font-headline font-bold text-sm uppercase tracking-tighter">PHOENIX FC</span>
+</div>
+<div class="font-headline font-black text-4xl px-4 italic text-outline-variant">VS</div>
+<div class="text-center flex-1">
+<div class="w-16 h-16 bg-surface-bright mx-auto mb-3 flex items-center justify-center rounded-none border border-outline-variant/20">
+<img alt="Team 6" class="w-12 h-12 grayscale group-hover:grayscale-0 transition-all" data-alt="Team logo abstract" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn-dixD7AZ8y7tJj6NckvM96M7b-nEggXse6nVLiAnXqs8ew8Qp8vm710azckcJiuzQl37uzk4ZrBbABs1ORmM9KgrObyqht8n2ArVy9er9-xxu5ElMBYBXB7k5AEouT6Xiz0lp80mv4zlQi0j0y1oyyjPVF3m-XxlfZ8_jes50EUOfrBW-DKORpNlVkkugRFBykEPuD_ztK5mu_WV4lcjnEFbBX7XAL4U1HEaSiV41ZAcQowqrG6OIY0F9nZtSKFxFvNbCWiS7FdG"/>
+</div>
+<span class="font-headline font-bold text-sm uppercase tracking-tighter">OMEGA TEAM</span>
+</div>
+</div>
+<button class="w-full py-3 border border-outline-variant font-headline text-xs font-bold tracking-widest uppercase hover:border-primary hover:text-primary transition-colors">Notificar-me</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- League Table Section -->
+<section class="py-24 bg-surface-container px-8">
+<div class="max-w-7xl mx-auto">
+<div class="mb-12">
+<h2 class="font-headline text-4xl font-black uppercase tracking-tighter mb-2">Classificação Geral</h2>
+<p class="text-on-surface-variant font-label text-sm uppercase tracking-widest">Power Play League Pro Season 4</p>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-separate border-spacing-y-2">
+<thead>
+<tr class="font-headline text-[10px] tracking-[0.2em] uppercase text-on-surface-variant/60">
+<th class="py-4 px-6 font-medium">POS</th>
+<th class="py-4 px-6 font-medium">EQUIPA / JOGADOR</th>
+<th class="py-4 px-4 font-medium text-center">J</th>
+<th class="py-4 px-4 font-medium text-center">V</th>
+<th class="py-4 px-4 font-medium text-center">E</th>
+<th class="py-4 px-4 font-medium text-center">D</th>
+<th class="py-4 px-4 font-medium text-center">GP</th>
+<th class="py-4 px-4 font-medium text-center">GC</th>
+<th class="py-4 px-4 font-medium text-center">SG</th>
+<th class="py-4 px-6 font-medium text-right">PTS</th>
+</tr>
+</thead>
+<tbody class="font-headline">
+<!-- TOP 4 - Champions League Zone -->
+<tr class="bg-surface-container-high table-row-active row-cl-zone group transition-all duration-300">
+<td class="py-5 px-6 font-black text-2xl text-primary italic text-glow border-l-4 border-primary">01</td>
+<td class="py-5 px-6 font-bold uppercase tracking-tight flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-variant flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary text-xl">shield</span>
+</div>
+                        Nuno "Rei" Santos
+                    </td>
+<td class="py-5 px-4 text-center font-medium">12</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">10</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">2</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">0</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">34</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">12</td>
+<td class="py-5 px-4 text-center font-bold text-primary">+22</td>
+<td class="py-5 px-6 text-right font-black text-2xl text-primary">32</td>
+</tr>
+<tr class="bg-surface-container-high table-row-active row-cl-zone group transition-all duration-300">
+<td class="py-5 px-6 font-black text-2xl text-primary italic text-glow border-l-4 border-primary">02</td>
+<td class="py-5 px-6 font-bold uppercase tracking-tight flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-variant flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary text-xl">star</span>
+</div>
+                        Pedro Pro Player
+                    </td>
+<td class="py-5 px-4 text-center font-medium">12</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">9</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">1</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">2</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">28</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">15</td>
+<td class="py-5 px-4 text-center font-bold text-primary">+13</td>
+<td class="py-5 px-6 text-right font-black text-2xl text-primary">28</td>
+</tr>
+<tr class="bg-surface-container-high table-row-active row-cl-zone group transition-all duration-300">
+<td class="py-5 px-6 font-black text-2xl text-primary italic text-glow border-l-4 border-primary">03</td>
+<td class="py-5 px-6 font-bold uppercase tracking-tight flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-variant flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary text-xl">bolt</span>
+</div>
+                        Dark Knight 7
+                    </td>
+<td class="py-5 px-4 text-center font-medium">12</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">8</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">2</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">2</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">25</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">18</td>
+<td class="py-5 px-4 text-center font-bold text-primary">+7</td>
+<td class="py-5 px-6 text-right font-black text-2xl text-primary">26</td>
+</tr>
+<tr class="bg-surface-container-high table-row-active row-cl-zone group transition-all duration-300">
+<td class="py-5 px-6 font-black text-2xl text-primary italic text-glow border-l-4 border-primary">04</td>
+<td class="py-5 px-6 font-bold uppercase tracking-tight flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-variant flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary text-xl">rocket_launch</span>
+</div>
+                        Skill Master
+                    </td>
+<td class="py-5 px-4 text-center font-medium">12</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">7</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">3</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">2</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">22</td>
+<td class="py-5 px-4 text-center text-on-surface-variant">19</td>
+<td class="py-5 px-4 text-center font-bold text-primary">+3</td>
+<td class="py-5 px-6 text-right font-black text-2xl text-primary">24</td>
+</tr>
+<!-- EUROPA LEAGUE ZONE -->
+<tr class="bg-surface-container-low table-row-active row-el-zone group transition-all duration-300">
+<td class="py-4 px-6 font-black text-xl text-tertiary-dim italic border-l-4 border-tertiary-dim">05</td>
+<td class="py-4 px-6 font-bold uppercase tracking-tight flex items-center gap-4">
+<div class="w-8 h-8 bg-surface-variant flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-tertiary-dim text-sm">workspace_premium</span>
+</div>
+                        Fifa Wizard
+                    </td>
+<td class="py-4 px-4 text-center">12</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">6</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">2</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">4</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">19</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">16</td>
+<td class="py-4 px-4 text-center font-bold text-tertiary-dim">+3</td>
+<td class="py-4 px-6 text-right font-black text-xl text-tertiary-dim">20</td>
+</tr>
+<tr class="bg-surface-container-low table-row-active row-el-zone group transition-all duration-300">
+<td class="py-4 px-6 font-black text-xl text-tertiary-dim italic border-l-4 border-tertiary-dim">06</td>
+<td class="py-4 px-6 font-bold uppercase tracking-tight flex items-center gap-4">
+<div class="w-8 h-8 bg-surface-variant flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-tertiary-dim text-sm">groups_3</span>
+</div>
+                        Goal Machine
+                    </td>
+<td class="py-4 px-4 text-center">12</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">5</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">2</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">5</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">15</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">14</td>
+<td class="py-4 px-4 text-center font-bold text-tertiary-dim">+1</td>
+<td class="py-4 px-6 text-right font-black text-xl text-tertiary-dim">17</td>
+</tr>
+<!-- MID TABLE (Omitted for brevity, but styled similarly) -->
+<tr class="hover:bg-surface-variant transition-colors">
+<td class="py-4 px-6 font-black text-lg text-on-surface-variant italic border-l-4 border-transparent">07</td>
+<td class="py-4 px-6 font-bold uppercase tracking-tight flex items-center gap-4 text-on-surface-variant">
+<div class="w-8 h-8 bg-surface-variant flex items-center justify-center border border-outline-variant/30"></div>
+                        Vortex Striker
+                    </td>
+<td class="py-4 px-4 text-center text-on-surface-variant">12</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">4</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">3</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">5</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">12</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">15</td>
+<td class="py-4 px-4 text-center font-medium text-error-dim">-3</td>
+<td class="py-4 px-6 text-right font-black text-lg text-on-surface-variant">15</td>
+</tr>
+<!-- RELEGATION ZONE -->
+<tr class="bg-surface-container-low table-row-active row-relegation-zone group transition-all duration-300">
+<td class="py-4 px-6 font-black text-xl text-error-dim italic border-l-4 border-error-dim">14</td>
+<td class="py-4 px-6 font-bold uppercase tracking-tight flex items-center gap-4">
+<div class="w-8 h-8 bg-surface-variant flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-error-dim text-sm">dangerous</span>
+</div>
+                        Joystick Junkie
+                    </td>
+<td class="py-4 px-4 text-center">12</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">1</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">3</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">8</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">8</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">24</td>
+<td class="py-4 px-4 text-center font-bold text-error-dim">-16</td>
+<td class="py-4 px-6 text-right font-black text-xl text-error-dim">6</td>
+</tr>
+<tr class="bg-surface-container-low table-row-active row-relegation-zone group transition-all duration-300">
+<td class="py-4 px-6 font-black text-xl text-error-dim italic border-l-4 border-error-dim">15</td>
+<td class="py-4 px-6 font-bold uppercase tracking-tight flex items-center gap-4">
+<div class="w-8 h-8 bg-surface-variant flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-error-dim text-sm">dangerous</span>
+</div>
+                        The Beginner
+                    </td>
+<td class="py-4 px-4 text-center">12</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">1</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">1</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">10</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">5</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">32</td>
+<td class="py-4 px-4 text-center font-bold text-error-dim">-27</td>
+<td class="py-4 px-6 text-right font-black text-xl text-error-dim">4</td>
+</tr>
+<tr class="bg-surface-container-low table-row-active row-relegation-zone group transition-all duration-300">
+<td class="py-4 px-6 font-black text-xl text-error-dim italic border-l-4 border-error-dim">16</td>
+<td class="py-4 px-6 font-bold uppercase tracking-tight flex items-center gap-4">
+<div class="w-8 h-8 bg-surface-variant flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-error-dim text-sm">skull</span>
+</div>
+                        AFK Master
+                    </td>
+<td class="py-4 px-4 text-center">12</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">0</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">1</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">11</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">2</td>
+<td class="py-4 px-4 text-center text-on-surface-variant">45</td>
+<td class="py-4 px-4 text-center font-bold text-error-dim">-43</td>
+<td class="py-4 px-6 text-right font-black text-xl text-error-dim">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-8 flex flex-wrap gap-6 text-[10px] font-headline tracking-widest uppercase text-on-surface-variant/60">
+<div class="flex items-center gap-2"><div class="w-2 h-2 bg-primary"></div> Champions League Zone</div>
+<div class="flex items-center gap-2"><div class="w-2 h-2 bg-tertiary-dim"></div> Europa League Zone</div>
+<div class="flex items-center gap-2"><div class="w-2 h-2 bg-error-dim"></div> Relegation Zone</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-32 relative overflow-hidden bg-primary">
+<div class="absolute inset-0 bg-black/10 mix-blend-overlay"></div>
+<div class="relative z-10 max-w-4xl mx-auto px-8 text-center">
+<h2 class="font-headline font-black text-5xl md:text-7xl uppercase tracking-tighter text-black mb-8 leading-tight">
+                    PRONTO PARA ENTRAR NO JOGO?
+                </h2>
+<p class="font-body text-xl text-black/80 mb-12 font-medium">
+                    A maior arena digital de EA SPORT FC aguarda por ti. Regista-te agora e começa a tua jornada rumo ao estrelato.
+                </p>
+<div class="flex flex-wrap justify-center gap-6">
+<button class="bg-black text-primary font-headline font-bold text-xl px-12 py-5 rounded-none uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">
+                        REGISTAR AGORA
+                    </button>
+<button class="border-2 border-black text-black font-headline font-bold text-xl px-12 py-5 rounded-none uppercase tracking-widest hover:bg-black hover:text-primary transition-all">
+                        FAZER LOGIN
+                    </button>
+</div>
+</div>
+<!-- Kinetic Shapes -->
+<div class="absolute -top-10 -right-10 w-64 h-64 border-[40px] border-black/5 rounded-none rotate-45"></div>
+<div class="absolute -bottom-20 -left-20 w-96 h-96 border-[60px] border-black/5 rounded-none -rotate-12"></div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-8 border-t border-[#484848]/20 bg-[#000000]">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-1">
+<div class="text-xl font-black text-[#39FF14] font-['Space_Grotesk'] uppercase mb-6">POWER PLAY</div>
+<p class="font-['Manrope'] text-xs tracking-widest uppercase text-gray-500 leading-relaxed">
+                    © 2024 POWER PLAY E-SPORTS. ENGINEERED FOR COMPETITION.
+                </p>
+</div>
+<div class="col-span-1">
+<h4 class="text-[#39FF14] font-['Space_Grotesk'] font-bold text-xs tracking-widest uppercase mb-6">EXPLORE</h4>
+<ul class="space-y-4 font-['Manrope'] text-xs tracking-widest uppercase text-gray-500">
+<li><a class="hover:text-[#39FF14] transition-colors duration-300" href="#">PRIVACY POLICY</a></li>
+<li><a class="hover:text-[#39FF14] transition-colors duration-300" href="#">TERMS OF SERVICE</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="text-[#39FF14] font-['Space_Grotesk'] font-bold text-xs tracking-widest uppercase mb-6">COMPANY</h4>
+<ul class="space-y-4 font-['Manrope'] text-xs tracking-widest uppercase text-gray-500">
+<li><a class="hover:text-[#39FF14] transition-colors duration-300" href="#">PARTNERSHIPS</a></li>
+<li><a class="hover:text-[#39FF14] transition-colors duration-300" href="#">CAREERS</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="text-[#39FF14] font-['Space_Grotesk'] font-bold text-xs tracking-widest uppercase mb-6">RESOURCES</h4>
+<ul class="space-y-4 font-['Manrope'] text-xs tracking-widest uppercase text-gray-500">
+<li><a class="hover:text-[#39FF14] transition-colors duration-300" href="#">SUPPORT</a></li>
+<li><a class="hover:text-[#39FF14] transition-colors duration-300" href="#">MEDIA KIT</a></li>
+</ul>
+</div>
+</div>
+</footer>
+</body></html>

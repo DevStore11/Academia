@@ -1,0 +1,54 @@
+* { box-sizing: border-box; }
+    body {
+      font-family: sans-serif;
+      max-width: 420px;
+      margin: 60px auto;
+      padding: 24px;
+      background: #f4f4f4;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    h2 { text-align: center; color: #222; margin-bottom: 20px; }
+    input {
+      width: 100%;
+      padding: 10px 14px;
+      margin: 6px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #e63946;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    button:hover { background: #c1121f; }
+    #mensagem {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      display: none;
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .sucesso { background: #d4edda; color: #155724; }
+    .erro    { background: #f8d7da; color: #721c24; }
+    .aviso {
+      background: #fff3cd;
+      color: #856404;
+      font-size: 13px;
+      margin-top: 20px;
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+    #ecraAcesso p { color: #555; margin-bottom: 12px; }
+    #ecraAdmin { display: none; 
+    }
