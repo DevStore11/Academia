@@ -4,7 +4,8 @@ import { auth, db } from "./firebaseConfig.js";
 
 import {
   signInWithEmailAndPassword,
-  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   GoogleAuthProvider
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
@@ -18,6 +19,49 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
 const provedorGoogle = new GoogleAuthProvider();
+
+// =========================
+// HELPER — pega nome ou username
+// =========================
+function getNome(dados) {
+  return dados.nome || dados.username || "";
+}
+
+// =========================
+// VERIFICAR RESULTADO DO REDIRECT DO GOOGLE
+// =========================
+async function verificarRedirectGoogle() {
+  try {
+    const resultado = await getRedirectResult(auth);
+    if (!resultado) return;
+
+    const { email } = resultado.user;
+
+    // Procura no Firestore pelo email
+    const usuariosRef = collection(db, "usuarios");
+    const q = query(usuariosRef, where("email", "==", email));
+    const snap = await getDocs(q);
+
+    if (snap.empty) {
+      mostrarMensagem("Email não registado no sistema. Faça o cadastro primeiro.", "erro");
+      return;
+    }
+
+    const dadosUsuario = snap.docs[0].data();
+    const idUsuario = snap.docs[0].id;
+
+    guardarSessao(idUsuario, dadosUsuario);
+    redirecionar(dadosUsuario.role);
+
+  } catch (erro) {
+    console.error("Erro redirect Google:", erro);
+    if (erro.code === "auth/unauthorized-domain") {
+      mostrarMensagem("Domínio não autorizado. Contacte o admin.", "erro");
+    } else {
+      mostrarMensagem("Falha no login com Google.", "erro");
+    }
+  }
+}
 
 // =========================
 // FUNÇÃO PRINCIPAL DE LOGIN
@@ -38,7 +82,7 @@ async function efectuarLogin(evento) {
     let idUsuario;
 
     // =========================
-    // LOGIN POR EMAIL
+    // LOGIN POR EMAIL (v2.0)
     // =========================
     if (identificacao.includes("@")) {
       const credencial = await signInWithEmailAndPassword(auth, identificacao, senha);
@@ -57,15 +101,16 @@ async function efectuarLogin(evento) {
     }
 
     // =========================
-    // LOGIN POR NOME (CLUBE)
+    // LOGIN POR NOME / USERNAME
     // =========================
     else {
-      const q = query(
-        collection(db, "usuarios"),
-        where("nome", "==", identificacao)
-      );
+      const usuariosRef = collection(db, "usuarios");
 
-      const snap = await getDocs(q);
+      // Procura por nome primeiro, depois por username
+      let snap = await getDocs(query(usuariosRef, where("nome", "==", identificacao)));
+      if (snap.empty) {
+        snap = await getDocs(query(usuariosRef, where("username", "==", identificacao)));
+      }
 
       if (snap.empty) {
         mostrarMensagem("Nome do clube ou senha incorrectos", "erro");
@@ -76,23 +121,35 @@ async function efectuarLogin(evento) {
       dadosUsuario = docUsuario.data();
       idUsuario = docUsuario.id;
 
-      // Login por nome usa Auth com o email guardado no Firestore
+      // v1.0 — sem email, compara senha no Firestore
       if (!dadosUsuario.email) {
-        mostrarMensagem("Conta sem email associado. Contacte o admin.", "erro");
-        return;
+        if (!dadosUsuario.senha || dadosUsuario.senha !== senha) {
+          mostrarMensagem("Nome do clube ou senha incorrectos", "erro");
+          return;
+        }
       }
-
-      const credencial = await signInWithEmailAndPassword(auth, dadosUsuario.email, senha);
-      if (!credencial) {
-        mostrarMensagem("Senha incorrecta", "erro");
-        return;
+      // v2.0 — tem email, autentica via Firebase Auth
+      else {
+        try {
+          await signInWithEmailAndPassword(auth, dadosUsuario.email, senha);
+        } catch (erroAuth) {
+          if (
+            erroAuth.code === "auth/wrong-password" ||
+            erroAuth.code === "auth/invalid-credential"
+          ) {
+            mostrarMensagem("Nome do clube ou senha incorrectos", "erro");
+          } else {
+            mostrarMensagem("Erro ao autenticar. Tente novamente.", "erro");
+          }
+          return;
+        }
       }
     }
 
     // =========================
     // VALIDAÇÃO FINAL
     // =========================
-    if (!dadosUsuario.nome || !dadosUsuario.role) {
+    if (!getNome(dadosUsuario) || !dadosUsuario.role) {
       mostrarMensagem("Conta incompleta. Contacte o admin.", "erro");
       return;
     }
@@ -116,34 +173,14 @@ async function efectuarLogin(evento) {
 }
 
 // =========================
-// LOGIN COM GOOGLE
+// LOGIN COM GOOGLE (redirect)
 // =========================
 async function loginComGoogle() {
   try {
-    const resultado = await signInWithPopup(auth, provedorGoogle);
-    const { uid } = resultado.user;
-
-    const docRef = doc(db, "usuarios", uid);
-    const docSnap = await getDoc(docRef);
-
-    if (!docSnap.exists()) {
-      mostrarMensagem("Conta Google sem cadastro no sistema", "erro");
-      return;
-    }
-
-    const dadosUsuario = docSnap.data();
-
-    if (!dadosUsuario.nome) {
-      mostrarMensagem("Conta incompleta. Contacte o admin.", "erro");
-      return;
-    }
-
-    guardarSessao(uid, dadosUsuario);
-    redirecionar(dadosUsuario.role);
-
+    await signInWithRedirect(auth, provedorGoogle);
   } catch (erro) {
-    console.error("Erro Google:", erro);
-    mostrarMensagem("Falha no login com Google", "erro");
+    console.error("Erro ao iniciar login Google:", erro);
+    mostrarMensagem("Falha ao iniciar login com Google.", "erro");
   }
 }
 
@@ -152,7 +189,7 @@ async function loginComGoogle() {
 // =========================
 function guardarSessao(id, dados) {
   localStorage.setItem("user_id", id);
-  localStorage.setItem("nome", dados.nome);
+  localStorage.setItem("nome", getNome(dados));
   localStorage.setItem("role", dados.role);
   localStorage.setItem("tipoConta", dados.tipoConta || "");
 }
@@ -175,9 +212,11 @@ function mostrarMensagem(texto, tipo) {
 }
 
 // =========================
-// EVENTOS (sem duplicação)
+// EVENTOS
 // =========================
 document.addEventListener("DOMContentLoaded", () => {
+  verificarRedirectGoogle();
+
   const formLogin = document.getElementById("formularioLogin");
   const btnGoogle = document.getElementById("btnGoogle");
   const toggleSenha = document.getElementById("toggleSenha");

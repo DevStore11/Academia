@@ -42,7 +42,6 @@
   border-color: var(--primary-green);
 }
 
-/* Header do card da liga */
 .league-table .table-container header {
   display: flex;
   align-items: center;
@@ -76,35 +75,37 @@
   display: none;
 }
 
-/* Wrapper de scroll horizontal — envolve a <table> */
-.league-table .table-container {
+/* ===== SCROLL HORIZONTAL ===== */
+.table-scroll-wrapper {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-green) #1a1a1a;
 }
 
-/* Indicador visual de scroll em mobile */
-.league-table .table-container::after {
-  content: '';
-  display: none;
-  height: 2px;
-  background: linear-gradient(to right, transparent, var(--primary-green), transparent);
-  opacity: 0.3;
+.table-scroll-wrapper::-webkit-scrollbar {
+  height: 4px;
+}
+
+.table-scroll-wrapper::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.table-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: var(--primary-green);
+  border-radius: 2px;
 }
 
 /* ===== TABELA ===== */
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 580px;
+  table-layout: fixed;
+  min-width: 600px;
 }
 
-thead {
-  background: #111;
-}
-
-thead tr {
-  background: #111;
-}
+thead { background: #111; }
+thead tr { background: #111; }
 
 th {
   padding: 10px 14px;
@@ -115,31 +116,28 @@ th {
   color: #444;
   text-align: left;
   border-bottom: 1px solid #1a1a1a;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-th:not(:first-child):not(:nth-child(2)) {
-  text-align: center;
-}
+th:not(:first-child):not(:nth-child(2)) { text-align: center; }
 
 tbody tr {
   border-bottom: 1px solid #191919;
   transition: background 0.15s;
 }
 
-tbody tr:last-child {
-  border-bottom: none;
-}
-
-tbody tr:hover {
-  background: #1a1a1a;
-}
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #1a1a1a; }
 
 td {
   padding: 11px 14px;
   font-size: 13px;
   color: #aaa;
   border-bottom: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -166,6 +164,12 @@ td:last-child {
   font-weight: 700;
 }
 
+.position-champion {
+  background: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+  box-shadow: 0 0 8px rgba(255, 193, 7, 0.2);
+}
+
 .position-top {
   background: rgba(0, 204, 106, 0.15);
   color: var(--primary-green);
@@ -182,13 +186,9 @@ td:last-child {
 }
 
 /* ===== LINHAS DESTACADAS ===== */
-.promotion-row td {
-  background: rgba(0, 204, 106, 0.03);
-}
-
-.relegation-row td {
-  background: rgba(239, 68, 68, 0.03);
-}
+.promotion-row td { background: rgba(0, 204, 106, 0.03); }
+.relegation-row td { background: rgba(239, 68, 68, 0.03); }
+.champion-row td  { background: rgba(255, 193, 7, 0.04); }
 
 /* ===== LEGENDA ===== */
 .table-legend {
@@ -218,18 +218,13 @@ td:last-child {
   flex-shrink: 0;
 }
 
-.legend-promotion::before {
-  background: var(--primary-green);
-}
-
-.legend-relegation::before {
-  background: #ef4444;
-}
+.legend-promotion::before { background: var(--primary-green); }
+.legend-relegation::before { background: #ef4444; }
 
 /* Team logo */
 .team-logo {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
   border-radius: 50%;
   border: 1px solid var(--primary-green);
@@ -237,110 +232,72 @@ td:last-child {
   background: var(--dark-bg);
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE — TABLET ===== */
 @media (max-width: 768px) {
-  .league-table .table-container header {
-    padding: 14px 16px;
+  /* Ocultar: GM, GS, SG */
+  th:nth-child(7), td:nth-child(7),
+  th:nth-child(8), td:nth-child(8),
+  th:nth-child(9), td:nth-child(9) { display: none; }
+
+  th { padding: 8px 10px; font-size: 9px; }
+  td { padding: 9px 10px; font-size: 12px; }
+
+  .position-indicator { width: 22px; height: 22px; font-size: 11px; }
+  .team-logo { width: 22px; height: 22px; }
+  .table-legend { justify-content: center; }
+}
+
+/* ===== RESPONSIVE — MOBILE ===== */
+@media (max-width: 680px) {
+
+  /* Remove padding lateral do container — tabela cola nas bordas */
+  .leagues-section .container {
+    padding-left: 0;
+    padding-right: 0;
   }
 
-  .league-table .table-container header h2 {
-    font-size: 11px;
-    letter-spacing: 1.5px;
+  /* Título e filtros mantêm padding */
+  .leagues-section .section-header {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
-  th {
-    padding: 8px 10px;
-    font-size: 9px;
-    letter-spacing: 1px;
+  .leagues-section .league-filters {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
-  td {
-    padding: 9px 10px;
-    font-size: 12px;
+  /* Card sem bordas arredondadas laterais — encosta ao ecrã */
+  .league-table {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 12px;
   }
 
-  td:last-child {
-    font-size: 13px;
-  }
+  /* Ocultar: E, D, GM, GS, SG */
+  /* Visível: Pos(1) Clube(2) J(3) V(4) Pts(10) */
+  th:nth-child(5), td:nth-child(5),
+  th:nth-child(6), td:nth-child(6),
+  th:nth-child(7), td:nth-child(7),
+  th:nth-child(8), td:nth-child(8),
+  th:nth-child(9), td:nth-child(9) { display: none; }
 
-  .position-indicator {
-    width: 22px;
-    height: 22px;
-    font-size: 11px;
-    border-radius: 5px;
-  }
+  .league-table .table-container header { padding: 12px 16px; }
+  .league-table .table-container header h2 { font-size: 11px; letter-spacing: 1.5px; }
 
-  .team-logo {
-    width: 24px;
-    height: 24px;
-  }
+  th { padding: 7px 10px; font-size: 9px; letter-spacing: 1px; }
+  td { padding: 10px 10px; font-size: 12px; }
+  td:last-child { font-size: 13px; }
+
+  .position-indicator { width: 22px; height: 22px; font-size: 11px; border-radius: 5px; }
+  .team-logo { width: 20px; height: 20px; }
 
   .table-legend {
     justify-content: center;
-    padding: 10px 16px 12px;
+    padding: 8px 16px 12px;
     gap: 14px;
   }
-}
 
-@media (max-width: 480px) {
-  .league-table {
-    border-radius: 10px;
-    margin-bottom: 16px;
-  }
-
-  .league-table .table-container header {
-    padding: 12px 14px;
-  }
-
-  .league-table .table-container header h2 {
-    font-size: 10px;
-    letter-spacing: 1px;
-  }
-
-  th {
-    padding: 7px 8px;
-    font-size: 8px;
-    letter-spacing: 0.5px;
-  }
-
-  td {
-    padding: 8px 8px;
-    font-size: 11px;
-  }
-
-  td:last-child {
-    font-size: 12px;
-  }
-
-  .position-indicator {
-    width: 20px;
-    height: 20px;
-    font-size: 10px;
-    border-radius: 4px;
-  }
-
-  .team-logo {
-    width: 20px;
-    height: 20px;
-  }
-
-  .table-legend {
-    justify-content: center;
-    padding: 8px 14px 10px;
-    gap: 12px;
-  }
-
-  .legend-item {
-    font-size: 9px;
-  }
-}
-/* Campeão — dourado */
-.champion-row td {
-  background: rgba(255, 193, 7, 0.04);
-}
-
-.position-champion {
-  background: rgba(255, 193, 7, 0.2);
-  color: #ffc107;
-  box-shadow: 0 0 8px rgba(255, 193, 7, 0.2);
+  .legend-item { font-size: 9px; }
 }
