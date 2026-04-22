@@ -1,10 +1,12 @@
+// assets/js/login.js
+
 import { auth, db } from "./firebaseConfig.js";
 
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
 import {
   collection,
@@ -12,10 +14,8 @@ import {
   where,
   getDocs,
   doc,
-  getDoc,
-  setDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+  getDoc
+} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
 const provedorGoogle = new GoogleAuthProvider();
 
@@ -34,21 +34,6 @@ async function efectuarLogin(evento) {
   }
 
   try {
-    // =========================
-    // LOGIN HARDCODED
-    // =========================
-    if (identificacao === "admin" && senha === "1234567") {
-      guardarSessao("admin", { nome: "Administrador", role: "admin", tipoConta: "hardcoded" });
-      redirecionar("admin");
-      return;
-    }
-
-    if (identificacao === "funcionario" && senha === "12345") {
-      guardarSessao("funcionario", { nome: "Funcionário", role: "funcionario", tipoConta: "hardcoded" });
-      redirecionar("funcionario");
-      return;
-    }
-
     let dadosUsuario;
     let idUsuario;
 
@@ -56,11 +41,9 @@ async function efectuarLogin(evento) {
     // LOGIN POR EMAIL
     // =========================
     if (identificacao.includes("@")) {
-      // 1️⃣ Auth confirma identidade
       const credencial = await signInWithEmailAndPassword(auth, identificacao, senha);
       const uid = credencial.user.uid;
 
-      // 2️⃣ Firestore confirma utilizador
       const docRef = doc(db, "usuarios", uid);
       const docSnap = await getDoc(docRef);
 
@@ -93,8 +76,15 @@ async function efectuarLogin(evento) {
       dadosUsuario = docUsuario.data();
       idUsuario = docUsuario.id;
 
-      if (!dadosUsuario.senha || dadosUsuario.senha !== senha) {
-        mostrarMensagem("Nome do clube ou senha incorrectos", "erro");
+      // Login por nome usa Auth com o email guardado no Firestore
+      if (!dadosUsuario.email) {
+        mostrarMensagem("Conta sem email associado. Contacte o admin.", "erro");
+        return;
+      }
+
+      const credencial = await signInWithEmailAndPassword(auth, dadosUsuario.email, senha);
+      if (!credencial) {
+        mostrarMensagem("Senha incorrecta", "erro");
         return;
       }
     }
@@ -113,10 +103,12 @@ async function efectuarLogin(evento) {
   } catch (erro) {
     console.error("Erro no login:", erro);
 
-    if (erro.code === "auth/wrong-password") {
+    if (erro.code === "auth/wrong-password" || erro.code === "auth/invalid-credential") {
       mostrarMensagem("Senha incorrecta", "erro");
     } else if (erro.code === "auth/user-not-found") {
       mostrarMensagem("Conta não encontrada", "erro");
+    } else if (erro.code === "auth/network-request-failed") {
+      mostrarMensagem("Erro de rede. Verifique a conexão.", "erro");
     } else {
       mostrarMensagem("Erro ao efectuar login", "erro");
     }
@@ -129,7 +121,7 @@ async function efectuarLogin(evento) {
 async function loginComGoogle() {
   try {
     const resultado = await signInWithPopup(auth, provedorGoogle);
-    const { uid, email } = resultado.user;
+    const { uid } = resultado.user;
 
     const docRef = doc(db, "usuarios", uid);
     const docSnap = await getDoc(docRef);
@@ -183,31 +175,22 @@ function mostrarMensagem(texto, tipo) {
 }
 
 // =========================
-// EVENTOS
+// EVENTOS (sem duplicação)
 // =========================
-document.addEventListener("DOMContentLoaded", () => {
-  document
-    .getElementById("formularioLogin")
-    .addEventListener("submit", efectuarLogin);
-
-  document
-    .getElementById("btnGoogle")
-    ?.addEventListener("click", loginComGoogle);
-});
 document.addEventListener("DOMContentLoaded", () => {
   const formLogin = document.getElementById("formularioLogin");
   const btnGoogle = document.getElementById("btnGoogle");
+  const toggleSenha = document.getElementById("toggleSenha");
+  const senhaInput = document.getElementById("senhaLogin");
 
   if (formLogin) formLogin.addEventListener("submit", efectuarLogin);
   if (btnGoogle) btnGoogle.addEventListener("click", loginComGoogle);
 
-  const toggleSenha = document.getElementById("toggleSenha");
-  const senhaInput = document.getElementById("senhaLogin");
   if (toggleSenha && senhaInput) {
     toggleSenha.addEventListener("click", () => {
       senhaInput.type = senhaInput.type === "password" ? "text" : "password";
-      toggleSenha.innerHTML = senhaInput.type === "password" 
-        ? '<i class="fas fa-eye"></i>' 
+      toggleSenha.innerHTML = senhaInput.type === "password"
+        ? '<i class="fas fa-eye"></i>'
         : '<i class="fas fa-eye-slash"></i>';
     });
   }

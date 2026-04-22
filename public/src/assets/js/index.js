@@ -7,7 +7,7 @@ import {
   getDocs,
   setDoc,
   doc,
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
 // =======================================
 // ATUALIZAR TABELAS NO FIRESTORE
@@ -111,20 +111,36 @@ async function carregarLigas() {
 
 // =======================================
 // DETERMINAR CLASSE DE POSIÇÃO NA TABELA
-// Primeiros 4 → destaque verde (promotion)
-// Últimos 4   → destaque vermelho (relegation)
-// Restantes   → sem destaque
+// Adapta zonas de promoção/descida ao total de clubes
 // =======================================
 function getPosicaoClasse(index, total) {
-  // Top 4 — verde
-  if (index < 4) {
-    return { row: "promotion-row", pos: `position-top` };
+  // Zonas calculadas proporcionalmente
+  const zonaPromocao = total <= 6  ? 1
+                     : total <= 10 ? 2
+                     : total <= 14 ? 3
+                     : 4; // 15+ clubes → top 4
+
+  const zonaDescida  = total <= 6  ? 1
+                     : total <= 10 ? 2
+                     : total <= 14 ? 3
+                     : 4; // 15+ clubes → últimos 4
+
+  // Campeão — destaque especial (sempre o 1º)
+  if (index === 0) {
+    return { row: "promotion-row champion-row", pos: "position-champion" };
   }
-  // Últimos 4 — vermelho
-  if (index >= total - 4) {
+
+  // Zona de promoção
+  if (index < zonaPromocao) {
+    return { row: "promotion-row", pos: "position-top" };
+  }
+
+  // Zona de descida
+  if (index >= total - zonaDescida) {
     return { row: "relegation-row", pos: "position-relegation" };
   }
-  // Meio — neutro
+
+  // Meio da tabela
   return { row: "", pos: "position-normal" };
 }
 

@@ -17,3 +17,9 @@
       }
     });
   });
+const btnHamburger = document.getElementById("hamburgerBtn");
+const menuNav = document.getElementById("menuNav");
+
+btnHamburger.addEventListener("click", () => {
+    menuNav.classList.toggle("ativo");
+});

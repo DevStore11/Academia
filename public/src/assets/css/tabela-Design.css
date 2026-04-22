@@ -69,7 +69,6 @@
   color: #fff;
   margin: 0;
   display: block;
-  /* reset do section-header h2 */
   justify-content: unset;
 }
 
@@ -77,18 +76,33 @@
   display: none;
 }
 
+/* Wrapper de scroll horizontal — envolve a <table> */
+.league-table .table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Indicador visual de scroll em mobile */
+.league-table .table-container::after {
+  content: '';
+  display: none;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--primary-green), transparent);
+  opacity: 0.3;
+}
+
 /* ===== TABELA ===== */
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 600px;
-}
-
-thead tr {
-  background: #111;
+  min-width: 580px;
 }
 
 thead {
+  background: #111;
+}
+
+thead tr {
   background: #111;
 }
 
@@ -101,6 +115,7 @@ th {
   color: #444;
   text-align: left;
   border-bottom: 1px solid #1a1a1a;
+  white-space: nowrap;
 }
 
 th:not(:first-child):not(:nth-child(2)) {
@@ -125,6 +140,7 @@ td {
   font-size: 13px;
   color: #aaa;
   border-bottom: none;
+  white-space: nowrap;
 }
 
 td:not(:first-child):not(:nth-child(2)) {
@@ -210,7 +226,7 @@ td:last-child {
   background: #ef4444;
 }
 
-/* Team logo (mantida) */
+/* Team logo */
 .team-logo {
   width: 30px;
   height: 30px;
@@ -219,4 +235,112 @@ td:last-child {
   border: 1px solid var(--primary-green);
   padding: 1px;
   background: var(--dark-bg);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .league-table .table-container header {
+    padding: 14px 16px;
+  }
+
+  .league-table .table-container header h2 {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  th {
+    padding: 8px 10px;
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  td {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  td:last-child {
+    font-size: 13px;
+  }
+
+  .position-indicator {
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+    border-radius: 5px;
+  }
+
+  .team-logo {
+    width: 24px;
+    height: 24px;
+  }
+
+  .table-legend {
+    justify-content: center;
+    padding: 10px 16px 12px;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .league-table {
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+
+  .league-table .table-container header {
+    padding: 12px 14px;
+  }
+
+  .league-table .table-container header h2 {
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+
+  th {
+    padding: 7px 8px;
+    font-size: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    padding: 8px 8px;
+    font-size: 11px;
+  }
+
+  td:last-child {
+    font-size: 12px;
+  }
+
+  .position-indicator {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    border-radius: 4px;
+  }
+
+  .team-logo {
+    width: 20px;
+    height: 20px;
+  }
+
+  .table-legend {
+    justify-content: center;
+    padding: 8px 14px 10px;
+    gap: 12px;
+  }
+
+  .legend-item {
+    font-size: 9px;
+  }
+}
+/* Campeão — dourado */
+.champion-row td {
+  background: rgba(255, 193, 7, 0.04);
+}
+
+.position-champion {
+  background: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+  box-shadow: 0 0 8px rgba(255, 193, 7, 0.2);
 }

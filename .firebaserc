@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "cokplay",
+    "default": "cokplay-376c3",
     "cokplay": "cokplay-376c3"
   },
   "targets": {},
