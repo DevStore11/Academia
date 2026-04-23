@@ -4,9 +4,9 @@ import { auth, db } from "./firebaseConfig.js";
 
 import {
   signInWithEmailAndPassword,
-  signInWithRedirect,
-  getRedirectResult,
-  GoogleAuthProvider
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
 import {
@@ -28,39 +28,43 @@ function getNome(dados) {
 }
 
 // =========================
-// VERIFICAR RESULTADO DO REDIRECT DO GOOGLE
+// VERIFICAR SESSÃO EXISTENTE (auth state)
 // =========================
-async function verificarRedirectGoogle() {
-  try {
-    const resultado = await getRedirectResult(auth);
-    if (!resultado) return;
+function verificarSessaoExistente() {
+  // Se já há user_id guardado e estamos na página de login, não redirecionar
+  // automaticamente — deixar o Firebase Auth resolver via onAuthStateChanged
+  onAuthStateChanged(auth, async (user) => {
+    // Só redireciona se vier de um login Google (flag na sessionStorage)
+    const pendingGoogle = sessionStorage.getItem("pending_google_login");
+    if (!user || !pendingGoogle) return;
 
-    const { email } = resultado.user;
+    sessionStorage.removeItem("pending_google_login");
+    mostrarCarregando(true);
 
-    // Procura no Firestore pelo email
-    const usuariosRef = collection(db, "usuarios");
-    const q = query(usuariosRef, where("email", "==", email));
-    const snap = await getDocs(q);
+    try {
+      const { email } = user;
+      const usuariosRef = collection(db, "usuarios");
+      const q = query(usuariosRef, where("email", "==", email));
+      const snap = await getDocs(q);
 
-    if (snap.empty) {
-      mostrarMensagem("Email não registado no sistema. Faça o cadastro primeiro.", "erro");
-      return;
+      if (snap.empty) {
+        mostrarMensagem("Email não registado no sistema. Faça o cadastro primeiro.", "erro");
+        mostrarCarregando(false);
+        return;
+      }
+
+      const dadosUsuario = snap.docs[0].data();
+      const idUsuario = snap.docs[0].id;
+
+      guardarSessao(idUsuario, dadosUsuario);
+      redirecionar(dadosUsuario.role);
+
+    } catch (erro) {
+      console.error("Erro ao verificar conta Google:", erro);
+      mostrarMensagem("Erro ao verificar conta. Tente novamente.", "erro");
+      mostrarCarregando(false);
     }
-
-    const dadosUsuario = snap.docs[0].data();
-    const idUsuario = snap.docs[0].id;
-
-    guardarSessao(idUsuario, dadosUsuario);
-    redirecionar(dadosUsuario.role);
-
-  } catch (erro) {
-    console.error("Erro redirect Google:", erro);
-    if (erro.code === "auth/unauthorized-domain") {
-      mostrarMensagem("Domínio não autorizado. Contacte o admin.", "erro");
-    } else {
-      mostrarMensagem("Falha no login com Google.", "erro");
-    }
-  }
+  });
 }
 
 // =========================
@@ -76,6 +80,8 @@ async function efectuarLogin(evento) {
     mostrarMensagem("Preencha todos os campos", "erro");
     return;
   }
+
+  mostrarCarregando(true);
 
   try {
     let dadosUsuario;
@@ -93,6 +99,7 @@ async function efectuarLogin(evento) {
 
       if (!docSnap.exists()) {
         mostrarMensagem("Conta não encontrada no sistema. Contacte o admin.", "erro");
+        mostrarCarregando(false);
         return;
       }
 
@@ -106,7 +113,6 @@ async function efectuarLogin(evento) {
     else {
       const usuariosRef = collection(db, "usuarios");
 
-      // Procura por nome primeiro, depois por username
       let snap = await getDocs(query(usuariosRef, where("nome", "==", identificacao)));
       if (snap.empty) {
         snap = await getDocs(query(usuariosRef, where("username", "==", identificacao)));
@@ -114,6 +120,7 @@ async function efectuarLogin(evento) {
 
       if (snap.empty) {
         mostrarMensagem("Nome do clube ou senha incorrectos", "erro");
+        mostrarCarregando(false);
         return;
       }
 
@@ -125,6 +132,7 @@ async function efectuarLogin(evento) {
       if (!dadosUsuario.email) {
         if (!dadosUsuario.senha || dadosUsuario.senha !== senha) {
           mostrarMensagem("Nome do clube ou senha incorrectos", "erro");
+          mostrarCarregando(false);
           return;
         }
       }
@@ -141,6 +149,7 @@ async function efectuarLogin(evento) {
           } else {
             mostrarMensagem("Erro ao autenticar. Tente novamente.", "erro");
           }
+          mostrarCarregando(false);
           return;
         }
       }
@@ -151,6 +160,7 @@ async function efectuarLogin(evento) {
     // =========================
     if (!getNome(dadosUsuario) || !dadosUsuario.role) {
       mostrarMensagem("Conta incompleta. Contacte o admin.", "erro");
+      mostrarCarregando(false);
       return;
     }
 
@@ -159,6 +169,7 @@ async function efectuarLogin(evento) {
 
   } catch (erro) {
     console.error("Erro no login:", erro);
+    mostrarCarregando(false);
 
     if (erro.code === "auth/wrong-password" || erro.code === "auth/invalid-credential") {
       mostrarMensagem("Senha incorrecta", "erro");
@@ -173,14 +184,48 @@ async function efectuarLogin(evento) {
 }
 
 // =========================
-// LOGIN COM GOOGLE (redirect)
+// LOGIN COM GOOGLE (popup — mais fiável que redirect)
 // =========================
 async function loginComGoogle() {
+  mostrarCarregando(true);
+
   try {
-    await signInWithRedirect(auth, provedorGoogle);
+    const resultado = await signInWithPopup(auth, provedorGoogle);
+    const { email } = resultado.user;
+
+    const usuariosRef = collection(db, "usuarios");
+    const q = query(usuariosRef, where("email", "==", email));
+    const snap = await getDocs(q);
+
+    if (snap.empty) {
+      mostrarMensagem("Email não registado no sistema. Faça o cadastro primeiro.", "erro");
+      mostrarCarregando(false);
+      return;
+    }
+
+    const dadosUsuario = snap.docs[0].data();
+    const idUsuario = snap.docs[0].id;
+
+    guardarSessao(idUsuario, dadosUsuario);
+    redirecionar(dadosUsuario.role);
+
   } catch (erro) {
-    console.error("Erro ao iniciar login Google:", erro);
-    mostrarMensagem("Falha ao iniciar login com Google.", "erro");
+    console.error("Erro login Google:", erro);
+    mostrarCarregando(false);
+
+    if (erro.code === "auth/popup-blocked") {
+      // Fallback para redirect se popup bloqueado
+      mostrarMensagem("Popup bloqueado. A redirecionar...", "info");
+      sessionStorage.setItem("pending_google_login", "1");
+      const { signInWithRedirect } = await import("https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js");
+      await signInWithRedirect(auth, provedorGoogle);
+    } else if (erro.code === "auth/popup-closed-by-user") {
+      mostrarMensagem("Login cancelado.", "erro");
+    } else if (erro.code === "auth/unauthorized-domain") {
+      mostrarMensagem("Domínio não autorizado. Contacte o admin.", "erro");
+    } else {
+      mostrarMensagem("Falha no login com Google.", "erro");
+    }
   }
 }
 
@@ -206,16 +251,25 @@ function redirecionar(role) {
 
 function mostrarMensagem(texto, tipo) {
   const msg = document.getElementById("mensagemLogin");
+  if (!msg) return;
   msg.style.display = "block";
   msg.textContent = texto;
   msg.className = `message-box ${tipo}`;
+}
+
+function mostrarCarregando(estado) {
+  const btn = document.getElementById("btnGoogle");
+  const btnSubmit = document.querySelector("#formularioLogin button[type='submit']");
+  if (btn) btn.disabled = estado;
+  if (btnSubmit) btnSubmit.disabled = estado;
 }
 
 // =========================
 // EVENTOS
 // =========================
 document.addEventListener("DOMContentLoaded", () => {
-  verificarRedirectGoogle();
+  // Verificar se voltou de um redirect Google
+  verificarSessaoExistente();
 
   const formLogin = document.getElementById("formularioLogin");
   const btnGoogle = document.getElementById("btnGoogle");

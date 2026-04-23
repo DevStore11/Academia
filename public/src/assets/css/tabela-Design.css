@@ -33,7 +33,7 @@
   background: #141414;
   border: 1px solid #1e1e1e;
   border-radius: 12px;
-  overflow: hidden;
+  overflow: visible;
   margin-bottom: 24px;
   transition: var(--transition);
 }
@@ -76,22 +76,22 @@
 }
 
 /* ===== SCROLL HORIZONTAL ===== */
-.table-scroll-wrapper {
+.league-table .table-container {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: var(--primary-green) #1a1a1a;
 }
 
-.table-scroll-wrapper::-webkit-scrollbar {
+.league-table .table-container::-webkit-scrollbar {
   height: 4px;
 }
 
-.table-scroll-wrapper::-webkit-scrollbar-track {
+.league-table .table-container::-webkit-scrollbar-track {
   background: #1a1a1a;
 }
 
-.table-scroll-wrapper::-webkit-scrollbar-thumb {
+.league-table .table-container::-webkit-scrollbar-thumb {
   background: var(--primary-green);
   border-radius: 2px;
 }
@@ -248,7 +248,7 @@ td:last-child {
 }
 
 /* ===== RESPONSIVE — MOBILE ===== */
-@media (max-width: 680px) {
+@media (max-width: 480px) {
 
   /* Remove padding lateral do container — tabela cola nas bordas */
   .leagues-section .container {
@@ -277,8 +277,6 @@ td:last-child {
 
   /* Ocultar: E, D, GM, GS, SG */
   /* Visível: Pos(1) Clube(2) J(3) V(4) Pts(10) */
-  th:nth-child(5), td:nth-child(5),
-  th:nth-child(6), td:nth-child(6),
   th:nth-child(7), td:nth-child(7),
   th:nth-child(8), td:nth-child(8),
   th:nth-child(9), td:nth-child(9) { display: none; }
