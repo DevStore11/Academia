@@ -7,9 +7,6 @@
 <link rel="stylesheet" href="../assets/css/admin.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="icon" href="../assets/img/favicon.png" type="image/webp">
-      
-
-
 </head>
 <body>
 <div class="hamburger">&#9776;</div>
@@ -22,7 +19,6 @@
         <li class="menu-item" data-tab="confrontos"><i class="fas fa-futbol"></i> <span>Marcar Confrontos</span></li>
         <li class="menu-item" data-tab="resultados"><i class="fas fa-pen"></i> <span>Inserir Resultados</span></li>
         <li class="menu-item" data-tab="tabelas"><i class="fas fa-table"></i> <span>Tabelas</span></li>
-        
         <li class="menu-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> <span>Sair</span></li>
     </ul>
 </div>
@@ -40,9 +36,15 @@
             <table id="usersTable">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>UID</th>
                         <th>Nome</th>
-                        <th>Password</th>
+                        <th>Email</th>
+                        <th>Idade</th>
+                        <th>Bairro</th>
+                        <th>Role</th>
+                        <th>Tipo de Conta</th>
+                        <th>Auth Provider</th>
+                        <th>Criado Em</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -91,126 +93,103 @@
     </div>
 
     <!-- Confrontos -->
-    <!-- Confrontos -->
-<div class="tab-content" id="confrontos">
-  <div class="card">
-    <div class="card-header">Marcar Confrontos</div>
-
-    <form id="form-confrontos">
-
-      <div class="form-group">
-        <label for="select-liga-confrontos">Selecionar Liga</label>
-        <select id="select-liga-confrontos">
-          <option value="">-- Selecione uma Liga --</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="select-clube-casa">Clube da Casa</label>
-        <select id="select-clube-casa">
-          <option value="">-- Selecione um Clube --</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="select-clube-fora">Clube Visitante</label>
-        <select id="select-clube-fora">
-          <option value="">-- Selecione um Clube --</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="data-confronto">Data do Jogo</label>
-        <input type="date" id="data-confronto">
-      </div>
-
-      <div class="form-group">
-        <label for="hora-confronto">Hora do Jogo</label>
-        <input type="time" id="hora-confronto">
-      </div>
-
-      <!-- 🔥 NOVO: MODO DO CONFRONTO -->
-      <div class="form-group">
-        <label>Modo de Inserção do Resultado</label>
-
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="modo-confronto" value="tempo_real" checked>
-            <strong>Tempo Real</strong>
-            <small>(com cronómetro e painel ao vivo)</small>
-          </label>
+    <div class="tab-content" id="confrontos">
+        <div class="card">
+            <div class="card-header">Marcar Confrontos</div>
+            <form id="form-confrontos">
+                <div class="form-group">
+                    <label for="select-liga-confrontos">Selecionar Liga</label>
+                    <select id="select-liga-confrontos">
+                        <option value="">-- Selecione uma Liga --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-clube-casa">Clube da Casa</label>
+                    <select id="select-clube-casa">
+                        <option value="">-- Selecione um Clube --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-clube-fora">Clube Visitante</label>
+                    <select id="select-clube-fora">
+                        <option value="">-- Selecione um Clube --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="data-confronto">Data do Jogo</label>
+                    <input type="date" id="data-confronto">
+                </div>
+                <div class="form-group">
+                    <label for="hora-confronto">Hora do Jogo</label>
+                    <input type="time" id="hora-confronto">
+                </div>
+                <div class="form-group">
+                    <label>Modo de Inserção do Resultado</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="modo-confronto" value="tempo_real" checked>
+                            <strong>Tempo Real</strong>
+                            <small>(com cronómetro e painel ao vivo)</small>
+                        </label>
+                    </div>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="modo-confronto" value="directo">
+                            <strong>Resultado Directo</strong>
+                            <small>(inserir apenas o resultado final)</small>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit">Marcar Confronto</button>
+            </form>
         </div>
-
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="modo-confronto" value="directo">
-            <strong>Resultado Directo</strong>
-            <small>(inserir apenas o resultado final)</small>
-          </label>
+        <div class="card">
+            <div class="card-header">Confrontos Marcados</div>
+            <table id="tabelaConfrontos">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Jogo</th>
+                        <th>Modo</th>
+                        <th>Resultado</th>
+                        <th>Estado</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
-      </div>
-
-      <button type="submit">Marcar Confronto</button>
-    </form>
-  </div>
-
-  <div class="card">
-    <div class="card-header">Confrontos Marcados</div>
-    <table id="tabelaConfrontos">
-      <thead>
-        <tr>
-          <th>Data</th>
-          <th>Jogo</th>
-          <th>Modo</th>
-          <th>Resultado</th>
-          <th>Estado</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-</div>
-
+    </div>
 
     <!-- Resultados -->
-   <!-- Resultados -->
-<div class="tab-content" id="resultados">
-  <div class="card">
-    <div class="card-header">Inserir Resultados</div>
-
-    <form id="form-resultados">
-
-      <div class="form-group">
-        <label for="select-liga-resultados">Selecionar Liga</label>
-        <select id="select-liga-resultados">
-          <option value="">-- Selecione uma Liga --</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="select-confronto">Selecionar Confronto</label>
-        <select id="select-confronto">
-          <option value="">-- Selecione um Confronto --</option>
-        </select>
-      </div>
-
-      <!-- RESULTADO DIRECTO -->
-      <div id="resultado-directo-box" style="display:none;">
-        <div class="form-group" style="display:flex;align-items:center;gap:10px;">
-          <input type="number" id="golos-casa" min="0" style="width:80px;text-align:center;">
-          <span>vs</span>
-          <input type="number" id="golos-fora" min="0" style="width:80px;text-align:center;">
+    <div class="tab-content" id="resultados">
+        <div class="card">
+            <div class="card-header">Inserir Resultados</div>
+            <form id="form-resultados">
+                <div class="form-group">
+                    <label for="select-liga-resultados">Selecionar Liga</label>
+                    <select id="select-liga-resultados">
+                        <option value="">-- Selecione uma Liga --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-confronto">Selecionar Confronto</label>
+                    <select id="select-confronto">
+                        <option value="">-- Selecione um Confronto --</option>
+                    </select>
+                </div>
+                <!-- RESULTADO DIRECTO -->
+                <div id="resultado-directo-box" style="display:none;">
+                    <div class="form-group" style="display:flex;align-items:center;gap:10px;">
+                        <input type="number" id="golos-casa" min="0" style="width:80px;text-align:center;">
+                        <span>vs</span>
+                        <input type="number" id="golos-fora" min="0" style="width:80px;text-align:center;">
+                    </div>
+                    <button type="submit">Registar Resultado</button>
+                </div>
+            </form>
         </div>
-        <button type="submit">Registar Resultado</button>
-      </div>
-
-     
-
-    </form>
-  </div>
-</div>
-
+    </div>
 
     <!-- Tabelas -->
     <div class="tab-content" id="tabelas">
@@ -222,7 +201,8 @@
             </div>
             <table id="tabela-classificativa">
                 <thead>
-                    <tr><th>Pos</th><th>Clube</th><th>J</th><th>V</th><th>E</th><th>D</th>
+                    <tr>
+                        <th>Pos</th><th>Clube</th><th>J</th><th>V</th><th>E</th><th>D</th>
                         <th>GM</th><th>GS</th><th>SG</th><th>Pts</th>
                     </tr>
                 </thead>
@@ -230,8 +210,6 @@
             </table>
         </div>
     </div>
-
-   
 </div>
 
 <!-- Container Toast -->
@@ -240,7 +218,6 @@
 <script type="module" src="../assets/js/admin.js"></script>
 <script src="../assets/js/adminMenu.js"></script>
 <script>
-  // Função global para exibir notificações
   window.mostrarToast = function(mensagem, tipo="info") {
     const container = document.getElementById("toast-container");
     const toast = document.createElement("div");
@@ -249,10 +226,6 @@
     container.appendChild(toast);
     setTimeout(() => { toast.remove(); }, 3500);
   }
- 
-
-
-
 </script>
 </body>
 </html>

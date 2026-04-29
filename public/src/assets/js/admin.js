@@ -61,14 +61,21 @@ async function carregarUsuarios() {
   const snap = await getDocs(collection(db, "usuarios"));
   snap.forEach(docSnap => {
     const u = docSnap.data();
+    const criadoEm = u.criadoEm?.toDate
+      ? u.criadoEm.toDate().toLocaleDateString("pt-PT")
+      : "-";
+
     tbody.innerHTML += `
       <tr>
-        <td>${docSnap.id}</td>
+        <td>${u.uid || docSnap.id}</td>
         <td>${u.nome || "-"}</td>
         <td>${u.email || "-"}</td>
+        <td>${u.idade || "-"}</td>
+        <td>${u.bairro || "-"}</td>
         <td>${u.role || "-"}</td>
         <td>${u.tipoConta || "-"}</td>
-        <td>${u.senha || "-"}</td>
+        <td>${u.authProvider || "-"}</td>
+        <td>${criadoEm}</td>
         <td>
           <button onclick="apagarUsuario('${docSnap.id}')">Apagar</button>
         </td>
@@ -82,7 +89,7 @@ window.apagarUsuario = async function (id) {
   await deleteDoc(doc(db, "usuarios", id));
   mostrarToast("Usuário removido", "success");
   carregarUsuarios();
-  carregarClubes(); // atualiza clubes ao apagar
+  carregarClubes();
 };
 
 // =======================================
@@ -285,7 +292,6 @@ document.getElementById("form-resultados").addEventListener("submit", async e =>
     return;
   }
 
-  // Resultado DIRECTO
   if (confronto.modo === "directo") {
     const gc = Number(document.getElementById("golos-casa").value);
     const gf = Number(document.getElementById("golos-fora").value);
@@ -297,13 +303,11 @@ document.getElementById("form-resultados").addEventListener("submit", async e =>
     mostrarToast("Resultado directado registado", "success");
   }
 
-  // Resultado TEMPO REAL
   if (confronto.modo === "tempo_real") {
     await updateDoc(doc(db, "confrontos", id), {
       estado: "em_andamento"
     });
     mostrarToast("Confronto em tempo real iniciado", "success");
-    // Redirecionamento pode ser feito no HTML ou via botão
   }
 
   carregarConfrontos(confronto.liga_id);
@@ -312,32 +316,19 @@ document.getElementById("form-resultados").addEventListener("submit", async e =>
 // =======================================
 // TABELAS CLASSIFICATIVAS
 // =======================================
-// =======================================
-// MOSTRAR TABELA CLASSIFICATIVA
-// =======================================
-// =======================================
-// TABELAS CLASSIFICATIVAS
-// =======================================
-// =======================================
-// TABELAS CLASSIFICATIVAS
-// =======================================
-
-// Ao selecionar uma liga, atualiza e mostra a tabela
 document.getElementById("select-liga-tabela").addEventListener("change", async (e) => {
   const liga_id = e.target.value;
   if (!liga_id) {
     document.querySelector("#tabela-classificativa tbody").innerHTML = "";
     return;
   }
-  await atualizarTabela(liga_id); // chama função que processa resultados
+  await atualizarTabela(liga_id);
 });
 
-// Função para processar confrontos e atualizar a tabela
 async function atualizarTabela(liga_id) {
   const ligasSnap = await getDocs(collection(db, "ligas"));
   const clubes = [];
 
-  // Pega clubes da liga
   ligasSnap.forEach(docSnap => {
     const l = docSnap.data();
     if (docSnap.id === liga_id && l.clubes) {
@@ -357,12 +348,10 @@ async function atualizarTabela(liga_id) {
     }
   });
 
-  // Pega todos os confrontos da liga
   const confrontosSnap = await getDocs(collection(db, "confrontos"));
   confrontosSnap.forEach(cDoc => {
     const c = cDoc.data();
     if (c.liga_id === liga_id && c.estado === "terminado") {
-      // Se o confronto tiver resultado, usa
       const gc = c.golos_casa;
       const gf = c.golos_fora;
 
@@ -398,7 +387,6 @@ async function atualizarTabela(liga_id) {
     }
   });
 
-  // Atualiza ou cria a tabela no Firestore
   const tabelasSnap = await getDocs(collection(db, "tabelas"));
   const tabelaDoc = tabelasSnap.docs.find(d => d.data().liga_id === liga_id);
 
@@ -411,7 +399,6 @@ async function atualizarTabela(liga_id) {
   mostrarTabela(liga_id);
 }
 
-// Função para exibir a tabela na página
 async function mostrarTabela(liga_id) {
   const tabelaBody = document.querySelector("#tabela-classificativa tbody");
   tabelaBody.innerHTML = "";
@@ -439,7 +426,6 @@ async function mostrarTabela(liga_id) {
     `;
   });
 }
-
 
 // =======================================
 // TOAST

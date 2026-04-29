@@ -1,415 +1,1008 @@
 <!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Admin - Power Play</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<html class="dark" lang="pt-BR"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>POWER PLAY E-SPORT</title>
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Manrope:wght@200;300;400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS with Plugins -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "on-tertiary": "#516700",
-              "on-tertiary-fixed": "#3a4a00",
-              "on-error": "#450900",
-              "outline": "#757575",
-              "on-primary-container": "#0b5800",
-              "surface-container-low": "#131313",
-              "tertiary-container": "#cafd00",
-              "primary-fixed": "#2ff801",
-              "inverse-primary": "#106f00",
-              "surface-variant": "#262626",
-              "on-secondary-container": "#d2d0cf",
-              "surface-bright": "#2c2c2c",
-              "surface-container": "#191919",
-              "tertiary-dim": "#beee00",
-              "on-primary": "#0d6100",
-              "surface-container-lowest": "#000000",
-              "secondary-fixed-dim": "#d6d4d3",
-              "error-dim": "#d53d18",
-              "surface-dim": "#0e0e0e",
-              "on-tertiary-container": "#4a5e00",
-              "on-error-container": "#ffd2c8",
-              "on-secondary-fixed-variant": "#5c5b5b",
-              "on-secondary": "#525151",
-              "on-primary-fixed": "#064200",
-              "primary": "#39FF14",
-              "on-secondary-fixed": "#403f3f",
-              "on-background": "#ffffff",
-              "secondary-dim": "#d6d4d3",
-              "tertiary-fixed-dim": "#beee00",
-              "background": "#0e0e0e",
-              "tertiary": "#f3ffca",
-              "surface-tint": "#8eff71",
-              "surface": "#0e0e0e",
-              "primary-container": "#2ff801",
-              "secondary-container": "#474746",
-              "secondary-fixed": "#e5e2e1",
-              "primary-dim": "#2be800",
-              "on-surface-variant": "#ababab",
-              "error-container": "#b92902",
-              "on-primary-fixed-variant": "#0d6200",
-              "surface-container-high": "#1f1f1f",
-              "on-surface": "#ffffff",
-              "outline-variant": "#484848",
-              "inverse-on-surface": "#555555",
-              "surface-container-highest": "#262626",
-              "inverse-surface": "#f9f9f9",
-              "error": "#ff7351",
-              "secondary": "#e5e2e1",
-              "primary-fixed-dim": "#2be800",
-              "on-tertiary-fixed-variant": "#526900",
-              "tertiary-fixed": "#cafd00"
-            },
-            fontFamily: {
-              "headline": ["Space Grotesk"],
-              "body": ["Manrope"],
-              "label": ["Space Grotesk"]
-            },
-            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
-          },
-        },
-      }
-    </script>
-<style>
-      .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        display: inline-block;
-        vertical-align: middle;
-      }
-      body {
-        background-color: #000000;
-        color: #ffffff;
-        font-family: 'Manrope', sans-serif;
-      }
-      .cyber-glow {
-        box-shadow: 0 0 20px rgba(57, 255, 20, 0.15);
-      }
-      .neon-border {
-        box-shadow: -2px 0 0 0 #39FF14;
-      }
-      .relegation-border {
-        box-shadow: -2px 0 0 0 #d53d18;
-      }
-      .glass-card {
-        background: rgba(25, 25, 25, 0.8);
-        backdrop-filter: blur(12px);
-      }
-      ::-webkit-scrollbar {
-        width: 4px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #000000;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #39FF14;
-      }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
-<body class="bg-surface-container-lowest text-on-surface overflow-x-hidden">
-<!-- TopAppBar -->
-<header class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md dark:bg-black/80 flex justify-between items-center px-6 py-4 w-full border-b border-[#484848]/20 shadow-[0_0_20px_rgba(142,255,113,0.1)]">
-<div class="flex items-center gap-4">
-<span class="material-symbols-outlined text-[#39FF14] text-2xl cursor-pointer">menu</span>
-<h1 class="text-xl font-black italic text-[#39FF14] tracking-tighter font-['Space_Grotesk'] uppercase">POWER PLAY E-SPORT</h1>
-</div>
-<span class="material-symbols-outlined text-[#39FF14] text-2xl cursor-pointer">account_circle</span>
-</header>
-<!-- Navigation Drawer (Hidden by default, semantic layout) -->
-<nav class="hidden fixed inset-y-0 left-0 z-[60] flex flex-col h-full w-80 bg-[#0e0e0e] shadow-2xl shadow-[#39FF14]/10 font-['Space_Grotesk'] font-medium uppercase tracking-widest">
-<div class="p-8 border-b border-outline-variant/20">
-<h2 class="text-[#39FF14] font-black text-xl">TACTICAL MENU</h2>
-</div>
-<div class="flex flex-col py-4">
-<a class="px-8 py-4 bg-[#191919] text-[#39FF14] border-l-4 border-[#39FF14] flex items-center gap-4" href="#">
-<span class="material-symbols-outlined">home</span> Home
-            </a>
-<a class="px-8 py-4 text-gray-500 hover:bg-[#191919] hover:text-[#39FF14] flex items-center gap-4 transition-all" href="#">
-<span class="material-symbols-outlined">emoji_events</span> Campeonato
-            </a>
-<a class="px-8 py-4 text-gray-500 hover:bg-[#191919] hover:text-[#39FF14] flex items-center gap-4 transition-all" href="#">
-<span class="material-symbols-outlined">login</span> Login
-            </a>
-<a class="px-8 py-4 text-gray-500 hover:bg-[#191919] hover:text-[#39FF14] flex items-center gap-4 transition-all" href="#">
-<span class="material-symbols-outlined">person_add</span> Cadastro
-            </a>
-<a class="px-8 py-4 text-gray-500 hover:bg-[#191919] hover:text-[#39FF14] flex items-center gap-4 transition-all" href="#">
-<span class="material-symbols-outlined">contact_support</span> Contatos
-            </a>
-</div>
-</nav>
-<!-- Hero Section -->
-<section class="relative h-[795px] flex flex-col items-center justify-center text-center px-6 pt-20 overflow-hidden">
-<div class="absolute inset-0 z-0 opacity-40">
-<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px]"></div>
-</div>
-<div class="relative z-10 max-w-2xl">
-<h2 class="font-headline text-5xl md:text-7xl font-black italic tracking-tighter text-on-surface mb-4 leading-none uppercase">
-                POWER PLAY <br/> <span class="text-primary">E-SPORT</span>
-</h2>
-<p class="font-body text-on-surface-variant text-lg md:text-xl mb-12 max-w-md mx-auto leading-relaxed">
-                DOMINATE THE ARENA. TRACK EVERY SHOT. JOIN THE NEXT GENERATION OF COMPETITIVE GAMING.
-            </p>
-<div class="flex flex-col sm:flex-row gap-4 justify-center">
-<button class="bg-primary text-on-primary px-10 py-4 font-headline font-bold uppercase tracking-widest rounded-none hover:shadow-[0_0_20px_#39FF14] transition-all transform active:scale-95">
-                    Join Now
-                </button>
-<button class="border border-outline-variant text-primary px-10 py-4 font-headline font-bold uppercase tracking-widest rounded-none hover:bg-primary/10 transition-all">
-                    View Leagues
-                </button>
-</div>
-</div>
-<!-- Scroll Indicator -->
-<div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
-<span class="text-[10px] font-headline tracking-[0.3em] uppercase">Tactical Scroll</span>
-<div class="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
-</div>
-</section>
-<!-- Next Matches Section (Sleek horizontal scroll on mobile) -->
-<section class="py-12 px-6">
-<div class="flex items-center justify-between mb-8">
-<h3 class="font-headline text-xl font-bold uppercase tracking-tight flex items-center gap-2">
-<span class="w-2 h-2 bg-primary animate-pulse"></span> Next Matches
-            </h3>
-<span class="text-primary text-xs font-headline uppercase tracking-widest cursor-pointer">See All</span>
-</div>
-<div class="flex gap-4 overflow-x-auto pb-6 snap-x no-scrollbar">
-<!-- Match Card 1 -->
-<div class="min-w-[280px] bg-surface-container p-4 snap-center border-l-4 border-primary cyber-glow">
-<div class="flex justify-between items-center mb-4 text-[10px] font-headline text-on-surface-variant tracking-widest uppercase">
-<span>LEAGUE A • LIVE</span>
-<span class="text-primary">24:15</span>
-</div>
-<div class="flex items-center justify-between mb-2">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 bg-surface-variant rounded-none flex items-center justify-center">
-<img alt="Team 1 Icon" class="w-6 h-6" data-alt="Cyber esport team logo identicon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMS6I9Zv8kiep3oIA8slvWDDHkERRUmrMi_jwMRwRBNJhxjrbvl1kbHnS_cg6Kq4FjdAwC7xzlUhAXyWJlq_-LldD7ROe9W7-f466TZtn8BJCSqJCYFYGckgaFoO2tAbHM3qQIWZbbOWu_BRKpmvp1aTUJ11Jr0hakpMITUbHpx61M0peCViBe1olrJfXZruynZlRWu8bIXxZ8bKAvWiOqKhHesz9_Pw5Fh1Y_l4maTnkjhdkRx1lg-QhDzSK-k7GQJxoPd1Sn_TFv"/>
-</div>
-<span class="font-headline font-bold uppercase text-sm">Viper</span>
-</div>
-<span class="font-headline font-black text-xl italic">2</span>
-</div>
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 bg-surface-variant rounded-none flex items-center justify-center">
-<img alt="Team 2 Icon" class="w-6 h-6" data-alt="Cyber esport team logo identicon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJZcRd9SAoeszzCsdB13FHHvvkYm1tqItBbEdF5xOUcPM7ebHINzGDOv3C2UzXm4vu1F9DPxCNs4Gh1dncxpi5p5Uufb1ugtRjvo0IfwSSASdXRSLVYnuA4uBZUP_Rfm5Cqnper1dhs-T4ttklpcN1X_WDLheIOq4l8jhfaf7kKRhr7nzlZDO0zkrkAAlfuaesu_vX5v-G9PQ5BLlH2wnlHG8GJE0jmIs1OmSrord7yLmWLHB6n-6ITbivz46Gt8inhDpT-8lslNXj"/>
-</div>
-<span class="font-headline font-bold uppercase text-sm">Ghost</span>
-</div>
-<span class="font-headline font-black text-xl italic text-on-surface-variant">0</span>
-</div>
-</div>
-<!-- Match Card 2 -->
-<div class="min-w-[280px] bg-surface-container p-4 snap-center border-l-4 border-outline-variant">
-<div class="flex justify-between items-center mb-4 text-[10px] font-headline text-on-surface-variant tracking-widest uppercase">
-<span>LEAGUE B • TODAY</span>
-<span>21:00</span>
-</div>
-<div class="flex items-center justify-between mb-2">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 bg-surface-variant rounded-none flex items-center justify-center">
-<img alt="Team 3 Icon" class="w-6 h-6" data-alt="Cyber esport team logo identicon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGyKV436pBpONb8YtdhgLOECz-84756fAcDZIuSiqM4Ge_Rr6JckbwF3kSjdeRYnclBVnQw0BnDsNMJCorIfukdJ3Wmjd3DT4f4WZml8KB-sxBGgIwEliSkseupwMb1P_bthRsUyCYwjRX66A6MHRTQ-AIT4MFSwAcGVec5SMDYQPSkldlI0DX33oijE9w9DldY6xRMuCSECWEFk8OQFKNVBGMcxj588L-wJnlw0xpOXTwHVU0zwuHq_y90o9fpUCSRtYO2BjARsAa"/>
-</div>
-<span class="font-headline font-bold uppercase text-sm">Apex</span>
-</div>
-<span class="font-headline font-black text-xl italic text-outline">-</span>
-</div>
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 bg-surface-variant rounded-none flex items-center justify-center">
-<img alt="Team 4 Icon" class="w-6 h-6" data-alt="Cyber esport team logo identicon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw4zNXtgojhUIEaFe809qGTm35xV4TzoiMULA2Yp1BCGvZRtWpkKGDEFQULOz7yH6eNISw7_-9Igy3MGuMouNhADDfNS6fBHbHcLt1CvpGo8Gnpa5BXQfv0GAqq7giyx38C7OCotwp6zMrkdQOrAsAOXENY1aVVizy6ZjM2Ty0tk6hP11oThc4oqso530S7qupqn3hCdgyiMgTv-zj5ndDueS_zuXdXWZOcjZ12tbNGn_KqivEwkshRqwnZzz3JpfDg5IBZ-FirFXh"/>
-</div>
-<span class="font-headline font-bold uppercase text-sm">Neo</span>
-</div>
-<span class="font-headline font-black text-xl italic text-outline">-</span>
-</div>
-</div>
-</div>
-</section>
-<!-- League Tables Section -->
-<section class="py-12 px-6 bg-surface-container-low">
-<h3 class="font-headline text-2xl font-black italic tracking-tighter uppercase mb-2">ACOMPANHE OS JOGOS E RESULTADOS</h3>
-<p class="text-on-surface-variant text-sm mb-8 font-body">Global rankings and division standings.</p>
-<!-- Filters -->
-<div class="flex gap-2 mb-6 overflow-x-auto no-scrollbar pb-2">
-<button class="bg-primary text-on-primary px-4 py-2 text-[10px] font-headline font-bold uppercase tracking-widest rounded-none">Elite League</button>
-<button class="border border-outline-variant text-on-surface-variant px-4 py-2 text-[10px] font-headline font-bold uppercase tracking-widest rounded-none hover:text-primary transition-colors">Masters</button>
-<button class="border border-outline-variant text-on-surface-variant px-4 py-2 text-[10px] font-headline font-bold uppercase tracking-widest rounded-none hover:text-primary transition-colors">Academy</button>
-</div>
-<!-- Table -->
-<div class="overflow-hidden bg-black shadow-2xl">
-<div class="grid grid-cols-12 px-4 py-3 bg-surface-container text-[10px] font-headline uppercase font-bold tracking-widest text-on-surface-variant">
-<div class="col-span-1">#</div>
-<div class="col-span-7">Team</div>
-<div class="col-span-2 text-center">W</div>
-<div class="col-span-2 text-right">PTS</div>
-</div>
-<!-- Rows (20 entries simplified for space) -->
-<div class="max-h-[600px] overflow-y-auto">
-<!-- Promotion Zone (First 4) -->
-<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-high border-l-2 border-primary items-center mb-[1px]">
-<div class="col-span-1 text-primary font-bold">1</div>
-<div class="col-span-7 font-headline font-bold uppercase text-xs">ASTRALIS PRIME</div>
-<div class="col-span-2 text-center text-xs">18</div>
-<div class="col-span-2 text-right text-primary font-black text-sm">54</div>
-</div>
-<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-high border-l-2 border-primary items-center mb-[1px]">
-<div class="col-span-1 text-primary font-bold">2</div>
-<div class="col-span-7 font-headline font-bold uppercase text-xs">QUANTUM SHOCK</div>
-<div class="col-span-2 text-center text-xs">16</div>
-<div class="col-span-2 text-right text-primary font-black text-sm">49</div>
-</div>
-<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-high border-l-2 border-primary items-center mb-[1px]">
-<div class="col-span-1 text-primary font-bold">3</div>
-<div class="col-span-7 font-headline font-bold uppercase text-xs">VIRTUAL VOID</div>
-<div class="col-span-2 text-center text-xs">15</div>
-<div class="col-span-2 text-right text-primary font-black text-sm">46</div>
-</div>
-<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-high border-l-2 border-primary items-center mb-[1px]">
-<div class="col-span-1 text-primary font-bold">4</div>
-<div class="col-span-7 font-headline font-bold uppercase text-xs">CYBER REAPERS</div>
-<div class="col-span-2 text-center text-xs">14</div>
-<div class="col-span-2 text-right text-primary font-black text-sm">43</div>
-</div>
-<!-- Mid Zone (Static examples) -->
-<div class="grid grid-cols-12 px-4 py-4 bg-surface-container/40 items-center mb-[1px]">
-<div class="col-span-1 text-on-surface-variant font-bold">5</div>
-<div class="col-span-7 font-headline font-bold uppercase text-xs">TITAN SQUAD</div>
-<div class="col-span-2 text-center text-xs">12</div>
-<div class="col-span-2 text-right font-black text-sm">38</div>
-</div>
-<!-- ... Repeated rows ... -->
-<div class="grid grid-cols-12 px-4 py-4 bg-surface-container/40 items-center mb-[1px]">
-<div class="col-span-1 text-on-surface-variant font-bold">16</div>
-<div class="col-span-7 font-headline font-bold uppercase text-xs">NOVA KINETIC</div>
-<div class="col-span-2 text-center text-xs">6</div>
-<div class="col-span-2 text-right font-black text-sm">18</div>
-</div>
-<!-- Relegation Zone (Last 4) -->
-<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-lowest border-l-2 border-error-dim items-center mb-[1px]">
-<div class="col-span-1 text-error-dim font-bold">17</div>
-<div class="col-span-7 font-headline font-bold uppercase text-xs opacity-60">FALCON X</div>
-<div class="col-span-2 text-center text-xs opacity-60">4</div>
-<div class="col-span-2 text-right text-error-dim font-black text-sm">12</div>
-</div>
-<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-lowest border-l-2 border-error-dim items-center mb-[1px]">
-<div class="col-span-1 text-error-dim font-bold">18</div>
-<div class="col-span-7 font-headline font-bold uppercase text-xs opacity-60">GLITCH RUN</div>
-<div class="col-span-2 text-center text-xs opacity-60">3</div>
-<div class="col-span-2 text-right text-error-dim font-black text-sm">9</div>
-</div>
-<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-lowest border-l-2 border-error-dim items-center mb-[1px]">
-<div class="col-span-1 text-error-dim font-bold">19</div>
-<div class="col-span-7 font-headline font-bold uppercase text-xs opacity-60">OMEGA CORE</div>
-<div class="col-span-2 text-center text-xs opacity-60">2</div>
-<div class="col-span-2 text-right text-error-dim font-black text-sm">7</div>
-</div>
-<div class="grid grid-cols-12 px-4 py-4 bg-surface-container-lowest border-l-2 border-error-dim items-center mb-[1px]">
-<div class="col-span-1 text-error-dim font-bold">20</div>
-<div class="col-span-7 font-headline font-bold uppercase text-xs opacity-60">VOID WALKERS</div>
-<div class="col-span-2 text-center text-xs opacity-60">1</div>
-<div class="col-span-2 text-right text-error-dim font-black text-sm">3</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Features Bento Grid -->
-<section class="py-16 px-6">
-<div class="grid grid-cols-1 gap-4">
-<div class="bg-surface-container p-8 border-t-2 border-primary">
-<span class="material-symbols-outlined text-primary text-4xl mb-4">emoji_events</span>
-<h4 class="font-headline text-xl font-black uppercase mb-2">Professional Competition</h4>
-<p class="font-body text-on-surface-variant text-sm">Top tier tournament infrastructure for pro teams and rising stars.</p>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div class="bg-surface-container p-6 flex flex-col justify-between">
-<span class="material-symbols-outlined text-primary text-3xl mb-4">query_stats</span>
-<div>
-<h4 class="font-headline text-md font-black uppercase mb-1">Detailed Stats</h4>
-<p class="font-body text-on-surface-variant text-[10px]">Real-time player analysis.</p>
-</div>
-</div>
-<div class="bg-surface-container p-6 flex flex-col justify-between">
-<span class="material-symbols-outlined text-primary text-3xl mb-4">groups</span>
-<div>
-<h4 class="font-headline text-md font-black uppercase mb-1">Engaged Community</h4>
-<p class="font-body text-on-surface-variant text-[10px]">Thousands of active players.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Final CTA Section -->
-<section class="py-24 px-6 relative overflow-hidden text-center bg-black border-y border-outline-variant/10">
-<div class="absolute inset-0 bg-primary/5 blur-[100px] -z-10"></div>
-<h2 class="font-headline text-4xl font-black italic uppercase tracking-tighter mb-8">READY TO JOIN THE GAME?</h2>
-<div class="flex flex-col gap-4 max-w-xs mx-auto">
-<button class="bg-primary text-on-primary py-4 font-headline font-black uppercase tracking-widest hover:shadow-[0_0_20px_#39FF14] transition-all">Sign Up Now</button>
-<button class="border border-outline text-on-surface py-4 font-headline font-black uppercase tracking-widest hover:bg-white/5 transition-all">Member Login</button>
-</div>
-</section>
-<!-- Footer -->
-<footer class="bg-black py-12 px-8 border-t border-[#484848]/20 w-full font-['Manrope'] text-sm uppercase tracking-tighter">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
-<!-- Brand & Academy -->
-<div class="flex flex-col gap-6">
-<h5 class="font-['Space_Grotesk'] font-bold text-[#39FF14] text-2xl tracking-tighter italic">POWER PLAY</h5>
-<p class="text-gray-500 normal-case leading-relaxed">
-                    Elevating e-sports through tactical precision and community growth. Our Academy program trains the next generation of champions.
-                </p>
-<div class="flex gap-4">
-<span class="material-symbols-outlined text-gray-500 hover:text-primary cursor-pointer transition-colors">public</span>
-<span class="material-symbols-outlined text-gray-500 hover:text-primary cursor-pointer transition-colors">alternate_email</span>
-<span class="material-symbols-outlined text-gray-500 hover:text-primary cursor-pointer transition-colors">forum</span>
-</div>
-</div>
-<!-- Quick Links -->
-<div>
-<h6 class="text-primary font-bold mb-6 tracking-widest">Navigation</h6>
-<ul class="flex flex-col gap-4 text-gray-600">
-<li><a class="hover:text-[#39FF14] transition-colors" href="#">Academy</a></li>
-<li><a class="hover:text-[#39FF14] transition-colors" href="#">Support</a></li>
-<li><a class="hover:text-[#39FF14] transition-colors" href="#">Privacy Policy</a></li>
-<li><a class="hover:text-[#39FF14] transition-colors" href="#">Terms of Service</a></li>
-</ul>
-</div>
-<!-- Contact -->
-<div>
-<h6 class="text-primary font-bold mb-6 tracking-widest">Contact</h6>
-<ul class="flex flex-col gap-4 text-gray-600">
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-xs">mail</span> academy@powerplay.com</li>
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-xs">phone</span> +55 11 99999-9999</li>
-<li class="flex items-center gap-2"><span class="material-symbols-outlined text-xs">location_on</span> Cyber HQ, São Paulo, BR</li>
-</ul>
-</div>
-<!-- Newsletter -->
-<div>
-<h6 class="text-primary font-bold mb-6 tracking-widest">Intel Feed</h6>
-<div class="flex flex-col gap-4">
-<input class="bg-surface-container border-none text-xs p-4 focus:ring-1 focus:ring-primary text-white" placeholder="EMAIL ADDRESS" type="email"/>
-<button class="bg-surface-variant text-primary font-bold text-xs p-4 hover:bg-primary hover:text-on-primary transition-all">Subscribe</button>
-</div>
-</div>
-</div>
-<div class="mt-16 pt-8 border-t border-outline-variant/10 text-center text-gray-700 text-[10px] tracking-[0.2em]">
-            © 2024 POWER PLAY E-SPORT. KINETIC CYBER-BRUTALISM.
+:root {
+  --green:         #00e676;
+  --green-dim:     #00cc6a;
+  --green-dark:    #007a40;
+  --green-glow:    rgba(0,230,118,0.18);
+  --green-glow-sm: rgba(0,230,118,0.08);
+  --bg:            #0b0b0b;
+  --bg2:           #111111;
+  --bg3:           #181818;
+  --bg4:           #202020;
+  --card:          #161616;
+  --border:        rgba(255,255,255,0.07);
+  --border-hover:  rgba(0,230,118,0.3);
+  --text:          #f0f0f0;
+  --text2:         #a8a8a8;
+  --text3:         #5a5a5a;
+  --blue:          #00b4d8;
+  --danger:        #ff4757;
+  --warning:       #ffb400;
+  --success:       #00e676;
+  --sidebar-w:     256px;
+  --topbar-h:      64px;
+  --radius:        12px;
+  --radius-sm:     8px;
+  --radius-xs:     5px;
+  --font-display:  'Clash Display', sans-serif;
+  --font-body:     'Cabinet Grotesk', sans-serif;
+  --shadow-green:  0 0 24px rgba(0,230,118,0.2);
+  --ease:          cubic-bezier(0.4,0,0.2,1);
+}
+
+html { font-size: 15px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  display: flex;
+  overflow-x: hidden;
+}
+
+/* ════════════════ SIDEBAR ════════════════ */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.28s var(--ease);
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  padding: 28px 22px 22px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.sidebar-logo h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: linear-gradient(120deg, var(--green) 0%, var(--blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.sidebar-logo span {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text3);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+.menu { list-style: none; padding: 14px 12px; flex: 1; }
+
+.menu-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text3);
+  padding: 16px 10px 8px;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text2);
+  font-size: 0.92rem;
+  font-weight: 400;
+  margin-bottom: 2px;
+  position: relative;
+  transition: color 0.2s, background 0.2s;
+  user-select: none;
+}
+
+.menu-item i {
+  width: 17px;
+  text-align: center;
+  font-size: 0.88rem;
+  flex-shrink: 0;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.menu-item:hover { background: var(--green-glow-sm); color: var(--text); }
+.menu-item:hover i { opacity: 1; }
+
+.menu-item.active {
+  background: var(--green-glow-sm);
+  color: var(--green);
+  font-weight: 500;
+}
+.menu-item.active i { opacity: 1; color: var(--green); }
+
+.menu-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 25%; bottom: 25%;
+  width: 2.5px;
+  background: var(--green);
+  border-radius: 0 2px 2px 0;
+}
+
+.menu-item.logout { color: var(--danger); }
+.menu-item.logout:hover { background: rgba(255,71,87,0.08); color: var(--danger); }
+
+.menu-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+
+.sidebar-footer { padding: 16px; border-top: 1px solid var(--border); flex-shrink: 0; }
+
+.admin-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--bg3);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.admin-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--green-dark), var(--blue));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  font-family: var(--font-display);
+  flex-shrink: 0;
+  letter-spacing: 0.05em;
+}
+
+.admin-info p { font-size: 0.88rem; color: var(--text); font-weight: 500; line-height: 1.2; }
+.admin-info span { font-size: 0.72rem; color: var(--text3); }
+
+/* ════════════════ MAIN ════════════════ */
+.content {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.topbar {
+  height: var(--topbar-h);
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0; z-index: 50;
+}
+
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+
+.hamburger-btn {
+  display: none;
+  width: 38px; height: 38px;
+  align-items: center; justify-content: center;
+  border-radius: var(--radius-sm);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: border-color 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+.hamburger-btn:hover { border-color: var(--green); color: var(--green); }
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
+.page-badge {
+  font-size: 0.73rem;
+  padding: 3px 10px;
+  background: var(--green-glow-sm);
+  color: var(--green);
+  border-radius: 20px;
+  border: 1px solid rgba(0,230,118,0.2);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+
+.topbar-icon-btn {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--text2);
+  font-size: 0.9rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+.topbar-icon-btn:hover { border-color: var(--green); color: var(--green); }
+
+/* ════════════════ PAGE BODY ════════════════ */
+.page-body { padding: 30px 32px; flex: 1; }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeUp 0.22s var(--ease); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ════════════════ STAT CARDS ════════════════ */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.stat-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent, var(--green));
+}
+
+.stat-card.green { --accent: var(--green); }
+.stat-card.blue  { --accent: var(--blue); }
+.stat-card.warn  { --accent: var(--warning); }
+
+.stat-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text3);
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+}
+
+.stat-sub { font-size: 0.75rem; color: var(--text3); margin-top: 5px; }
+
+.stat-icon {
+  position: absolute;
+  right: 16px; top: 16px;
+  font-size: 1.05rem;
+  color: var(--accent, var(--green));
+  opacity: 0.35;
+}
+
+/* ════════════════ CARD ════════════════ */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: rgba(255,255,255,0.1); }
+
+.card-header {
+  padding: 17px 22px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.01em;
+}
+
+.card-header::before {
+  content: '';
+  width: 3px; height: 17px;
+  background: var(--green);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.card-body { padding: 22px; }
+
+/* ════════════════ TABLES ════════════════ */
+.table-wrap { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 480px; }
+
+thead { background: var(--bg3); }
+
+th {
+  padding: 12px 18px;
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text3);
+  font-weight: 700;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-display);
+  white-space: nowrap;
+}
+
+td {
+  padding: 13px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--text2);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+tr:last-child td { border-bottom: none; }
+tbody tr { transition: background 0.15s; }
+tbody tr:hover { background: rgba(255,255,255,0.025); }
+
+/* ════════════════ FORMS ════════════════ */
+.form-group { margin-bottom: 18px; }
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text2);
+  margin-bottom: 7px;
+  font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group select {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  padding: 11px 14px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  appearance: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(0,230,118,0.1);
+}
+
+.form-group select option { background: var(--bg3); }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.vs-label {
+  text-align: center;
+  font-weight: 700;
+  color: var(--text3);
+  font-size: 0.9rem;
+  font-family: var(--font-display);
+}
+
+.form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.radio-group {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  margin-bottom: 10px;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+.radio-group:hover { border-color: var(--border-hover); }
+
+.radio-group label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.radio-group input[type="radio"] {
+  margin-top: 3px;
+  accent-color: var(--green);
+  flex-shrink: 0;
+  width: 15px; height: 15px;
+}
+
+.radio-group strong { font-size: 0.92rem; color: var(--text); display: block; font-weight: 500; }
+.radio-group small  { font-size: 0.8rem; color: var(--text3); margin-top: 2px; display: block; }
+
+/* ════════════════ BUTTONS ════════════════ */
+button[type="submit"] {
+  background: var(--green);
+  color: #050f09;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 24px;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+button[type="submit"]:hover {
+  background: #00f080;
+  box-shadow: var(--shadow-green);
+  transform: translateY(-1px);
+}
+button[type="submit"]:active { transform: translateY(0); }
+
+.btn-sm {
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  border-radius: var(--radius-xs);
+  padding: 5px 12px;
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-sm:hover { border-color: var(--green); color: var(--green); }
+
+.btn-danger {
+  background: transparent;
+  border: 1px solid rgba(255,71,87,0.25);
+  color: var(--danger);
+  border-radius: var(--radius-xs);
+  padding: 5px 12px;
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-danger:hover { background: rgba(255,71,87,0.1); }
+
+/* ════════════════ BADGES ════════════════ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.73rem;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  font-family: var(--font-display);
+}
+.badge::before {
+  content: ''; width: 5px; height: 5px;
+  border-radius: 50%; background: currentColor; flex-shrink: 0;
+}
+.badge-success { background: rgba(0,230,118,0.1);  color: var(--success); }
+.badge-warning { background: rgba(255,180,0,0.1);  color: var(--warning); }
+.badge-danger  { background: rgba(255,71,87,0.1);  color: var(--danger); }
+.badge-info    { background: rgba(0,180,216,0.1);  color: var(--blue); }
+
+/* ════════════════ CHECKBOX LIST ════════════════ */
+#clubes-checkboxes {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  max-height: 210px;
+  overflow-y: auto;
+}
+
+#clubes-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 6px;
+  cursor: pointer;
+  color: var(--text2);
+  font-size: 0.92rem;
+  border-radius: var(--radius-xs);
+  transition: background 0.15s;
+}
+#clubes-checkboxes label:hover { background: var(--green-glow-sm); color: var(--text); }
+#clubes-checkboxes input[type="checkbox"] { accent-color: var(--green); width: 14px; height: 14px; }
+
+/* ════════════════ GOLOS ════════════════ */
+.golos-input {
+  text-align: center !important;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  font-family: var(--font-display) !important;
+  color: var(--green) !important;
+  width: 90px !important;
+  padding: 10px 8px !important;
+}
+
+/* ════════════════ TOAST ════════════════ */
+#toast-container {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast {
+  padding: 13px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: slideIn 0.28s var(--ease);
+  max-width: 340px;
+  border-left: 3px solid;
+}
+
+.toast-info    { background: rgba(22,22,22,0.97); border-color: var(--blue);    color: var(--text); }
+.toast-success { background: rgba(22,22,22,0.97); border-color: var(--success); color: var(--text); }
+.toast-error   { background: rgba(22,22,22,0.97); border-color: var(--danger);  color: var(--text); }
+
+@keyframes slideIn {
+  from { transform: translateX(16px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* ════════════════ SCROLLBAR ════════════════ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+/* ════════════════ RESPONSIVE ════════════════ */
+.sidebar-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 99;
+}
+.sidebar-overlay.show { display: block; }
+
+@media (max-width: 900px) {
+  :root { --sidebar-w: 220px; }
+}
+
+@media (max-width: 720px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); box-shadow: 4px 0 30px rgba(0,0,0,0.6); }
+  .content { margin-left: 0; }
+  .hamburger-btn { display: flex; }
+  .page-body { padding: 18px 16px; }
+  .topbar { padding: 0 16px; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .form-2col { grid-template-columns: 1fr; }
+  button[type="submit"] { width: 100%; justify-content: center; }
+  table th, table td { padding: 10px 12px; font-size: 0.85rem; }
+}
+
+@media (max-width: 420px) {
+  .stats-row { grid-template-columns: 1fr; }
+  .page-title { font-size: 1rem; }
+  .page-badge { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <h2>POWER PLAY</h2>
+    <span>Admin Dashboard</span>
+  </div>
+
+  <ul class="menu">
+    <li class="menu-label">Gestão</li>
+    <li class="menu-item active" data-tab="usuarios">
+      <i class="fas fa-users"></i><span>Usuários</span>
+    </li>
+    <li class="menu-item" data-tab="ligas">
+      <i class="fas fa-trophy"></i><span>Ligas</span>
+    </li>
+    <li class="menu-item" data-tab="adicionar-clubes">
+      <i class="fas fa-plus-circle"></i><span>Adicionar Clubes</span>
+    </li>
+
+    <li class="menu-label">Jogos</li>
+    <li class="menu-item" data-tab="confrontos">
+      <i class="fas fa-futbol"></i><span>Marcar Confrontos</span>
+    </li>
+    <li class="menu-item" data-tab="resultados">
+      <i class="fas fa-pen-to-square"></i><span>Inserir Resultados</span>
+    </li>
+    <li class="menu-item" data-tab="tabelas">
+      <i class="fas fa-table-columns"></i><span>Tabelas</span>
+    </li>
+
+    <hr class="menu-divider">
+    <li class="menu-item logout" onclick="logout()">
+      <i class="fas fa-arrow-right-from-bracket"></i><span>Sair</span>
+    </li>
+  </ul>
+
+  <div class="sidebar-footer">
+    <div class="admin-pill">
+      <div class="admin-avatar">AD</div>
+      <div class="admin-info">
+        <p>Administrador</p>
+        <span>Super Admin</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<main class="content">
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="hamburger-btn" id="hamburgerBtn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </div>
+      <span class="page-title" id="pageTitle">Usuários</span>
+      <span class="page-badge" id="pageBadge">Gestão</span>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-icon-btn" title="Notificações"><i class="fas fa-bell"></i></div>
+      <div class="topbar-icon-btn" title="Configurações"><i class="fas fa-gear"></i></div>
+    </div>
+  </header>
+
+  <div class="page-body">
+
+    <!-- ── USUÁRIOS ── -->
+    <div class="tab-content active" id="usuarios">
+      <div class="stats-row">
+        <div class="stat-card green">
+          <i class="fas fa-users stat-icon"></i>
+          <div class="stat-label">Total Usuários</div>
+          <div class="stat-value" id="stat-total">—</div>
+          <div class="stat-sub">Registados</div>
         </div>
-</footer>
-<!-- FAB (Suppressed on Home as per system instructions unless explicitly required, keeping for accessibility if needed) -->
-<div class="fixed bottom-6 right-6 z-50 md:hidden">
-<button class="w-14 h-14 bg-primary text-on-primary rounded-none shadow-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-transform">
-<span class="material-symbols-outlined text-3xl">add</span>
-</button>
-</div>
-</body></html>
+        <div class="stat-card blue">
+          <i class="fas fa-user-check stat-icon"></i>
+          <div class="stat-label">Google Auth</div>
+          <div class="stat-value" id="stat-google">—</div>
+          <div class="stat-sub">via OAuth</div>
+        </div>
+        <div class="stat-card warn">
+          <i class="fas fa-key stat-icon"></i>
+          <div class="stat-label">Password</div>
+          <div class="stat-value" id="stat-password">—</div>
+          <div class="stat-sub">via Email</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">Gestão de Usuários</div>
+        <div class="table-wrap">
+          <table id="usersTable">
+            <thead>
+              <tr>
+                <th>UID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Idade</th>
+                <th>Bairro</th>
+                <th>Role</th>
+                <th>Tipo Conta</th>
+                <th>Auth Provider</th>
+                <th>Criado Em</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── LIGAS ── -->
+    <div class="tab-content" id="ligas">
+      <div class="card">
+        <div class="card-header">Criar Nova Liga</div>
+        <div class="card-body">
+          <form id="form-liga">
+            <div class="form-group">
+              <label for="nome-liga">Nome da Liga</label>
+              <input type="text" id="nome-liga" placeholder="Ex: Liga Principal 2025" required>
+            </div>
+            <button type="submit"><i class="fas fa-plus"></i> Criar Liga</button>
+          </form>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Ligas Existentes</div>
+        <div class="table-wrap">
+          <table id="tabelaLigas">
+            <thead>
+              <tr><th>ID</th><th>Nome da Liga</th><th>Ações</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ADICIONAR CLUBES ── -->
+    <div class="tab-content" id="adicionar-clubes">
+      <div class="card">
+        <div class="card-header">Adicionar Clubes a uma Liga</div>
+        <div class="card-body">
+          <form id="form-add-clubes-liga">
+            <div class="form-group">
+              <label for="select-liga">Selecionar Liga</label>
+              <select id="select-liga"><option value="">-- Selecione uma Liga --</option></select>
+            </div>
+            <div class="form-group">
+              <label>Selecionar Clubes</label>
+              <div id="clubes-checkboxes"></div>
+            </div>
+            <button type="submit"><i class="fas fa-link"></i> Adicionar Clubes à Liga</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CONFRONTOS ── -->
+    <div class="tab-content" id="confrontos">
+      <div class="card">
+        <div class="card-header">Marcar Confronto</div>
+        <div class="card-body">
+          <form id="form-confrontos">
+            <div class="form-group">
+              <label for="select-liga-confrontos">Liga</label>
+              <select id="select-liga-confrontos">
+                <option value="">-- Selecione uma Liga --</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Clubes</label>
+              <div class="form-row">
+                <select id="select-clube-casa"><option value="">Casa</option></select>
+                <span class="vs-label">VS</span>
+                <select id="select-clube-fora"><option value="">Fora</option></select>
+              </div>
+            </div>
+            <div class="form-group form-2col">
+              <div>
+                <label for="data-confronto">Data</label>
+                <input type="date" id="data-confronto">
+              </div>
+              <div>
+                <label for="hora-confronto">Hora</label>
+                <input type="time" id="hora-confronto">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Modo de Resultado</label>
+              <div class="radio-group">
+                <label>
+                  <input type="radio" name="modo-confronto" value="tempo_real" checked>
+                  <div>
+                    <strong>Tempo Real</strong>
+                    <small>Com cronómetro e painel ao vivo</small>
+                  </div>
+                </label>
+              </div>
+              <div class="radio-group">
+                <label>
+                  <input type="radio" name="modo-confronto" value="directo">
+                  <div>
+                    <strong>Resultado Directo</strong>
+                    <small>Inserir apenas o resultado final</small>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <button type="submit"><i class="fas fa-calendar-plus"></i> Marcar Confronto</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">Confrontos Marcados</div>
+        <div class="table-wrap">
+          <table id="tabelaConfrontos">
+            <thead>
+              <tr>
+                <th>Data / Hora</th>
+                <th>Jogo</th>
+                <th>Modo</th>
+                <th>Resultado</th>
+                <th>Estado</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RESULTADOS ── -->
+    <div class="tab-content" id="resultados">
+      <div class="card">
+        <div class="card-header">Inserir Resultado</div>
+        <div class="card-body">
+          <form id="form-resultados">
+            <div class="form-group">
+              <label for="select-liga-resultados">Liga</label>
+              <select id="select-liga-resultados">
+                <option value="">-- Selecione uma Liga --</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="select-confronto">Confronto</label>
+              <select id="select-confronto">
+                <option value="">-- Selecione um Confronto --</option>
+              </select>
+            </div>
+            <div id="resultado-directo-box" style="display:none;">
+              <div class="form-group">
+                <label>Resultado Final</label>
+                <div class="form-row">
+                  <input type="number" id="golos-casa" min="0" placeholder="0" class="golos-input">
+                  <span class="vs-label">—</span>
+                  <input type="number" id="golos-fora" min="0" placeholder="0" class="golos-input">
+                </div>
+              </div>
+              <button type="submit"><i class="fas fa-check"></i> Registar Resultado</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TABELAS ── -->
+    <div class="tab-content" id="tabelas">
+      <div class="card">
+        <div class="card-header">Tabela Classificativa</div>
+        <div class="card-body" style="padding-bottom:10px;">
+          <div class="form-group" style="max-width:340px;">
+            <label for="select-liga-tabela">Selecionar Liga</label>
+            <select id="select-liga-tabela">
+              <option value="">-- Selecione uma Liga --</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="tabela-classificativa">
+            <thead>
+              <tr>
+                <th>Pos</th><th>Clube</th><th>J</th><th>V</th><th>E</th><th>D</th>
+                <th>GM</th><th>GS</th><th>SG</th><th>Pts</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page-body -->
+</main>
+
+<div id="toast-container"></div>
+
+<script type="module" src="../assets/js/admin.js"></script>
+<script src="../assets/js/adminMenu.js"></script>
+<script>
+  /* ── Navegação por tabs ── */
+  const tabMeta = {
+    'usuarios':          ['Usuários',          'Gestão'],
+    'ligas':             ['Ligas',             'Competições'],
+    'adicionar-clubes':  ['Adicionar Clubes',  'Clubes'],
+    'confrontos':        ['Confrontos',        'Jogos'],
+    'resultados':        ['Resultados',        'Jogos'],
+    'tabelas':           ['Tabelas',           'Classificação'],
+  };
+
+  document.querySelectorAll('.menu-item[data-tab]').forEach(item => {
+    item.addEventListener('click', () => {
+      const tab = item.dataset.tab;
+      document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      item.classList.add('active');
+      document.getElementById(tab)?.classList.add('active');
+      const [title, badge] = tabMeta[tab] || [tab, ''];
+      document.getElementById('pageTitle').textContent = title;
+      document.getElementById('pageBadge').textContent = badge;
+      if (window.innerWidth <= 720) closeSidebar();
+    });
+  });
+
+  /* ── Sidebar mobile ── */
+  function toggleSidebar() {
+    const s = document.getElementById('sidebar');
+    const o = document.getElementById('overlay');
+    const open = s.classList.toggle('open');
+    o.classList.toggle('show', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('overlay').addEventListener('click', closeSidebar);
+
+  /* ── Toast ── */
+  window.mostrarToast = function(mensagem, tipo = 'info') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${tipo}`;
+    toast.textContent = mensagem;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 3500);
+  };
+</script>
+</body>
+</html>
