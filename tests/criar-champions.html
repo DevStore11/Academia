@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar Colecção Champions</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0a0a0a; color: #e0e0e0; font-family: 'Courier New', monospace; padding: 2rem; min-height: 100vh; }
+    h1 { color: #00cc6a; font-size: 1.3rem; margin-bottom: 0.3rem; }
+    .subtitle { color: #555; font-size: 0.82rem; margin-bottom: 2rem; }
+    .card { background: #111; border: 1px solid #222; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .card-title { color: #00cc6a; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; }
+    .schema-tree { font-size: 0.78rem; line-height: 2; color: #888; }
+    .schema-tree .col  { color: #4499ff; font-weight: bold; }
+    .schema-tree .doc  { color: #ff9944; }
+    .schema-tree .sub  { color: #cc66ff; }
+    .schema-tree .field { color: #aaa; }
+    .schema-tree .val  { color: #66cc99; }
+    button { padding: 14px 28px; background: #00cc6a; color: #000; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 1rem; font-family: inherit; transition: opacity 0.2s; width: 100%; }
+    button:hover { opacity: 0.85; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .status { padding: 14px 18px; border-radius: 8px; margin-top: 1rem; font-size: 0.88rem; display: none; line-height: 1.6; }
+    .status.loading { background: #1a1a2a; border: 1px solid #4466cc; color: #8899ff; display: block; }
+    .status.success { background: #0d2a1a; border: 1px solid #00cc6a; color: #00cc6a; display: block; }
+    .status.error   { background: #2a0d0d; border: 1px solid #cc0000; color: #ff6666; display: block; }
+    .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #333; border-top-color: #8899ff; border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 8px; vertical-align: middle; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 0.8rem; font-size: 0.82rem; color: #666; }
+    .step-num { background: #1a1a1a; border: 1px solid #333; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.72rem; color: #555; }
+    .step-num.done { border-color: #00cc6a; color: #00cc6a; }
+    .step-num.active { border-color: #4466cc; color: #8899ff; }
+    .step-text { padding-top: 3px; }
+    .result-link { color: #4499ff; text-decoration: underline; cursor: pointer; font-size: 0.82rem; display: block; margin-top: 0.8rem; }
+  </style>
+</head>
+<body>
+
+  <h1>🏆 Criar Colecção Champions</h1>
+  <p class="subtitle">Projecto: cokplay-376c3 — Schema corrigido com subcoleções</p>
+
+  <!-- Preview do schema -->
+  <div class="card">
+    <div class="card-title">O que vai ser criado</div>
+    <div class="schema-tree">
+      <div><span class="col">Champions/</span></div>
+      <div>&nbsp;&nbsp;<span class="doc">champ_exemplo_001/</span> <span style="color:#444">← documento principal</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="field">nome:</span> <span class="val">"Copa Power Play 2026"</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="field">tamanho:</span> <span class="val">8</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="field">status:</span> <span class="val">"aguardando"</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="field">chave_gerada:</span> <span class="val">false</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="field">campeao:</span> <span class="val">null</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="field">criado_em:</span> <span class="val">timestamp</span></div>
+      <br>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="sub">participantes/</span> <span style="color:#444">← subcoleção</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="doc">uid_exemplo_001</span> <span style="color:#444">{ nome, clube, seed, eliminado }</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="doc">uid_exemplo_002</span> <span style="color:#444">{ nome, clube, seed, eliminado }</span></div>
+      <br>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="sub">fases/</span> <span style="color:#444">← subcoleção</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="doc">fase_001</span> <span style="color:#444">{ nome, ordem, status }</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sub">jogos/</span> <span style="color:#444">← subcoleção</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="doc">fase1_jogo1</span> <span style="color:#444">{ time1_id, time2_id, gols, posicao_chave, proximo_jogo_id }</span></div>
+    </div>
+  </div>
+
+  <!-- Passos -->
+  <div class="card">
+    <div class="card-title">Progresso</div>
+    <div class="step" id="step1">
+      <div class="step-num" id="s1">1</div>
+      <div class="step-text">Criar documento principal em <strong>Champions/champ_exemplo_001</strong></div>
+    </div>
+    <div class="step" id="step2">
+      <div class="step-num" id="s2">2</div>
+      <div class="step-text">Criar subcoleção <strong>participantes</strong> com 2 documentos de exemplo</div>
+    </div>
+    <div class="step" id="step3">
+      <div class="step-num" id="s3">3</div>
+      <div class="step-text">Criar subcoleção <strong>fases</strong> com fase_001</div>
+    </div>
+    <div class="step" id="step4">
+      <div class="step-num" id="s4">4</div>
+      <div class="step-text">Criar subcoleção <strong>jogos</strong> com jogo de exemplo (chave explícita)</div>
+    </div>
+  </div>
+
+  <button id="btnCriar" onclick="criarColecao()">🚀 Criar Colecção Champions</button>
+  <div id="statusMsg" class="status"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBvJs40C5p-wt11zrWUtsyyIDf5GJ2XtFo",
+      authDomain: "cokplay-376c3.firebaseapp.com",
+      projectId: "cokplay-376c3",
+      storageBucket: "cokplay-376c3.firebasestorage.app",
+      messagingSenderId: "157159786165",
+      appId: "1:157159786165:web:13d8cf7f99e3864f4c20fc"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    function setStatus(msg, type) {
+      const el = document.getElementById('statusMsg');
+      el.className = `status ${type}`;
+      el.innerHTML = type === 'loading' ? `<span class="spinner"></span>${msg}` : msg;
+    }
+
+    function setStep(n, state) {
+      const el = document.getElementById(`s${n}`);
+      el.className = `step-num ${state}`;
+      if (state === 'done') el.textContent = '✓';
+      if (state === 'active') el.textContent = n;
+    }
+
+    window.criarColecao = async function() {
+      const btn = document.getElementById('btnCriar');
+      btn.disabled = true;
+      setStatus('A criar a colecção Champions...', 'loading');
+
+      try {
+        // ── PASSO 1: Documento principal ──
+        setStep(1, 'active');
+        setStatus('Passo 1/4 — A criar documento principal...', 'loading');
+
+        const torneioRef = doc(db, 'Champions', 'champ_exemplo_001');
+        await setDoc(torneioRef, {
+          nome: 'Copa Power Play 2026',
+          descricao: 'Torneio de exemplo — substitui pelos dados reais',
+          tamanho: 8,
+          status: 'aguardando',
+          fase_atual: null,
+          chave_gerada: false,
+          campeao: null,
+          criado_por: 'uid_admin',
+          criado_em: serverTimestamp(),
+          finalizado_em: null,
+          _schema_versao: 2
+        });
+        setStep(1, 'done');
+
+        // ── PASSO 2: Participantes ──
+        setStep(2, 'active');
+        setStatus('Passo 2/4 — A criar subcoleção participantes...', 'loading');
+
+        await setDoc(doc(db, 'Champions', 'champ_exemplo_001', 'participantes', 'uid_exemplo_001'), {
+          userId: 'uid_exemplo_001',
+          nome: 'Emerson',
+          clube: 'FC Dragons',
+          seed: 1,
+          eliminado: false,
+          inscrito_em: serverTimestamp(),
+          foto_url: null
+        });
+
+        await setDoc(doc(db, 'Champions', 'champ_exemplo_001', 'participantes', 'uid_exemplo_002'), {
+          userId: 'uid_exemplo_002',
+          nome: 'Carlos',
+          clube: 'Real Maputo',
+          seed: 2,
+          eliminado: false,
+          inscrito_em: serverTimestamp(),
+          foto_url: null
+        });
+        setStep(2, 'done');
+
+        // ── PASSO 3: Fases ──
+        setStep(3, 'active');
+        setStatus('Passo 3/4 — A criar subcoleção fases...', 'loading');
+
+        await setDoc(doc(db, 'Champions', 'champ_exemplo_001', 'fases', 'fase_001'), {
+          nome: 'Quartas de Final',
+          ordem: 1,
+          status: 'pendente',
+          total_jogos: 4,
+          concluidos: 0
+        });
+        setStep(3, 'done');
+
+        // ── PASSO 4: Jogos ──
+        setStep(4, 'active');
+        setStatus('Passo 4/4 — A criar subcoleção jogos...', 'loading');
+
+        await setDoc(doc(db, 'Champions', 'champ_exemplo_001', 'fases', 'fase_001', 'jogos', 'fase1_jogo1'), {
+          jogoId: 'fase1_jogo1',
+          time1_id: 'uid_exemplo_001',
+          time2_id: 'uid_exemplo_002',
+          gols1: null,
+          gols2: null,
+          vencedor_id: null,
+          status_jogo: 'pendente',
+          posicao_chave: { fase: 1, slot: 1 },
+          proximo_jogo_id: 'fase2_jogo1',
+          proximo_slot: 'time1',
+          criado_em: serverTimestamp()
+        });
+        setStep(4, 'done');
+
+        setStatus(`
+          ✅ Colecção <strong>Champions</strong> criada com sucesso!<br><br>
+          📁 Champions/<br>
+          &nbsp;&nbsp;└ champ_exemplo_001/<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;├ participantes/ (2 docs)<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;└ fases/fase_001/jogos/ (1 doc)<br><br>
+          Podes agora ver no Firebase Console e começar a adaptar os dados reais.
+          <a class="result-link" onclick="window.open('https://console.firebase.google.com/project/cokplay-376c3/firestore/databases/-default-/data/~2FChampions', '_blank')">
+            → Abrir no Firebase Console
+          </a>
+        `, 'success');
+
+      } catch(e) {
+        setStatus(`❌ Erro: ${e.message}<br><br>Verifica as Firestore Security Rules — pode estar a bloquear escritas não autenticadas.`, 'error');
+        btn.disabled = false;
+      }
+    };
+  </script>
+</body>
+</html>

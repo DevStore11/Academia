@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firestore Explorer — CokPlay</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0a;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #00cc6a;
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      min-width: 200px;
+      padding: 10px 14px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: #e0e0e0;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #00cc6a;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #00cc6a;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: opacity 0.2s;
+    }
+
+    button:hover { opacity: 0.85; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    button.secondary {
+      background: #1a1a1a;
+      color: #00cc6a;
+      border: 1px solid #00cc6a;
+    }
+
+    .status {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .status.info { background: #0d2a1a; border: 1px solid #00cc6a; color: #00cc6a; display: block; }
+    .status.error { background: #2a0d0d; border: 1px solid #cc0000; color: #ff6666; display: block; }
+    .status.loading { background: #1a1a2a; border: 1px solid #4466cc; color: #8899ff; display: block; }
+
+    .collections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .collection-card {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.1s;
+    }
+
+    .collection-card:hover {
+      border-color: #00cc6a;
+      transform: translateY(-2px);
+    }
+
+    .collection-card.active {
+      border-color: #00cc6a;
+      background: #0d1f15;
+    }
+
+    .collection-name {
+      color: #00cc6a;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .collection-meta {
+      color: #555;
+      font-size: 0.78rem;
+    }
+
+    .section-title {
+      color: #888;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .docs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .docs-table th {
+      background: #1a1a1a;
+      color: #00cc6a;
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .docs-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #1a1a1a;
+      vertical-align: top;
+      color: #ccc;
+    }
+
+    .docs-table tr:hover td {
+      background: #111;
+    }
+
+    .doc-id {
+      color: #4499ff;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .doc-id:hover { text-decoration: underline; }
+
+    .field-key { color: #ff9944; }
+    .field-value { color: #cccccc; }
+    .field-type { color: #555; font-size: 0.72rem; }
+
+    .json-viewer {
+      background: #0d0d0d;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 1.2rem;
+      margin-top: 1rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      max-height: 500px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .json-viewer.visible { display: block; }
+
+    .breadcrumb {
+      color: #555;
+      font-size: 0.82rem;
+      margin-bottom: 1rem;
+    }
+
+    .breadcrumb span { color: #00cc6a; cursor: pointer; }
+    .breadcrumb span:hover { text-decoration: underline; }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-left: 6px;
+    }
+
+    .badge-count { background: #1a2a1a; color: #00cc6a; }
+
+    .copy-btn {
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      background: #1a1a1a;
+      color: #888;
+      border: 1px solid #333;
+      border-radius: 4px;
+      margin-left: 8px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #444;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #333;
+      border-top-color: #00cc6a;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #doc-detail { display: none; }
+  </style>
+</head>
+<body>
+
+  <h1>🔥 Firestore Explorer</h1>
+  <p class="subtitle">Projeto: cokplay-376c3 — Explorador de colecções e documentos</p>
+
+  <div class="controls">
+    <input type="text" id="collectionInput" placeholder="Nome exacto da colecção (ex: torneios, users, jogadores...)" />
+    <button id="btnLoad" onclick="loadCollection()">Carregar Colecção</button>
+    <button class="secondary" onclick="loadKnownCollections()">Tentar colecções comuns</button>
+  </div>
+
+  <div id="statusMsg" class="status"></div>
+
+  <!-- Colecções encontradas -->
+  <div id="collections-section" style="display:none;">
+    <p class="section-title">Colecções encontradas <span id="col-count" class="badge badge-count"></span></p>
+    <div class="collections-grid" id="collections-grid"></div>
+  </div>
+
+  <!-- Documentos da colecção seleccionada -->
+  <div id="docs-section" style="display:none;">
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <p class="section-title">Documentos <span id="doc-count" class="badge badge-count"></span></p>
+    <table class="docs-table">
+      <thead>
+        <tr>
+          <th>ID do Documento</th>
+          <th>Campos (resumo)</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="docs-tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- Detalhe de documento -->
+  <div id="doc-detail">
+    <div class="breadcrumb" id="doc-breadcrumb"></div>
+    <button class="secondary" style="margin-bottom:1rem;" onclick="closeDocDetail()">← Voltar</button>
+    <div class="json-viewer visible" id="json-viewer"></div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, doc, getDoc, query, limit, orderBy } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBvJs40C5p-wt11zrWUtsyyIDf5GJ2XtFo",
+      authDomain: "cokplay-376c3.firebaseapp.com",
+      projectId: "cokplay-376c3",
+      storageBucket: "cokplay-376c3.firebasestorage.app",
+      messagingSenderId: "157159786165",
+      appId: "1:157159786165:web:13d8cf7f99e3864f4c20fc"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Colecções comuns para tentar
+    const COMMON_COLLECTIONS = [
+      'torneios', 'campeonatos', 'tournaments',
+      'users', 'utilizadores', 'jogadores', 'players',
+      'equipas', 'clubes', 'teams',
+      'partidas', 'jogos', 'matches', 'resultados',
+      'ligas', 'leagues',
+      'inscricoes', 'registros',
+      'admins', 'organizers', 'organizadores',
+      'noticias', 'news',
+      'classificacoes', 'standings'
+    ];
+
+    let currentCollection = null;
+    let currentDocs = [];
+
+    function setStatus(msg, type = 'info') {
+      const el = document.getElementById('statusMsg');
+      el.className = `status ${type}`;
+      el.innerHTML = type === 'loading' ? `<span class="spinner"></span>${msg}` : msg;
+    }
+
+    function clearStatus() {
+      document.getElementById('statusMsg').className = 'status';
+    }
+
+    // Expõe funções ao window para os onclick funcionarem
+    window.loadCollection = async function() {
+      const name = document.getElementById('collectionInput').value.trim();
+      if (!name) { setStatus('Introduz o nome da colecção.', 'error'); return; }
+      await fetchCollection(name);
+    };
+
+    window.loadKnownCollections = async function() {
+      setStatus(`A tentar ${COMMON_COLLECTIONS.length} colecções comuns...`, 'loading');
+      
+      const found = [];
+      for (const col of COMMON_COLLECTIONS) {
+        try {
+          const q = query(collection(db, col), limit(1));
+          const snap = await getDocs(q);
+          if (!snap.empty) {
+            found.push({ name: col, count: snap.size });
+          }
+        } catch(e) {
+          // sem acesso ou não existe — ignora
+        }
+      }
+
+      if (found.length === 0) {
+        setStatus('Nenhuma colecção comum encontrada. Tenta introduzir o nome manualmente.', 'error');
+        return;
+      }
+
+      setStatus(`${found.length} colecção(ões) encontrada(s)!`, 'info');
+      
+      const grid = document.getElementById('collections-grid');
+      grid.innerHTML = '';
+      document.getElementById('col-count').textContent = found.length;
+      document.getElementById('collections-section').style.display = 'block';
+      document.getElementById('docs-section').style.display = 'none';
+      document.getElementById('doc-detail').style.display = 'none';
+
+      for (const col of found) {
+        // Buscar contagem real
+        let realCount = '?';
+        try {
+          const fullSnap = await getDocs(query(collection(db, col.name), limit(100)));
+          realCount = fullSnap.size + (fullSnap.size === 100 ? '+' : '');
+        } catch(e) {}
+
+        const card = document.createElement('div');
+        card.className = 'collection-card';
+        card.innerHTML = `
+          <div class="collection-name">📁 ${col.name}</div>
+          <div class="collection-meta">${realCount} documento(s) encontrado(s)</div>
+        `;
+        card.onclick = () => fetchCollection(col.name, card);
+        grid.appendChild(card);
+      }
+    };
+
+    window.fetchCollection = async function(colName, cardEl) {
+      currentCollection = colName;
+      setStatus(`A carregar colecção "${colName}"...`, 'loading');
+      document.getElementById('doc-detail').style.display = 'none';
+
+      // Highlight card
+      document.querySelectorAll('.collection-card').forEach(c => c.classList.remove('active'));
+      if (cardEl) cardEl.classList.add('active');
+
+      try {
+        const q = query(collection(db, colName), limit(50));
+        const snap = await getDocs(q);
+
+        if (snap.empty) {
+          setStatus(`Colecção "${colName}" existe mas está vazia.`, 'info');
+          document.getElementById('docs-section').style.display = 'none';
+          return;
+        }
+
+        currentDocs = [];
+        snap.forEach(d => currentDocs.push({ id: d.id, data: d.data() }));
+
+        setStatus(`${currentDocs.length} documento(s) carregado(s) da colecção "${colName}".`, 'info');
+
+        // Breadcrumb
+        document.getElementById('breadcrumb').innerHTML = `
+          🗄️ <span onclick="window.loadKnownCollections()">Colecções</span> → <strong>${colName}</strong>
+        `;
+
+        // Render tabela
+        const tbody = document.getElementById('docs-tbody');
+        tbody.innerHTML = '';
+        document.getElementById('doc-count').textContent = currentDocs.length;
+
+        for (const docItem of currentDocs) {
+          const fields = Object.keys(docItem.data);
+          const preview = fields.slice(0, 4).map(k => {
+            const val = docItem.data[k];
+            const display = typeof val === 'object' && val !== null
+              ? (Array.isArray(val) ? `[${val.length}]` : '{…}')
+              : String(val).substring(0, 40);
+            return `<span class="field-key">${k}</span>: <span class="field-value">${display}</span>`;
+          }).join('<br>');
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><span class="doc-id" onclick="window.openDoc('${docItem.id}')">${docItem.id}</span></td>
+            <td style="font-size:0.78rem; line-height:1.8;">${preview || '<em style="color:#444">sem campos</em>'}</td>
+            <td>
+              <button class="copy-btn" onclick="window.copyDocJson('${docItem.id}')">📋 JSON</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        }
+
+        document.getElementById('docs-section').style.display = 'block';
+
+      } catch(e) {
+        setStatus(`Erro ao carregar "${colName}": ${e.message}`, 'error');
+      }
+    };
+
+    window.openDoc = function(docId) {
+      const docItem = currentDocs.find(d => d.id === docId);
+      if (!docItem) return;
+
+      document.getElementById('doc-detail').style.display = 'block';
+      document.getElementById('doc-breadcrumb').innerHTML = `
+        🗄️ <span onclick="window.loadKnownCollections()">Colecções</span> →
+        <span onclick="window.fetchCollection('${currentCollection}')">${currentCollection}</span> →
+        <strong>${docId}</strong>
+      `;
+
+      const json = JSON.stringify(docItem.data, null, 2);
+      document.getElementById('json-viewer').textContent = json;
+
+      document.getElementById('doc-detail').scrollIntoView({ behavior: 'smooth' });
+    };
+
+    window.closeDocDetail = function() {
+      document.getElementById('doc-detail').style.display = 'none';
+    };
+
+    window.copyDocJson = function(docId) {
+      const docItem = currentDocs.find(d => d.id === docId);
+      if (!docItem) return;
+      navigator.clipboard.writeText(JSON.stringify(docItem.data, null, 2))
+        .then(() => setStatus(`JSON do documento "${docId}" copiado!`, 'info'))
+        .catch(() => setStatus('Erro ao copiar.', 'error'));
+    };
+
+    // Auto-arrancar
+    window.addEventListener('load', () => {
+      setStatus('Pronto. Clica em "Tentar colecções comuns" para começar.', 'info');
+    });
+  </script>
+</body>
+</html>

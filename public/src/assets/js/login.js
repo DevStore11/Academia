@@ -244,6 +244,11 @@ function redirecionar(role) {
     window.location.href = "../pages/dashboard-admin.html";
   } else if (role === "funcionario") {
     window.location.href = "../pages/dashboard-funcionario.html";
+  } else if(role==="organizer"){
+    window.location.href="../pages/eventos.html";
+
+  } else if (role === "playoff") {
+    window.location.href = "../pages/dashboard-playoffs.html";
   } else {
     window.location.href = "../pages/dashboard.html";
   }

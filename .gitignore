@@ -67,3 +67,8 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+./tests/firebase/fixtures/dataconnect/*.json
+./tests/firestore-explore.html
+/tests/firestore-explore.js
+/tests/firestore-explore.css
+/tests/firestore-explore.html

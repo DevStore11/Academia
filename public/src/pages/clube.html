@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil do Clube — POWER PLAY E-SPORT</title>
+  <link rel="icon" href="../assets/img/favicon.png" sizes="32x32" type="image/webp">
+  <link rel="shortcut icon" href="../assets/img/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/clube.css">
+</head>
+<body>
+
+  <header class="clube-header">
+    <a href="../../index.html" class="btn-voltar"><i class="fas fa-arrow-left"></i> Voltar</a>
+    <div class="clube-titulos">
+      <h1 id="clube-nome">A carregar...</h1>
+      <p id="clube-liga" class="liga-nome">A carregar...</p>
+    </div>
+  </header>
+
+  <main class="clube-main">
+
+    <section class="clube-stats">
+      <h2>Estatísticas na Liga</h2>
+      <div class="stats-grid" id="stats-grid">
+        <div class="loading-state">A carregar estatísticas...</div>
+      </div>
+    </section>
+
+    <section class="confrontos-section">
+      <h2><i class="fas fa-check-circle"></i> Confrontos Realizados</h2>
+      <div id="confrontos-realizados">
+        <div class="loading-state">A carregar confrontos...</div>
+      </div>
+    </section>
+
+    <section class="confrontos-section">
+      <h2><i class="fas fa-clock"></i> Próximos Confrontos</h2>
+      <div id="confrontos-pendentes">
+        <div class="loading-state">A carregar confrontos...</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="../assets/js/clube.js"></script>
+</body>
+</html>

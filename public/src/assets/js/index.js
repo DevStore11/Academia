@@ -4,25 +4,43 @@
 import { db } from "./firebaseConfig.js";
 import {
   collection,
-  getDocs,
+  onSnapshot,
   setDoc,
-  doc,
+  doc
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+// =======================================
+// CACHE DOS SNAPSHOTS
+// =======================================
+let ultimasLigas = null;
+let ultimosConfrontos = null;
+
+// =======================================
+// RECALCULAR QUANDO OS DADOS MUDAM
+// =======================================
+function recalcularTabelas() {
+  if (!ultimasLigas || !ultimosConfrontos) return;
+
+  atualizarTabelas(ultimasLigas, ultimosConfrontos).then((tabelaMap) => {
+    carregarLigas(ultimasLigas).then(ligas => {
+      carregarTabelas(ligas, tabelaMap);
+      ativarFiltros();
+    });
+  });
+}
 
 // =======================================
 // ATUALIZAR TABELAS NO FIRESTORE
 // Recalcula pontos/gols com base nos confrontos,
 // salva no Firestore e RETORNA os dados calculados
 // para evitar race condition na leitura posterior.
+// Agora recebe os docs dos snapshots em vez de chamar getDocs.
 // =======================================
-export async function atualizarTabelas() {
-  const ligasSnap = await getDocs(collection(db, "ligas"));
-  const confrontosSnap = await getDocs(collection(db, "confrontos"));
-
+export async function atualizarTabelas(ligasDocs, confrontosDocs) {
   const tabelaMap = {}; // { [ligaId]: clubes[] }
   const escritas = []; // promessas de setDoc para executar em paralelo
 
-  for (const ligaDoc of ligasSnap.docs) {
+  for (const ligaDoc of ligasDocs) {
     const ligaId = ligaDoc.id;
     const liga = ligaDoc.data();
 
@@ -38,7 +56,7 @@ export async function atualizarTabelas() {
       pontos: 0,
     }));
 
-    confrontosSnap.forEach((cDoc) => {
+    confrontosDocs.forEach((cDoc) => {
       const c = cDoc.data();
 
       // Ignora confrontos de outra liga ou que não estejam terminados
@@ -110,11 +128,11 @@ export async function atualizarTabelas() {
 // CARREGAR LIGAS E GERAR BOTÕES DE FILTRO
 // Apenas para as tabelas
 // =======================================
-async function carregarLigas() {
-  const ligasSnap = await getDocs(collection(db, "ligas"));
+async function carregarLigas(ligasDocs) {
   const ligas = [];
 
-  ligasSnap.forEach((ligaDoc) => {
+  ligasDocs.forEach((ligaDoc) => {
+    if (ligaDoc.data().visivel === false) return;
     ligas.push({ id: ligaDoc.id, nome: ligaDoc.data().nome });
   });
 
@@ -122,12 +140,6 @@ async function carregarLigas() {
   const filtroTabelas = document.getElementById("filtros-ligas");
   if (filtroTabelas) {
     filtroTabelas.innerHTML = "";
-
-    const allBtn = document.createElement("button");
-    allBtn.classList.add("filter-btn", "active");
-    allBtn.dataset.league = "all";
-    allBtn.innerText = "Todas as Ligas";
-    filtroTabelas.appendChild(allBtn);
 
     ligas.forEach((liga) => {
       const btn = document.createElement("button");
@@ -212,7 +224,7 @@ async function carregarTabelas(ligas, tabelaMap) {
               return `
                 <tr class="${row}">
                   <td><span class="position-indicator ${pos}">${i + 1}</span></td>
-                  <td>${c.nome}</td>
+                  <td><a href="/src/pages/clube.html?liga=${liga.id}&clube=${encodeURIComponent(c.nome)}" class="clube-link">${c.nome}</a></td>
                   <td>${c.jogos}</td>
                   <td>${c.vitorias}</td>
                   <td>${c.empates}</td>
@@ -266,13 +278,103 @@ function ativarFiltros() {
 }
 
 // =======================================
-// INICIALIZAÇÃO
-// tabelaMap é passado direto para carregarTabelas,
-// evitando race condition com a cache do Firestore.
+// CARREGAR CAMPEÃO EM DESTAQUE
 // =======================================
-document.addEventListener("DOMContentLoaded", async () => {
-  const tabelaMap = await atualizarTabelas(); // calcula + salva + retorna dados frescos
-  const ligas = await carregarLigas();        // carrega ligas e monta filtros
-  await carregarTabelas(ligas, tabelaMap);    // renderiza com dados já em memória
-  ativarFiltros();                            // ativa filtros por liga
+function carregarCampeaoDestaque() {
+  const section = document.getElementById("campeao-destaque-section");
+  const content = document.getElementById("campeao-destaque-content");
+  if (!section || !content) return;
+
+  onSnapshot(collection(db, "campeoes"), (snap) => {
+    const emDestaque = snap.docs
+      .map(d => ({ id: d.id, ...d.data() }))
+      .filter(c => c.destaque === true);
+
+    if (emDestaque.length === 0) {
+      section.style.display = "none";
+      return;
+    }
+    section.style.display = "block";
+    content.innerHTML = "";
+    emDestaque.forEach(c => {
+      content.innerHTML += `
+        <div class="campeao-destaque-card">
+          <div class="campeao-destaque-foto-wrap">
+            <img src="${c.fotoUrl}" alt="${c.clubeNome}" class="campeao-destaque-foto">
+            <div class="campeao-destaque-overlay"></div>
+          </div>
+          <div class="campeao-destaque-info">
+            <span class="campeao-destaque-ano">${c.ano}</span>
+            <h2 class="campeao-destaque-nome">${c.clubeNome}</h2>
+            <p class="campeao-destaque-desc">${c.descricao}</p>
+            <span class="campeao-destaque-badge">
+              <i class="fas fa-trophy"></i> CAMPEÃO
+            </span>
+          </div>
+        </div>`;
+    });
+  });
+}
+
+// =======================================
+// CARREGAR CONFRONTOS EM DESTAQUE
+// =======================================
+function carregarConfrontosDestaque() {
+  const section = document.getElementById("confrontos-destaque-section");
+  const container = document.getElementById("lista-confrontos-destaque");
+  if (!section || !container) return;
+
+  onSnapshot(collection(db, "playoff_confrontos"), (snap) => {
+    const emDestaque = snap.docs
+      .map(d => ({ id: d.id, ...d.data() }))
+      .filter(c => c.destaque === true);
+
+    if (emDestaque.length === 0) {
+      section.style.display = "none";
+      return;
+    }
+    section.style.display = "block";
+    container.innerHTML = "";
+    emDestaque.forEach(d => {
+      const c = d;
+      const terminado = c.estado === "terminado";
+      container.innerHTML += `
+        <div class="confronto-destaque-card">
+          <div class="confronto-destaque-equipas">
+            <span class="confronto-destaque-clube">${c.casa}</span>
+            <span class="confronto-destaque-resultado">
+              ${terminado
+                ? `${c.agregado_casa} — ${c.agregado_fora}`
+                : `<span class="confronto-destaque-vs">VS</span>`}
+            </span>
+            <span class="confronto-destaque-clube">${c.fora}</span>
+          </div>
+          ${terminado
+            ? `<div class="confronto-destaque-vencedor">
+                 <i class="fas fa-trophy"></i> ${c.vencedor}
+               </div>`
+            : `<div class="confronto-destaque-pendente">Por Realizar</div>`}
+        </div>`;
+    });
+  });
+}
+
+// =======================================
+// INICIALIZAÇÃO
+// Usa onSnapshot em vez de getDocs para atualização
+// em tempo real sempre que ligas ou confrontos mudam.
+// =======================================
+document.addEventListener("DOMContentLoaded", () => {
+  onSnapshot(collection(db, "ligas"), (snapshot) => {
+    ultimasLigas = snapshot.docs;
+    recalcularTabelas();
+  });
+
+  onSnapshot(collection(db, "confrontos"), (snapshot) => {
+    ultimosConfrontos = snapshot.docs;
+    recalcularTabelas();
+  });
+
+  carregarCampeaoDestaque();
+  carregarConfrontosDestaque();
 });

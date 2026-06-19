@@ -45,113 +45,86 @@
   </header>
 
   <main>
-    <h1 class="pagina-titulo">Campeonatos Públicos</h1>
-    
-    <!-- Filtros -->
-    <div class="filtros-container">
-      <div class="filtros">
-        <button class="filtro-btn active" data-filter="all">
-          <i class="fas fa-list"></i> Todos
-        </button>
-        <button class="filtro-btn" data-filter="ativo">
-          <i class="fas fa-play-circle"></i> Ativos
-        </button>
-        <button class="filtro-btn" data-filter="aguardando">
-          <i class="fas fa-clock"></i> Aguardando
-        </button>
-        <button class="filtro-btn" data-filter="finalizado">
-          <i class="fas fa-flag-checkered"></i> Finalizados
-        </button>
-      </div>
-      
-      <div class="busca-container">
-        <div class="busca-input">
-          <i class="fas fa-search"></i>
-          <input type="text" id="buscaTorneio" placeholder="Buscar torneio...">
+    <!-- ===================== ECRÃ 1: Lista de Campeonatos ===================== -->
+    <div id="ecra-lista">
+      <h1 class="pagina-titulo">Campeonatos Públicos</h1>
+
+      <div class="filtros-container">
+        <div class="filtros">
+          <button class="filtro-btn active" data-filter="all"><i class="fas fa-list"></i> Todos</button>
+          <button class="filtro-btn" data-filter="em_curso"><i class="fas fa-play-circle"></i> Em Curso</button>
+          <button class="filtro-btn" data-filter="aguardando"><i class="fas fa-clock"></i> Aguardando</button>
+          <button class="filtro-btn" data-filter="finalizado"><i class="fas fa-flag-checkered"></i> Finalizados</button>
+        </div>
+
+        <div class="busca-container">
+          <div class="busca-input">
+            <i class="fas fa-search"></i>
+            <input type="text" id="busca-campeonato" placeholder="Pesquisar campeonato...">
+          </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Lista de torneios -->
-    <div class="torneios-container" id="lista-torneios">
-      <div class="loading-container">
-        <div class="loading"></div>
-        <p>Carregando torneios...</p>
+
+      <div class="torneios-container" id="lista-campeonatos">
+        <div class="loading-container">
+          <div class="loading"></div>
+          <p>Carregando campeonatos...</p>
+        </div>
+      </div>
+
+      <div id="lista-vazia" style="display:none;">
+        <i class="fas fa-trophy"></i>
+        <p>Nenhum campeonato encontrado.</p>
       </div>
     </div>
-    
-    <!-- Detalhes do torneio -->
-    <div id="detalhe-torneio" style="display:none;">
-      <button id="voltar-lista">
-        <i class="fas fa-arrow-left"></i> Voltar à lista
+
+    <!-- ===================== ECRÃ 2: Detalhe ===================== -->
+    <div id="ecra-detalhe" style="display:none;">
+      <button id="btn-voltar-lista">
+        <i class="fas fa-arrow-left"></i> Voltar
       </button>
-      <h2 id="nome-torneio-detalhe"></h2>
-      
-      <div class="detalhes-container">
-        <div class="detalhe-coluna">
-          <h3 class="detalhe-titulo"><i class="fas fa-info-circle"></i> Informações</h3>
-          <div class="detalhe-info" id="info-torneio"></div>
-        </div>
-        
-        <div class="detalhe-coluna">
-          <h3 class="detalhe-titulo"><i class="fas fa-award"></i> Premiação</h3>
-          <div class="premiacao-container" id="premiacao-torneio"></div>
-        </div>
-      </div>
-      
+
+      <h2 id="detalhe-nome"></h2>
+
+      <div id="detalhe-info"></div>
+
       <div class="tabela-participantes">
         <div class="tabela-header">
           <h3><i class="fas fa-users"></i> Participantes</h3>
         </div>
         <div class="tabela-content">
-          <table id="tabela-participantes">
-            <thead>
-              <tr>
-                <th>Posição</th>
-                <th>Clube</th>
-                <th>Jogador</th>
-                <th>Pontos</th>
-                <th>Vitórias</th>
-              </tr>
-            </thead>
-            <tbody id="lista-participantes">
-              <!-- Participantes serão carregados aqui -->
-            </tbody>
-          </table>
+          <div id="lista-participantes"></div>
         </div>
       </div>
-      
-      <!-- Formulário de Inscrição -->
-      <div class="form-inscricao" id="form-inscricao" style="display: none;">
-        <h3><i class="fas fa-edit"></i> Inscrever-se no Torneio</h3>
-        <form id="formInscricao">
-          <div class="form-group">
-            <label for="nomeJogador"><i class="fas fa-user"></i> Nome do Jogador</label>
-            <input type="text" id="nomeJogador" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="nomeClube"><i class="fas fa-chess-king"></i> Nome do Clube</label>
-            <input type="text" id="nomeClube" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="emailJogador"><i class="fas fa-envelope"></i> Email</label>
-            <input type="email" id="emailJogador" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="telefoneJogador"><i class="fas fa-phone"></i> Telefone</label>
-            <input type="tel" id="telefoneJogador" required>
-          </div>
-          
-          <button type="submit" class="btn-confirmar">
-            <i class="fas fa-check-circle"></i> Confirmar Inscrição
-          </button>
-        </form>
+
+      <div id="detalhe-bracket-aviso" style="display:block;">
+        <p>Bracket ainda não disponível.</p>
       </div>
-      
-      <div id="torneio-container"></div>
+
+      <button id="btn-ver-bracket" style="display:none;">
+        <i class="fas fa-sitemap"></i> Ver Bracket
+      </button>
+    </div>
+
+    <!-- ===================== ECRÃ 3: Bracket ===================== -->
+    <div id="ecra-bracket" style="display:none;">
+      <button id="btn-voltar-detalhe">
+        <i class="fas fa-arrow-left"></i> Voltar
+      </button>
+
+      <h2 id="bracket-nome"></h2>
+
+      <div>
+        <button id="btn-guardar-png"><i class="fas fa-download"></i> Guardar Imagem</button>
+        <button id="btn-partilhar-whatsapp"><i class="fab fa-whatsapp"></i> Partilhar</button>
+      </div>
+
+      <div id="bracket-container" style="width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;">
+        <div class="loading-container">
+          <div class="loading"></div>
+          <p>A carregar bracket...</p>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -185,12 +158,12 @@
             </a>
           </li>
           <li>
-            <a href="index.html">
+            <a href="../../index.html">
               <i class="fas fa-home"></i> Página Inicial
             </a>
           </li>
           <li>
-            <a href="cadastro.html">
+            <a href="./cadastro.html">
               <i class="fas fa-user-plus"></i> Cadastro
             </a>
           </li>
@@ -199,106 +172,10 @@
     </div>
     
     <div class="direitos">
-      <p>&copy; 2025 AA Power Play E-Sport — Todos os direitos reservados.</p>
+      <p>&copy; 2026 A Power Play E-Sport — Todos os direitos reservados.</p>
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="Js/torneio.js"></script>
-  <script src="Js/hamburguer_torneio.js"></script>
-  
-  <script>
-    // Adicionar CSS para novos elementos
-    const style = document.createElement('style');
-    style.textContent = `
-      .filtros-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
-      
-      .filtros {
-        display: flex;
-        gap: 0.8rem;
-        flex-wrap: wrap;
-      }
-      
-      .filtro-btn {
-        padding: 10px 20px;
-        background: var(--dark-bg-tertiary);
-        border: 1px solid var(--border-color);
-        border-radius: 20px;
-        color: var(--text-secondary);
-        cursor: pointer;
-        transition: var(--transition);
-        font-weight: 600;
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      
-      .filtro-btn:hover {
-        color: var(--primary-green);
-        border-color: var(--primary-green);
-      }
-      
-      .filtro-btn.active {
-        background: var(--primary-green);
-        color: var(--dark-bg);
-        border-color: transparent;
-      }
-      
-      .busca-container {
-        flex: 1;
-        max-width: 300px;
-      }
-      
-      .busca-input {
-        position: relative;
-      }
-      
-      .busca-input i {
-        position: absolute;
-        left: 16px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--text-tertiary);
-      }
-      
-      .busca-input input {
-        width: 100%;
-        padding: 12px 16px 12px 42px;
-        background: var(--dark-bg-tertiary);
-        border: 1px solid var(--border-color);
-        border-radius: 20px;
-        color: var(--text-primary);
-        font-size: 0.95rem;
-        transition: var(--transition);
-      }
-      
-      .busca-input input:focus {
-        outline: none;
-        border-color: var(--primary-green);
-        box-shadow: 0 0 0 3px rgba(0, 204, 106, 0.1);
-      }
-      
-      .loading-container {
-        text-align: center;
-        padding: 4rem;
-        color: var(--text-tertiary);
-        grid-column: 1 / -1;
-      }
-      
-      .loading-container p {
-        margin-top: 1rem;
-        font-size: 1.1rem;
-      }
-    `;
-    document.head.appendChild(style);
-  </script>
+  <script type="module" src="../assets/js/Campeonato.js"></script>
 </body>
 </html>

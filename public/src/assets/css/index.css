@@ -1150,6 +1150,37 @@ body::before {
   }
 }
 
+.clube-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  transition: color 0.3s ease;
+  padding: 2px 0;
+  display: inline-block;
+}
+
+.clube-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-green);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+  box-shadow: 0 0 6px var(--primary-green);
+}
+
+.clube-link:hover {
+  color: var(--primary-green);
+}
+
+.clube-link:hover::after {
+  width: 100%;
+}
+
 /* Animações */
 @keyframes fadeInUp {
   from {
@@ -1193,4 +1224,191 @@ body::before {
 ::-moz-selection {
   background: var(--primary-green);
   color: var(--dark-bg);
+}
+
+/* ===== CAMPEÃO EM DESTAQUE ===== */
+.campeao-section {
+  padding: 2rem 0;
+  background: var(--dark-bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.campeao-destaque-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  transition: var(--transition);
+}
+
+.campeao-destaque-card:hover {
+  border-color: var(--primary-green);
+  box-shadow: var(--shadow-green);
+}
+
+.campeao-destaque-foto-wrap {
+  position: relative;
+  width: 280px;
+  min-height: 200px;
+  flex-shrink: 0;
+}
+
+.campeao-destaque-foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  min-height: 200px;
+}
+
+.campeao-destaque-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent, var(--card-bg));
+}
+
+.campeao-destaque-info {
+  padding: 2rem 2rem 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.campeao-destaque-ano {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.campeao-destaque-nome {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-green);
+  line-height: 1.1;
+}
+
+.campeao-destaque-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 500px;
+}
+
+.campeao-destaque-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0,204,106,0.15);
+  color: var(--primary-green);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  width: fit-content;
+}
+
+/* ===== CONFRONTOS EM DESTAQUE ===== */
+.destaque-section {
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.confrontos-destaque-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.confronto-destaque-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  text-align: center;
+}
+
+.confronto-destaque-card:hover {
+  border-color: var(--primary-green);
+  box-shadow: var(--shadow-green);
+}
+
+.confronto-destaque-equipas {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.confronto-destaque-clube {
+  font-weight: bold;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  flex: 1;
+}
+
+.confronto-destaque-clube:first-child { text-align: left; }
+.confronto-destaque-clube:last-child { text-align: right; }
+
+.confronto-destaque-resultado {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--primary-green);
+  padding: 0 0.5rem;
+}
+
+.confronto-destaque-vs {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+}
+
+.confronto-destaque-vencedor {
+  font-size: 0.8rem;
+  color: var(--success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.confronto-destaque-pendente {
+  font-size: 0.8rem;
+  color: var(--accent-blue);
+  margin-top: 0.5rem;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+  .campeao-destaque-card {
+    flex-direction: column;
+  }
+
+  .campeao-destaque-foto-wrap {
+    width: 100%;
+    min-height: 200px;
+  }
+
+  .campeao-destaque-overlay {
+    background: linear-gradient(to bottom, transparent, var(--card-bg));
+  }
+
+  .campeao-destaque-info {
+    padding: 0 1rem 1.5rem 1rem;
+  }
+
+  .campeao-destaque-nome {
+    font-size: 1.4rem;
+  }
+
+  .confrontos-destaque-grid {
+    grid-template-columns: 1fr;
+  }
 }

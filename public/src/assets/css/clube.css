@@ -1,0 +1,295 @@
+:root {
+  --primary-green: #00cc6a;
+  --primary-green-dark: #00a857;
+  --primary-green-light: #00e676;
+  --dark-bg: #0f0f0f;
+  --dark-bg-secondary: #1a1a1a;
+  --dark-bg-tertiary: #222222;
+  --card-bg: #242424;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --text-tertiary: #707070;
+  --accent-green: #00d47a;
+  --accent-blue: #0099cc;
+  --danger: #ff4757;
+  --warning: #ffa502;
+  --success: #2ed573;
+  --border-color: #333333;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
+  --shadow-green: 0 4px 15px rgba(0, 204, 106, 0.15);
+  --transition: all 0.3s ease;
+  --border-radius: 10px;
+  --border-radius-sm: 6px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--dark-bg);
+  color: var(--text-primary);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.clube-header {
+  background: var(--dark-bg-secondary);
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-voltar {
+  color: var(--primary-green);
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.btn-voltar:hover {
+  border-color: var(--primary-green);
+  background: rgba(0, 204, 106, 0.05);
+}
+
+.clube-titulos h1 {
+  color: var(--primary-green);
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.liga-nome {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+.clube-main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.clube-stats {
+  margin-bottom: 2rem;
+}
+
+.clube-stats h2,
+.confrontos-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-primary);
+}
+
+.clube-stats h2 i,
+.confrontos-section h2 i {
+  color: var(--primary-green);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.stat-card:hover {
+  box-shadow: var(--shadow-green);
+  border-color: var(--primary-green);
+  transform: translateY(-2px);
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+  color: var(--primary-green);
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.confrontos-section {
+  margin-top: 2rem;
+}
+
+.match-item {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: var(--transition);
+}
+
+.match-item:hover {
+  box-shadow: var(--shadow);
+}
+
+.resultado-vitoria {
+  border-left-color: var(--success);
+}
+
+.resultado-derrota {
+  border-left-color: var(--danger);
+}
+
+.resultado-empate {
+  border-left-color: var(--warning);
+}
+
+.confronto-pendente {
+  border-left-color: var(--accent-blue);
+}
+
+.team-home {
+  flex: 1;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.score {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  background: var(--dark-bg-tertiary);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--border-radius-sm);
+  text-align: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.team-away {
+  flex: 1;
+  text-align: right;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.confronto-badge {
+  background: var(--accent-blue);
+  color: var(--dark-bg);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.empty-message {
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+}
+
+.loading-state {
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 2rem;
+}
+
+.error-message {
+  color: var(--danger);
+  text-align: center;
+  padding: 3rem 2rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.error-message i {
+  font-size: 1.5rem;
+}
+
+.clube-link {
+  color: var(--primary-green);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.clube-link:hover {
+  color: var(--primary-green-light);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .clube-header {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .clube-titulos h1 {
+    font-size: 1.4rem;
+  }
+
+  .clube-main {
+    padding: 1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .confronto-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

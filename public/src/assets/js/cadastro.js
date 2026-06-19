@@ -70,8 +70,8 @@ formularioCadastro.addEventListener("submit", async (evento) => {
     return;
   }
 
-  if (!idade || idade < 16) {
-    mostrarMensagem("Idade mínima é 16 anos.");
+  if (!idade || idade < 9) {
+    mostrarMensagem("Idade mínima é 9 anos.");
     return;
   }
 

@@ -2,7 +2,7 @@
 // Importações do Firebase
 // ============================
 import { auth, db } from './firebaseConfig.js';
-import { doc, getDoc, collection, getDocs } from 'https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js';
+import { doc, getDoc, collection, getDocs } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
 
 // ============================
 // Função principal

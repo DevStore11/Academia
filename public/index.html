@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-
-<meta name="robots" content="index, follow">
-<meta name="google-site-verification" content="Xhu7SHlJSPWaVmzmXFQKOj6kyNV39ufRNSbi_cp-g5c" />
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Xhu7SHlJSPWaVmzmXFQKOj6kyNV39ufRNSbi_cp-g5c" />
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B5YD76BQNR"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -23,12 +21,9 @@
   <link rel="icon" href="src/assets/img/favicon.png" sizes="32x32" type="image/webp">
   <link rel="shortcut icon" href="src/assets/img/favicon.png" type="image/x-icon">
 
-
 </head>
 
-
 <body>
-    <!-- Navbar melhorada -->
    <!-- ===== HEADER / NAVBAR ===== -->
   <header class="header">
     <div class="carousel-container">
@@ -99,6 +94,24 @@
           <h2>ACOMPANHE OS JOGOS E RESULTADOS</h2>
           <p>Gestão completa da liga em tempo real</p>
         </div>
+      </div>
+    </section>
+
+    <!-- Campeão em Destaque -->
+    <section id="campeao-destaque-section" class="campeao-section" style="display:none">
+      <div class="container">
+        <div id="campeao-destaque-content"></div>
+      </div>
+    </section>
+
+    <!-- Confrontos em Destaque -->
+    <section id="confrontos-destaque-section" class="destaque-section" style="display:none">
+      <div class="container">
+        <div class="section-header">
+          <h2><i class="fas fa-fire"></i> CONFRONTOS EM DESTAQUE</h2>
+          <p>Jogos seleccionados pela organização</p>
+        </div>
+        <div id="lista-confrontos-destaque" class="confrontos-destaque-grid"></div>
       </div>
     </section>
 
@@ -174,8 +187,8 @@
           <h2>PRONTO PARA ENTRAR NO JOGO?</h2>
           <p>Junte-se à maior comunidade de EA SPORT FC em Moçambique</p>
           <div class="cta-buttons">
-            <a href="pages/cadastro.html" class="btn-primary btn-large">Cadastrar Agora</a>
-            <a href="pages/login.html"    class="btn-secondary btn-large">Fazer Login</a>
+            <a href="src/pages/cadastro.html" class="btn-primary btn-large">Cadastrar Agora</a>
+            <a href="src/pages/login.html"    class="btn-secondary btn-large">Fazer Login</a>
           </div>
         </div>
       </div>
@@ -222,6 +235,13 @@
             <li><a href="pages/login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
             <li><a href="pages/cadastro.html"><i class="fas fa-user-plus"></i> Cadastro</a></li>
             <li><a href="#rodape"><i class="fas fa-address-book"></i> Contatos</a></li>
+              <li>
+               <a href="https://emerson-se.web.app/" target="_blank">
+               <i class="fas fa-user"></i> Portfólio
+              </a>
+              </li>
+
+
           </ul>
         </div>
 

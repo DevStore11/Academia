@@ -9,7 +9,6 @@ import {
   doc,
   deleteDoc,
   updateDoc,
-  getDoc,
   arrayUnion
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
@@ -148,8 +147,7 @@ async function carregarLigasGerais() {
     "select-liga",
     "select-liga-confrontos",
     "select-liga-resultados",
-    "select-liga-tabela",
-    "select-liga-ver-confrontos"
+    "select-liga-tabela"
   ];
 
   const snap = await getDocs(collection(db, "ligas"));
@@ -167,16 +165,10 @@ async function carregarLigasGerais() {
   tabela.innerHTML = "";
   snap.forEach(d => {
     const liga = d.data();
-    const visivel = liga.visivel !== false;
     tabela.innerHTML += `
       <tr>
         <td>${d.id}</td>
         <td>${liga.nome || "-"}</td>
-        <td>
-          <button onclick="alternarVisibilidadeLiga('${d.id}', ${visivel})">
-            ${visivel ? 'Ocultar do Site' : 'Mostrar no Site'}
-          </button>
-        </td>
         <td>
           <button onclick="apagarLiga('${d.id}')">Apagar</button>
         </td>
@@ -185,22 +177,14 @@ async function carregarLigasGerais() {
   });
 }
 
-document.getElementById("checkbox-usar-voltas").addEventListener("change", function () {
-  document.getElementById("grupo-num-voltas").classList.toggle("hidden", !this.checked);
-});
-
 document.getElementById("form-liga").addEventListener("submit", async e => {
   e.preventDefault();
   const nome = document.getElementById("nome-liga").value.trim();
   if (!nome) return;
 
-  const usarVoltas = document.getElementById("checkbox-usar-voltas").checked;
-  const numVoltas = usarVoltas ? (parseInt(document.getElementById("input-num-voltas").value) || 1) : null;
-
-  await addDoc(collection(db, "ligas"), { nome, clubes: [], visivel: true, usarVoltas, numVoltas });
+  await addDoc(collection(db, "ligas"), { nome, clubes: [] });
   mostrarToast("Liga criada", "success");
   e.target.reset();
-  document.getElementById("grupo-num-voltas").classList.add("hidden");
   carregarLigasGerais();
 });
 
@@ -208,12 +192,6 @@ window.apagarLiga = async function (id) {
   if (!confirm("Apagar liga?")) return;
   await deleteDoc(doc(db, "ligas", id));
   mostrarToast("Liga apagada", "success");
-  carregarLigasGerais();
-};
-
-window.alternarVisibilidadeLiga = async function (id, visivelActual) {
-  await updateDoc(doc(db, "ligas", id), { visivel: !visivelActual });
-  mostrarToast(visivelActual ? "Liga ocultada do site" : "Liga visível no site", "success");
   carregarLigasGerais();
 };
 
@@ -313,30 +291,11 @@ async function carregarConfrontos(liga_id) {
         <td>${c.modo}</td>
         <td>${c.golos_casa} - ${c.golos_fora}</td>
         <td>${c.estado}</td>
-        <td><button onclick="apagarConfrontoAdmin('${d.id}', '${c.liga_id}')">Apagar</button></td>
+        <td>-</td>
       </tr>
     `;
   });
 }
-
-window.apagarConfrontoAdmin = async function (confrontoId, ligaId) {
-  if (!confirm("Apagar este confronto?")) return;
-
-  const snap = await getDoc(doc(db, "confrontos", confrontoId));
-  if (!snap.exists()) return;
-  const c = snap.data();
-  const estavaTerminado = c.estado === "terminado";
-
-  await deleteDoc(doc(db, "confrontos", confrontoId));
-
-  carregarConfrontos(ligaId);
-
-  if (estavaTerminado && document.getElementById("select-liga-tabela").value === ligaId) {
-    await atualizarTabela(ligaId);
-  }
-
-  mostrarToast("Confronto apagado", "success");
-};
 
 // =======================================
 // RESULTADOS
@@ -400,82 +359,6 @@ document.getElementById("form-resultados").addEventListener("submit", async e =>
 
   carregarConfrontos(confronto.liga_id);
 });
-
-// =======================================
-// VER CONFRONTOS
-// =======================================
-document.getElementById("select-liga-ver-confrontos").addEventListener("change", async e => {
-  const liga_id = e.target.value;
-  if (!liga_id) {
-    document.getElementById("lista-ver-confrontos").innerHTML = "";
-    return;
-  }
-  await carregarVerConfrontos(liga_id);
-});
-
-async function carregarVerConfrontos(liga_id) {
-  const ligasSnap = await getDocs(collection(db, "ligas"));
-  const liga = ligasSnap.docs.find(l => l.id === liga_id)?.data();
-  if (!liga) return;
-
-  const confrontosSnap = await getDocs(collection(db, "confrontos"));
-  const todosConfrontos = [];
-  confrontosSnap.forEach(d => {
-    const c = d.data();
-    if (c.liga_id === liga_id) todosConfrontos.push(c);
-  });
-
-  const container = document.getElementById("lista-ver-confrontos");
-  container.innerHTML = "";
-
-  if (!liga.clubes || liga.clubes.length === 0) {
-    container.innerHTML = '<div class="card" style="color:var(--text-secondary)">Nenhum confronto encontrado para esta liga.</div>';
-    return;
-  }
-
-  const jogosPorClube = liga.usarVoltas
-    ? (liga.clubes.length - 1) * (liga.numVoltas || 1)
-    : null;
-
-  liga.clubes.forEach(clube => {
-    const confrontosDoClube = todosConfrontos.filter(c => c.casa === clube || c.fora === clube);
-    const grupo = document.createElement("div");
-    grupo.className = "grupo-clube";
-    let html = `<div class="grupo-clube-titulo">${clube}`;
-
-    if (jogosPorClube !== null) {
-      html += ` <span class="grupo-clube-contador">${confrontosDoClube.length} / ${jogosPorClube}</span>`;
-    }
-
-    html += `</div>`;
-
-    if (confrontosDoClube.length === 0) {
-      html += '<p style="color:var(--text-secondary);font-size:0.85rem;padding:0.5rem 0">Nenhum confronto encontrado.</p>';
-    } else {
-      confrontosDoClube.forEach(c => {
-        let classeResultado, scoreTexto;
-        if (c.estado === "terminado") {
-          const golosClube = clube === c.casa ? c.golos_casa : c.golos_fora;
-          const golosAdversario = clube === c.casa ? c.golos_fora : c.golos_casa;
-          classeResultado = golosClube > golosAdversario ? "vitoria" : golosClube < golosAdversario ? "derrota" : "empate";
-          scoreTexto = `${c.golos_casa} — ${c.golos_fora}`;
-        } else {
-          classeResultado = "pendente";
-          scoreTexto = "vs";
-        }
-        html += `
-          <div class="match-item ${classeResultado}">
-            <span class="team-home">${c.casa}</span>
-            <span class="score">${scoreTexto}</span>
-            <span class="team-away">${c.fora}</span>
-          </div>`;
-      });
-    }
-
-    grupo.innerHTML = html;
-    container.appendChild(grupo);
-  });
-}
 
 // =======================================
 // TABELAS CLASSIFICATIVAS

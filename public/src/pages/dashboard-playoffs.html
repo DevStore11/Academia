@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Playoffs — POWER PLAY E-SPORT</title>
+  <link rel="icon" href="../assets/img/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/playoffs.css">
+</head>
+<body>
+<div class="dashboard-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <img src="../assets/img/favicon.png" alt="Logo" class="sidebar-logo">
+      <span>POWER PLAY</span>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-ecra="lista">
+        <i class="fas fa-list"></i> Playoffs
+      </button>
+      <button class="nav-item" data-ecra="criar">
+        <i class="fas fa-plus"></i> Criar Playoff
+      </button>
+      <button class="nav-item" data-ecra="participantes" id="btn-participantes" disabled>
+        <i class="fas fa-users"></i> Participantes
+      </button>
+      <button class="nav-item" data-ecra="resultados-inserir" id="btn-resultados-inserir" disabled>
+        <i class="fas fa-edit"></i> Inserir Resultados
+      </button>
+      <button class="nav-item" data-ecra="resultados-ver" id="btn-resultados-ver" disabled>
+        <i class="fas fa-eye"></i> Ver Resultados
+      </button>
+      <button class="nav-item" data-ecra="campeao" id="btn-campeao" disabled>
+        <i class="fas fa-trophy"></i> Campeão
+      </button>
+    </nav>
+    <button class="btn-logout" id="btn-logout">
+      <i class="fas fa-sign-out-alt"></i> Sair
+    </button>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="dashboard-main">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- ECRÃ 1: LISTA DE PLAYOFFS -->
+    <section class="ecra" id="ecra-lista">
+      <div class="ecra-header">
+        <h1><i class="fas fa-list"></i> Playoffs</h1>
+        <button class="btn-primary" id="btn-novo-playoff">
+          <i class="fas fa-plus"></i> Novo Playoff
+        </button>
+      </div>
+      <div id="lista-playoffs">
+        <div class="loading-state">A carregar playoffs...</div>
+      </div>
+    </section>
+
+    <!-- ECRÃ 2: CRIAR PLAYOFF -->
+    <section class="ecra hidden" id="ecra-criar">
+      <div class="ecra-header">
+        <h1><i class="fas fa-plus"></i> Criar Playoff</h1>
+      </div>
+      <div class="form-card">
+        <div class="form-group">
+          <label>Nome do Playoff</label>
+          <input type="text" id="input-nome-playoff" placeholder="Ex: Playoff Liga Principal 2026">
+        </div>
+        <div class="form-group">
+          <label>Liga (opcional)</label>
+          <select id="select-liga">
+            <option value="">Independente (sem liga)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Número de Mãos</label>
+          <select id="select-maos">
+            <option value="1">1 Mão (jogo único)</option>
+            <option value="2">2 Mãos (ida e volta)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Total de Participantes</label>
+          <select id="select-participantes">
+            <option value="2">2</option>
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="16">16</option>
+          </select>
+        </div>
+        <button class="btn-primary" id="btn-guardar-playoff">
+          <i class="fas fa-save"></i> Guardar
+        </button>
+      </div>
+    </section>
+
+    <!-- ECRÃ 3: PARTICIPANTES -->
+    <section class="ecra hidden" id="ecra-participantes">
+      <div class="ecra-header">
+        <h1><i class="fas fa-users"></i> Participantes</h1>
+      </div>
+      <div id="lista-participantes">
+        <div class="loading-state">A carregar participantes...</div>
+      </div>
+      <button class="btn-primary hidden" id="btn-confirmar-participantes">
+        <i class="fas fa-check"></i> Confirmar e Gerar Ronda 1
+      </button>
+    </section>
+
+    <!-- ECRÃ 4: INSERIR RESULTADOS -->
+    <section class="ecra hidden" id="ecra-resultados-inserir">
+      <div class="ecra-header">
+        <h1><i class="fas fa-edit"></i> Inserir Resultados</h1>
+        <span class="ronda-badge" id="badge-ronda-inserir">Ronda 1</span>
+      </div>
+      <div id="confrontos-inserir">
+        <div class="loading-state">A carregar confrontos...</div>
+      </div>
+    </section>
+
+    <!-- ECRÃ 5: VER RESULTADOS -->
+    <section class="ecra hidden" id="ecra-resultados-ver">
+      <div class="ecra-header">
+        <h1><i class="fas fa-eye"></i> Resultados</h1>
+      </div>
+      <div id="confrontos-ver">
+        <div class="loading-state">A carregar resultados...</div>
+      </div>
+    </section>
+
+    <!-- ECRÃ 6: CAMPEÃO -->
+    <section class="ecra hidden" id="ecra-campeao">
+      <div class="ecra-header">
+        <h1><i class="fas fa-trophy"></i> Registar Campeão</h1>
+      </div>
+      <div class="form-card">
+        <div class="form-group">
+          <label>Clube Campeão</label>
+          <input type="text" id="input-clube-campeao">
+        </div>
+        <div class="form-group">
+          <label>Foto do Campeão</label>
+          <input type="file" id="input-foto-campeao" accept="image/*">
+          <div id="preview-foto" class="foto-preview hidden"></div>
+        </div>
+        <div class="form-group">
+          <label>Descrição</label>
+          <textarea id="input-descricao-campeao" rows="3"
+            placeholder="Ex: Campeão do Playoff Liga Principal 2026"></textarea>
+        </div>
+        <button class="btn-primary" id="btn-guardar-campeao">
+          <i class="fas fa-save"></i> Guardar Campeão
+        </button>
+      </div>
+      <div class="ecra-header" style="margin-top:2rem">
+        <h2 style="font-size:1.1rem;color:var(--text-secondary)">
+          <i class="fas fa-list"></i> Campeões Registados
+        </h2>
+      </div>
+      <div id="lista-campeoes-registados">
+        <div class="loading-state">A carregar campeões...</div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script type="module" src="../assets/js/playoffs.js"></script>
+</body>
+</html>

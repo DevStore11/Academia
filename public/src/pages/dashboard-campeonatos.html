@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Eventos — Power Play E-Sport</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/testeCampeonato.css">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Hamburger -->
+<div class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="Menu" role="button" tabindex="0">
+  <i class="fas fa-bars"></i>
+</div>
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon"><i class="fas fa-gamepad"></i></div>
+    <div class="logo-text">
+      POWER PLAY
+      <span>Organizador</span>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav" aria-label="Navegação principal">
+    <div class="nav-section-label">Gestão</div>
+    <ul style="list-style:none;">
+      <li class="menu-item active" data-tab="meus-campeonatos" onclick="mudarTab(this)" role="button" tabindex="0">
+        <i class="fas fa-trophy"></i> <span>Meus Campeonatos</span>
+      </li>
+      <li class="menu-item" data-tab="criar-campeonato" onclick="mudarTab(this)" role="button" tabindex="0">
+        <i class="fas fa-plus-circle"></i> <span>Criar Campeonato</span>
+      </li>
+
+      <div class="nav-section-label" style="margin-top:8px;">Campeonato Activo</div>
+      <li class="menu-item" data-tab="adicionar-jogadores" onclick="mudarTab(this)" role="button" tabindex="0">
+        <i class="fas fa-user-plus"></i> <span>Inscrever Jogadores</span>
+      </li>
+      <li class="menu-item" data-tab="resultados" onclick="mudarTab(this)" role="button" tabindex="0">
+        <i class="fas fa-futbol"></i> <span>Inserir Resultados</span>
+      </li>
+      <li class="menu-item" data-tab="bracket" onclick="mudarTab(this)" role="button" tabindex="0">
+        <i class="fas fa-sitemap"></i> <span>Bracket</span>
+      </li>
+      <li class="menu-item" data-tab="grupos" onclick="mudarTab(this)" role="button" tabindex="0">
+        <i class="fas fa-layer-group"></i> <span>Ver Fases</span>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-footer">
+    <ul style="list-style:none;">
+      <li class="menu-item danger" onclick="fazerLogout()" role="button" tabindex="0">
+        <i class="fas fa-sign-out-alt"></i> <span>Sair</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="content">
+  <header class="header">
+    <div class="header-left">
+      <div>
+        <div class="header-breadcrumb">Power Play E-Sport</div>
+        <div class="header-title" id="pageTitle">Meus Campeonatos</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="user-badge">
+        <div class="user-avatar" id="userAvatarHeader">O</div>
+        <div>
+          <div class="user-name" id="userNameHeader">Organizador</div>
+          <div class="user-role">Organizador</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- ===== MEUS CAMPEONATOS ===== -->
+    <section class="tab-content active" id="meus-campeonatos" aria-label="Meus Campeonatos">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Meus <span>Campeonatos</span></div>
+          <div class="page-subtitle">Gerencie todos os campeonatos que criou</div>
+        </div>
+        <button class="btn btn-primary" onclick="mudarTabPorNome('criar-campeonato')">
+          <i class="fas fa-plus"></i> Novo Campeonato
+        </button>
+      </div>
+
+      <div class="stats-row" id="stats-campeonatos">
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fas fa-trophy"></i></div>
+          <div>
+            <div class="stat-value" id="stat-total">—</div>
+            <div class="stat-label">Total</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fas fa-play"></i></div>
+          <div>
+            <div class="stat-value" id="stat-ativos">—</div>
+            <div class="stat-label">Em curso</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange"><i class="fas fa-flag-checkered"></i></div>
+          <div>
+            <div class="stat-value" id="stat-finalizados">—</div>
+            <div class="stat-label">Finalizados</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="lista-campeonatos">
+        <div class="loading-spinner">
+          <div class="spinner"></div> A carregar campeonatos...
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CRIAR CAMPEONATO ===== -->
+    <section class="tab-content" id="criar-campeonato" aria-label="Criar Campeonato">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Criar <span>Campeonato</span></div>
+          <div class="page-subtitle">Preencha as informações do novo torneio</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-header-title">
+            <i class="fas fa-info-circle"></i> Informações do Torneio
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group span-2">
+              <label for="nome-campeonato">Nome do Campeonato</label>
+              <input type="text" id="nome-campeonato" placeholder="Ex: Copa Power Play — Junho 2026" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="data-campeonato">Data do Evento</label>
+              <input type="date" id="data-campeonato">
+            </div>
+            <div class="form-group">
+              <label for="hora-campeonato">Hora de Início</label>
+              <input type="time" id="hora-campeonato">
+            </div>
+            <div class="form-group span-2">
+              <label>Número de Participantes</label>
+              <div class="num-jogadores-grid">
+                <button class="num-btn" data-num="4" onclick="selecionarNumJogadores(this)" type="button">
+                  4 <small>Semifinal</small>
+                </button>
+                <button class="num-btn" data-num="8" onclick="selecionarNumJogadores(this)" type="button">
+                  8 <small>Quartas</small>
+                </button>
+                <button class="num-btn selected" data-num="16" onclick="selecionarNumJogadores(this)" type="button">
+                  16 <small>Oitavas</small>
+                </button>
+                <button class="num-btn" data-num="32" onclick="selecionarNumJogadores(this)" type="button">
+                  32 <small>32 avos</small>
+                </button>
+              </div>
+              <small style="color:var(--text-tertiary);font-size:11px;margin-top:8px;display:flex;align-items:center;gap:6px;">
+                <i class="fas fa-info-circle" style="color:var(--accent-blue);"></i>
+                Formato: <span id="num-selecionado" style="color:var(--accent-green);font-weight:700;">16 jogadores</span>
+                — <span id="grupos-preview" style="color:var(--text-secondary);">Oitavas → Final</span>
+              </small>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;">
+            <button class="btn btn-secondary" onclick="limparFormCampeonato()" type="button">
+              <i class="fas fa-times"></i> Limpar
+            </button>
+            <button class="btn btn-primary" onclick="criarCampeonato()" type="button">
+              <i class="fas fa-plus"></i> Criar Campeonato
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dica -->
+      <div style="background:rgba(59,139,255,.06);border:1px solid rgba(59,139,255,.2);border-radius:var(--radius-md);padding:14px 16px;margin-top:12px;display:flex;gap:12px;align-items:flex-start;">
+        <i class="fas fa-lightbulb" style="color:var(--accent-blue);margin-top:2px;flex-shrink:0;"></i>
+        <p style="font-size:12px;color:var(--text-secondary);line-height:1.6;">
+          Após criar o campeonato, será rediricionado automaticamente para inscrever os jogadores e gerar a chave do torneio.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== INSCREVER JOGADORES ===== -->
+    <section class="tab-content" id="adicionar-jogadores" aria-label="Inscrever Jogadores">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Inscrever <span>Jogadores</span></div>
+          <div class="page-subtitle">Seleccione os jogadores para o campeonato e gere a chave</div>
+        </div>
+      </div>
+
+      <div class="campeonato-selector">
+        <label><i class="fas fa-trophy"></i> &nbsp;Campeonato</label>
+        <select id="select-campeonato-jogadores" onchange="carregarJogadoresCampeonato()" aria-label="Seleccionar campeonato">
+          <option value="">— Seleccione um campeonato —</option>
+        </select>
+      </div>
+
+      <div id="secao-adicionar-jogadores" style="display:none;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-header-title">
+              <i class="fas fa-users"></i> Jogadores da Academia
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:12px;color:var(--text-tertiary);">Seleccionados:</span>
+              <span style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--accent-green)" id="count-selecionados">0</span>
+              <span style="font-size:12px;color:var(--text-tertiary);">/</span>
+              <span style="font-size:12px;color:var(--text-secondary);font-weight:600" id="max-jogadores">16</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="jogadores-search">
+              <i class="fas fa-search"></i>
+              <input type="text" id="search-jogadores" placeholder="Pesquisar por nome..." oninput="filtrarJogadores()" autocomplete="off">
+            </div>
+            <div class="jogadores-list" id="lista-jogadores-cadastrados">
+              <div class="loading-spinner">
+                <div class="spinner"></div> A carregar jogadores...
+              </div>
+            </div>
+            <div class="divider"></div>
+
+            <!-- Aviso empate -->
+            <div style="background:rgba(255,122,47,.06);border:1px solid rgba(255,122,47,.2);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start;">
+              <i class="fas fa-exclamation-triangle" style="color:var(--accent-orange);margin-top:2px;flex-shrink:0;font-size:12px;"></i>
+              <p style="font-size:11px;color:var(--text-secondary);line-height:1.5;">
+                Empates <strong>não são permitidos</strong> neste formato eliminatório. Certifique-se de que os jogadores conhecem esta regra antes de iniciar.
+              </p>
+            </div>
+
+            <div style="display:flex;justify-content:flex-end;">
+              <button class="btn btn-primary" onclick="confirmarJogadores()" id="btn-confirmar-jogadores" disabled>
+                <i class="fas fa-random"></i> Sortear Chave e Iniciar Torneio
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== INSERIR RESULTADOS ===== -->
+    <section class="tab-content" id="resultados" aria-label="Inserir Resultados">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Inserir <span>Resultados</span></div>
+          <div class="page-subtitle">Registe os resultados dos confrontos</div>
+        </div>
+      </div>
+
+      <div class="campeonato-selector">
+        <label><i class="fas fa-trophy"></i> &nbsp;Campeonato</label>
+        <select id="select-campeonato-resultados" onchange="carregarResultados()" aria-label="Seleccionar campeonato">
+          <option value="">— Seleccione um campeonato —</option>
+        </select>
+      </div>
+
+      <div id="secao-resultados">
+        <div class="empty-state">
+          <i class="fas fa-futbol"></i>
+          <p>Seleccione um campeonato para ver os jogos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BRACKET ===== -->
+    <section class="tab-content" id="bracket" aria-label="Bracket Eliminatória">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Bracket <span>Eliminatória</span></div>
+          <div class="page-subtitle">Chave visual do torneio</div>
+        </div>
+        <button class="btn btn-secondary" onclick="partilharBracket()">
+          <i class="fab fa-whatsapp"></i> Partilhar
+        </button>
+      </div>
+
+      <div class="campeonato-selector">
+        <label><i class="fas fa-trophy"></i> &nbsp;Campeonato</label>
+        <select id="select-campeonato-bracket" onchange="carregarBracket()" aria-label="Seleccionar campeonato">
+          <option value="">— Seleccione um campeonato —</option>
+        </select>
+      </div>
+
+      <div class="card">
+        <div class="card-body" style="overflow-x:auto;">
+          <div id="secao-bracket">
+            <div class="empty-state">
+              <i class="fas fa-sitemap"></i>
+              <p>Seleccione um campeonato para ver o bracket.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VER FASES ===== -->
+    <section class="tab-content" id="grupos" aria-label="Ver Fases">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Fases do <span>Torneio</span></div>
+          <div class="page-subtitle">Visão geral de todos os confrontos por fase</div>
+        </div>
+      </div>
+
+      <div class="campeonato-selector">
+        <label><i class="fas fa-trophy"></i> &nbsp;Campeonato</label>
+        <select id="select-campeonato-grupos" onchange="carregarGrupos()" aria-label="Seleccionar campeonato">
+          <option value="">— Seleccione um campeonato —</option>
+        </select>
+      </div>
+
+      <div id="secao-grupos">
+        <div class="empty-state">
+          <i class="fas fa-layer-group"></i>
+          <p>Seleccione um campeonato para ver as fases.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div id="toast-container" aria-live="polite"></div>
+
+</body>
+</html>
